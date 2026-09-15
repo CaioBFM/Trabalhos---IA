@@ -12,7 +12,7 @@ Inteligência Artificial
 ## Trabalhos
 
 - KNN
--
+- K-means
 
 ---
 
