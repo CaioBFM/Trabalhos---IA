@@ -13,6 +13,7 @@ Inteligência Artificial
 
 - KNN
 - K-means
+- Perceptron
 
 ---
 
