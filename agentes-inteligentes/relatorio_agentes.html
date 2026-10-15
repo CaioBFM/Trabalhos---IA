@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Projeto 04 — GCC128, UFLA. Revisões personalizadas com dois agentes, LangGraph e Groq.">
+  <title>Revisões Personalizadas com Agentes Inteligentes</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --paper: #fafaf7;
+      --ink: #252e32;
+      --muted: #626d72;
+      --blue: #193f53;
+      --green: #4e7768;
+      --line: #d4dbd9;
+      --soft-green: #edf2ed;
+      font-family: Inter, "Segoe UI", Arial, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      width: 100vw;
+      height: 100vh;
+      height: 100dvh;
+      overflow: hidden;
+      background: #e8ece9;
+      color: var(--ink);
+    }
+    button { font: inherit; }
+    .stage { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; }
+    .deck {
+      position: relative;
+      flex-shrink: 0;
+      width: 1280px;
+      height: 720px;
+      background: var(--paper);
+      outline: 1px solid var(--line);
+      transform: scale(var(--scale, 1));
+      transform-origin: center;
+      overflow: hidden;
+    }
+    .slide { display: none; position: absolute; inset: 0; padding: 58px 72px 80px; }
+    .slide.active { display: block; }
+    .eyebrow {
+      margin: 0 0 22px;
+      color: var(--blue);
+      font-size: 13px;
+      font-weight: 650;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+    h1, h2, p { margin-top: 0; }
+    h1 {
+      margin-bottom: 0;
+      color: var(--blue);
+      font-size: 46px;
+      line-height: 1.14;
+      font-weight: 650;
+      letter-spacing: -1.7px;
+    }
+    h2 { font-size: 22px; line-height: 1.3; font-weight: 600; }
+    p { line-height: 1.45; }
+    .footer {
+      position: absolute;
+      bottom: 27px;
+      left: 72px;
+      color: var(--muted);
+      font-size: 13px;
+      letter-spacing: .035em;
+    }
+    .controls {
+      position: absolute;
+      z-index: 2;
+      right: 58px;
+      bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .controls button {
+      display: grid;
+      place-items: center;
+      width: 40px;
+      height: 40px;
+      padding: 0;
+      color: var(--blue);
+      background: transparent;
+      border: 1px solid transparent;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+    .controls button:hover:not(:disabled) { border-color: var(--line); }
+    .controls button:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+    .controls button:disabled { opacity: .25; cursor: default; }
+    .controls svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.5; }
+    #page-count { min-width: 44px; color: var(--muted); font-size: 14px; text-align: center; font-variant-numeric: tabular-nums; }
+    .progress { position: absolute; right: 0; bottom: 0; left: 0; height: 3px; background: #e8ece9; }
+    .progress span { display: block; width: 25%; height: 100%; background: var(--blue); }
+
+    /* Capa: o desenho é apenas uma referência visual a estudo e colaboração. */
+    .cover .eyebrow { margin-top: 12px; }
+    .cover h1 { position: absolute; top: 190px; left: 72px; width: 850px; font-size: 58px; line-height: 1.12; letter-spacing: -2px; }
+    .cover .subtitle { position: absolute; top: 352px; left: 75px; font-size: 23px; color: var(--muted); }
+    .cover .stack { position: absolute; top: 410px; left: 75px; padding-top: 16px; border-top: 2px solid var(--green); color: var(--blue); font-size: 19px; }
+    .cover-art { position: absolute; top: 175px; right: 70px; width: 225px; height: 260px; }
+    .credits { position: absolute; right: 72px; bottom: 116px; left: 75px; display: flex; align-items: flex-end; justify-content: space-between; gap: 40px; }
+    .institution { margin: 0; font-size: 20px; line-height: 1.4; }
+    .institution span { display: block; margin-bottom: 8px; color: var(--muted); font-size: 13px; letter-spacing: .11em; text-transform: uppercase; }
+    .authors { min-width: 325px; font-size: 18px; line-height: 1.6; }
+    .authors span { display: block; margin-bottom: 6px; color: var(--muted); font-size: 13px; letter-spacing: .11em; text-transform: uppercase; }
+
+    /* Processo: uma linha contínua, sem uma grade de cartões. */
+    .process { position: absolute; top: 301px; right: 72px; left: 72px; display: grid; grid-template-columns: repeat(4, 1fr); }
+    .step { position: relative; padding: 37px 25px 0 0; border-top: 1px solid var(--line); }
+    .step:not(:last-child)::after { content: ""; position: absolute; top: -4px; right: 20px; width: 7px; height: 7px; border-top: 1px solid var(--muted); border-right: 1px solid var(--muted); transform: rotate(45deg); }
+    .step-number { position: absolute; top: -17px; padding-right: 15px; color: var(--green); background: var(--paper); font-size: 25px; line-height: 32px; font-variant-numeric: tabular-nums; }
+    .step h2 { margin-bottom: 13px; color: var(--blue); font-size: 16px; letter-spacing: .085em; text-transform: uppercase; }
+    .step p { max-width: 238px; margin-bottom: 0; font-size: 22px; }
+    .io { position: absolute; top: 496px; right: 72px; left: 72px; display: grid; grid-template-columns: 1fr 1.3fr; gap: 45px; padding-top: 20px; border-top: 1px solid var(--line); }
+    .io p { margin: 0; font-size: 21px; }
+    .io span { display: block; margin-bottom: 7px; color: var(--muted); font-size: 12px; letter-spacing: .12em; text-transform: uppercase; }
+    .note { position: absolute; top: 600px; left: 72px; max-width: 1090px; margin: 0; color: var(--muted); font-size: 17px; }
+
+    /* Arquitetura: o mesmo Avaliador solicita e recebe a estratégia. */
+    .model-note { position: absolute; top: 63px; right: 72px; margin: 0; color: var(--muted); font-size: 14px; }
+    .architecture { position: absolute; top: 193px; left: 72px; width: 1136px; height: 364px; }
+    .architecture text { font-family: Inter, "Segoe UI", Arial, sans-serif; }
+    .architecture .agent { fill: var(--blue); }
+    .architecture .terminal { fill: none; stroke: var(--line); stroke-width: 1.5; }
+    .architecture .tool { fill: var(--soft-green); stroke: var(--green); stroke-width: 1.5; }
+    .architecture .flow { fill: none; stroke: var(--blue); stroke-width: 1.5; }
+    .architecture .tool-flow { fill: none; stroke: var(--green); stroke-width: 1.8; }
+    .architecture .label { fill: var(--muted); font-size: 14px; }
+    .architecture .white { fill: white; }
+    .callouts { position: absolute; right: 72px; bottom: 106px; left: 72px; display: grid; grid-template-columns: 1fr 1fr; gap: 70px; }
+    .callout { padding-left: 18px; border-left: 2px solid var(--line); }
+    .callout h2 { margin-bottom: 5px; color: var(--blue); font-size: 18px; }
+    .callout p { margin: 0; color: var(--muted); font-size: 18px; }
+
+    /* Conclusões: três linhas de leitura e uma extensão claramente futura. */
+    .conclusions { position: absolute; top: 225px; right: 72px; left: 72px; }
+    .conclusion { display: grid; grid-template-columns: 218px 1fr; gap: 26px; padding: 20px 0; border-top: 1px solid var(--line); }
+    .conclusion h2 { margin: 2px 0 0; color: var(--blue); font-size: 23px; }
+    .conclusion p { margin-bottom: 0; max-width: 850px; font-size: 23px; line-height: 1.4; }
+    .conclusion .detail { margin-top: 9px; color: var(--green); font-size: 16px; }
+    .future { position: absolute; top: 546px; right: 72px; left: 72px; display: grid; grid-template-columns: 218px 1fr; gap: 26px; }
+    .future h2 { margin: 0; color: var(--muted); font-size: 15px; line-height: 1.5; }
+    .future h2 span { display: block; font-weight: 400; font-size: 13px; }
+    .future p { margin: 0; color: var(--muted); font-size: 18px; }
+    .video { position: absolute; top: 620px; left: 72px; margin: 0; color: var(--muted); font-size: 15px; }
+    .video span { padding-bottom: 3px; border-bottom: 1px solid var(--line); color: var(--blue); }
+
+    @media print {
+      @page { size: 1280px 720px; margin: 0; }
+      body { width: auto; height: auto; overflow: visible; background: var(--paper); }
+      .stage { position: static; display: block; }
+      .deck { width: 1280px; height: auto; overflow: visible; outline: none; transform: none; }
+      .slide { display: block; position: relative; width: 1280px; height: 720px; break-after: page; }
+      .slide:last-of-type { break-after: auto; }
+      .controls, .progress { display: none; }
+      * { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+    }
+  </style>
+</head>
+<body>
+  <div class="stage">
+    <main class="deck" aria-label="Apresentação do projeto de Agentes Inteligentes">
+
+      <!-- Slide 1 — Capa -->
+      <section class="slide cover active" id="slide-1" role="group" aria-roledescription="slide" aria-label="1 de 4 — Capa" aria-hidden="false">
+        <p class="eyebrow">Sistemas multiagentes</p>
+        <h1>Revisões Personalizadas<br>com Agentes Inteligentes</h1>
+        <p class="subtitle">Projeto 04 — GCC128 | Inteligência Artificial</p>
+        <p class="stack">LangGraph + Groq</p>
+
+        <svg class="cover-art" viewBox="0 0 225 260" aria-hidden="true">
+          <path d="M29 46H139V195H29Z" fill="none" stroke="#ccd7d6" stroke-width="1.5"/>
+          <path d="M46 29H156V178H46Z" fill="#fafaf7" stroke="#193f53" stroke-width="1.5"/>
+          <path d="M64 58H135M64 76H135M64 94H115" fill="none" stroke="#a3b6bb" stroke-width="2"/>
+          <path d="M103 178V216H184V160" fill="none" stroke="#4e7768" stroke-width="1.5"/>
+          <circle cx="103" cy="178" r="18" fill="#193f53"/>
+          <circle cx="184" cy="145" r="18" fill="#edf2ed" stroke="#4e7768" stroke-width="1.5"/>
+          <path d="M95 178H111M103 170V186" stroke="#fafaf7" stroke-width="1.5"/>
+          <path d="M177 145L182 150L191 140" fill="none" stroke="#4e7768" stroke-width="1.5"/>
+        </svg>
+
+        <div class="credits">
+          <p class="institution"><span>Instituição</span>Universidade Federal de Lavras — UFLA</p>
+          <div class="authors"><span>Discentes</span>Caio Bueno Finocchio Martins<br>Lana da Silva Miranda</div>
+        </div>
+        <div class="footer">GCC128 · Inteligência Artificial</div>
+      </section>
+
+      <!-- Slide 2 — Descrição da aplicação -->
+      <section class="slide" id="slide-2" role="group" aria-roledescription="slide" aria-label="2 de 4 — Descrição da aplicação" aria-hidden="true">
+        <p class="eyebrow">A aplicação</p>
+        <h1>Uma revisão adaptada ao que<br>o aluno realmente estudou</h1>
+
+        <div class="process">
+          <div class="step"><span class="step-number">01</span><h2>Conteúdo</h2><p>O aluno informa o que estudou.</p></div>
+          <div class="step"><span class="step-number">02</span><h2>Personalização</h2><p>Escolhe prioridade, foco, profundidade e tamanho.</p></div>
+          <div class="step"><span class="step-number">03</span><h2>Revisão</h2><p>O Tutor sintetiza os pontos importantes.</p></div>
+          <div class="step"><span class="step-number">04</span><h2>Avaliação</h2><p>O Avaliador cria questões e separa o gabarito.</p></div>
+        </div>
+
+        <div class="io">
+          <p><span>Entrada</span>conteúdo + preferências</p>
+          <p><span>Saída</span>revisão + questões + gabarito oculto</p>
+        </div>
+        <p class="note">O conteúdo é livre; prioridade e foco são orientados pela análise desse conteúdo, antes dos agentes.</p>
+        <div class="footer">UFLA · Projeto 04</div>
+      </section>
+
+      <!-- Slide 3 — Agentes, ferramenta e retorno da estratégia -->
+      <section class="slide" id="slide-3" role="group" aria-roledescription="slide" aria-label="3 de 4 — Como os agentes colaboram" aria-hidden="true">
+        <p class="eyebrow">Arquitetura</p>
+        <p class="model-note">Groq · openai/gpt-oss-20b</p>
+        <h1>Como os agentes colaboram</h1>
+
+        <svg class="architecture" viewBox="0 0 1136 364" role="img" aria-labelledby="graph-title graph-description">
+          <title id="graph-title">Colaboração entre Tutor, Avaliador e ferramenta</title>
+          <desc id="graph-description">A entrada chega ao Tutor, que produz a revisão. O Avaliador recebe a revisão e o contexto, solicita configurar_estrategia_avaliacao e recebe a estratégia de volta. Então produz as questões e o gabarito separado.</desc>
+          <defs>
+            <marker id="arrow-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1L9 5L1 9" fill="none" stroke="#193f53" stroke-width="1.4"/></marker>
+            <marker id="arrow-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1L9 5L1 9" fill="none" stroke="#4e7768" stroke-width="1.4"/></marker>
+          </defs>
+
+          <rect class="terminal" x="0.75" y="76" width="150" height="90" rx="3"/>
+          <text x="75" y="114" text-anchor="middle" fill="#252e32" font-size="18">Entrada</text>
+          <text x="75" y="139" text-anchor="middle" fill="#252e32" font-size="18">do usuário</text>
+          <path class="flow" d="M151 121H210" marker-end="url(#arrow-blue)"/>
+
+          <rect class="agent" x="210" y="58" width="230" height="130" rx="3"/>
+          <text class="white" x="234" y="91" font-size="14" letter-spacing="2">TUTOR</text>
+          <text class="white" x="234" y="128" font-size="21">Explica e sintetiza</text>
+          <text x="234" y="161" fill="#c0d0d7" font-size="14">Sem ferramentas</text>
+
+          <path class="flow" d="M440 121H540" marker-end="url(#arrow-blue)"/>
+          <text class="label" x="490" y="88" text-anchor="middle">revisão +</text>
+          <text class="label" x="490" y="107" text-anchor="middle">contexto</text>
+
+          <rect class="agent" x="540" y="58" width="240" height="130" rx="3"/>
+          <text class="white" x="564" y="91" font-size="14" letter-spacing="2">AVALIADOR</text>
+          <text class="white" x="564" y="128" font-size="21">Cria as questões</text>
+          <text x="564" y="161" fill="#c0d0d7" font-size="14">Usa a estratégia</text>
+
+          <path class="flow" d="M780 121H925" marker-end="url(#arrow-blue)"/>
+          <text class="label" x="852" y="108" text-anchor="middle">conclusão</text>
+          <rect class="terminal" x="925" y="58" width="210" height="130" rx="3"/>
+          <text x="946" y="91" fill="#626d72" font-size="12" letter-spacing="1.5">SAÍDA</text>
+          <text x="946" y="127" fill="#252e32" font-size="17">Revisão + questões</text>
+          <text x="946" y="154" fill="#252e32" font-size="16">+ gabarito separado</text>
+
+          <path class="tool-flow" d="M595 188V263" marker-end="url(#arrow-green)"/>
+          <text x="578" y="220" text-anchor="end" fill="#4e7768" font-size="15">tool call</text>
+          <text x="578" y="239" text-anchor="end" fill="#626d72" font-size="11">tools_condition</text>
+          <path class="tool-flow" d="M740 263V188" marker-end="url(#arrow-green)"/>
+          <text x="758" y="231" fill="#4e7768" font-size="15">estratégia</text>
+
+          <rect class="tool" x="540" y="263" width="345" height="88" rx="3"/>
+          <text x="562" y="288" fill="#4e7768" font-size="13" letter-spacing="1">@tool</text>
+          <text x="863" y="288" text-anchor="end" fill="#4e7768" font-size="12">ToolNode</text>
+          <text x="562" y="322" fill="#254c3e" style="font-family: Consolas, monospace; font-size: 15px">configurar_estrategia_avaliacao</text>
+          <text x="504" y="298" text-anchor="end" fill="#4e7768" font-size="19">Define dificuldade,</text>
+          <text x="504" y="325" text-anchor="end" fill="#4e7768" font-size="19">quantidade e abordagem</text>
+        </svg>
+
+        <div class="callouts">
+          <div class="callout"><h2>Sem supervisor</h2><p>Fluxo naturalmente sequencial.</p></div>
+          <div class="callout"><h2>Sem memória persistente</h2><p>Cada revisão é independente.</p></div>
+        </div>
+        <div class="footer">LangGraph · Estado compartilhado durante a execução</div>
+      </section>
+
+      <!-- Slide 4 — Conclusões e espaço para o vídeo -->
+      <section class="slide" id="slide-4" role="group" aria-roledescription="slide" aria-label="4 de 4 — Conclusões" aria-hidden="true">
+        <p class="eyebrow">Síntese do projeto</p>
+        <h1>Conclusões</h1>
+
+        <div class="conclusions">
+          <div class="conclusion"><h2>Colaboração</h2><p>O Tutor prepara a revisão; o Avaliador usa esse contexto para construir a atividade.</p></div>
+          <div class="conclusion"><h2>Ferramenta</h2><div><p>Uma ferramenta determinística define a estratégia.</p><p class="detail">Profundidade · foco · quantidade e tipo de questões</p></div></div>
+          <div class="conclusion"><h2>Resultado</h2><p>Conteúdo estudado → revisão personalizada + avaliação.</p></div>
+        </div>
+
+        <div class="future"><h2>Possível evolução<span>Fora da versão atual</span></h2><p>Correção das respostas do estudante por um agente especializado.</p></div>
+        <!-- Substitua o marcador pelo link do vídeo quando ele estiver disponível. -->
+        <p class="video">Vídeo de apresentação: <span>[INSERIR LINK]</span></p>
+        <div class="footer">UFLA · GCC128 · Projeto 04</div>
+      </section>
+
+      <nav class="controls" aria-label="Navegação dos slides">
+        <button id="previous" type="button" aria-label="Slide anterior" title="Anterior (←)" disabled><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 5L7 12L14 19M7 12H21"/></svg></button>
+        <span id="page-count" role="status" aria-live="polite" aria-atomic="true">1 / 4</span>
+        <button id="next" type="button" aria-label="Próximo slide" title="Próximo (→)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 5L17 12L10 19M3 12H17"/></svg></button>
+      </nav>
+      <div class="progress" aria-hidden="true"><span id="progress-fill"></span></div>
+    </main>
+  </div>
+
+  <script>
+    (() => {
+      const slides = Array.from(document.querySelectorAll('.slide'));
+      const previous = document.getElementById('previous');
+      const next = document.getElementById('next');
+      const count = document.getElementById('page-count');
+      const progress = document.getElementById('progress-fill');
+      let current = 0;
+
+      function showSlide(index) {
+        current = Math.max(0, Math.min(index, slides.length - 1));
+        slides.forEach((slide, i) => {
+          slide.classList.toggle('active', i === current);
+          slide.setAttribute('aria-hidden', String(i !== current));
+        });
+        previous.disabled = current === 0;
+        next.disabled = current === slides.length - 1;
+        count.textContent = `${current + 1} / ${slides.length}`;
+        progress.style.width = `${((current + 1) / slides.length) * 100}%`;
+      }
+
+      function fitDeck() {
+        const margin = Math.min(24, window.innerWidth * 0.02);
+        const scale = Math.min((window.innerWidth - margin * 2) / 1280, (window.innerHeight - margin * 2) / 720);
+        document.documentElement.style.setProperty('--scale', String(scale));
+      }
+
+      previous.addEventListener('click', () => showSlide(current - 1));
+      next.addEventListener('click', () => showSlide(current + 1));
+      document.addEventListener('keydown', (event) => {
+        if (event.altKey || event.ctrlKey || event.metaKey || event.target.isContentEditable) return;
+        if (event.key === 'ArrowLeft') { event.preventDefault(); showSlide(current - 1); }
+        if (event.key === 'ArrowRight') { event.preventDefault(); showSlide(current + 1); }
+        if (event.key === 'Home') { event.preventDefault(); showSlide(0); }
+        if (event.key === 'End') { event.preventDefault(); showSlide(slides.length - 1); }
+      });
+      window.addEventListener('resize', fitDeck);
+      fitDeck();
+      showSlide(0);
+    })();
+  </script>
+</body>
+</html>
