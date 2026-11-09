@@ -1,8 +1,4 @@
-# GCC 128 - Inteligência Artificial
-
-## Disciplina
-
-Inteligência Artificial
+# Inteligência Artificial
 
 ## Alunos
 
@@ -14,7 +10,9 @@ Inteligência Artificial
 - KNN
 - K-means
 - Perceptron
+- agentes-inteligentes
+- othello-agentes
 
 ---
 
-Este README será atualizado ao longo do tempo com novos trabalhos e conteúdos da disciplina.
+Este README será atualizado ao longo do tempo com novos trabalhos.
