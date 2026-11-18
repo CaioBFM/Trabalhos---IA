@@ -1,0 +1,8 @@
+# Python 3.11+ (compatível com Windows e Ubuntu)
+ipykernel>=6.29,<8
+pygame>=2.6,<3
+langchain>=1.0,<2
+langchain-core>=1.0,<2
+langgraph>=1.0,<2
+langchain-groq>=1.0,<2
+pydantic>=2.7,<3
