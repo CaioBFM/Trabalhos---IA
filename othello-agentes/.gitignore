@@ -1,1 +1,4 @@
 .venv/
+apikey
+referencias
+__pycache__/
