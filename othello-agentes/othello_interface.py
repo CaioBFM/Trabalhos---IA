@@ -1,7 +1,12 @@
 """Interface local de Othello. O notebook fornece as operações do motor."""
 
 from dataclasses import dataclass, field
+from copy import deepcopy
 from functools import lru_cache
+from math import ceil
+from queue import Empty, SimpleQueue
+from threading import Event, Thread
+from time import perf_counter
 from typing import Callable
 
 import pygame as pg
@@ -25,9 +30,23 @@ BOTOES_TOPO = {
 }
 FECHAR = pg.Rect(1130, 27, 38, 38)
 INICIAR = pg.Rect(864, 705, 312, 53)
+AVISO_LIMITE = pg.Rect(0, 0, 508, 232)
+AVISO_LIMITE.center = TABULEIRO.center
+RETOMAR_LIMITE = pg.Rect(AVISO_LIMITE.x + 20, AVISO_LIMITE.bottom - 60, 468, 42)
+LIMITES_GROQ = {
+    "TPM": "tokens por minuto",
+    "TPD": "tokens por dia",
+    "RPM": "requisições por minuto",
+    "RPD": "requisições por dia",
+}
 OPCOES = ("Humano", "Estratégico", "Operacional", "Heurístico")
-DISPONIVEIS = {"Humano", "Heurístico"}
-ESPERA_HEURISTICA_MS = 320
+MODOS_AGENTES = {"Heurístico": "heuristica", "Estratégico": "estrategica", "Operacional": "operacional"}
+ESPERA_HEURISTICA_S = .32
+INDICADORES = (
+    ("Tokens", "tokens_total", 798),
+    ("Chamadas LLM", "chamadas_llm", 917),
+    ("Tempo LLM", "tempo_llm_s", 1036),
+)
 
 CORES = {
     "fundo": "#101418",
@@ -44,6 +63,7 @@ CORES = {
     "menta_hover": "#C7F7DB",
     "menta_escura": "#17362A",
     "desativado": "#76858F",
+    "alerta": "#F87171",
     "grade": "#193F33",
     "moldura": "#1B302A",
 }
@@ -62,7 +82,34 @@ class MotorOthello:
     proximo_turno: Callable
     contar_pecas: Callable
     obter_vencedor: Callable
-    escolher_melhor_jogada: Callable
+
+
+def somar_metricas(total, atual):
+    for chave in ("chamadas_llm", "tempo_llm_s", "tentativas_adicionais", "fallbacks"):
+        total[chave] = total.get(chave, 0) + atual.get(chave, 0)
+    if atual.get("tokens_total") is not None:
+        total["tokens_total"] = total.get("tokens_total", 0) + atual["tokens_total"]
+        conhecidos = atual.get("chamadas_com_tokens", {}).get("tokens_total", 0)
+        total["chamadas_com_tokens"] = total.get("chamadas_com_tokens", 0) + conhecidos
+
+
+@dataclass
+class DadosPainel:
+    ultimo: dict = field(default_factory=dict)
+    partida: dict = field(default_factory=dict)
+    ferramentas: tuple = ()
+    pendente: dict = field(default_factory=dict)
+    ferramentas_pendentes: list = field(default_factory=list)
+
+    def registrar(self, resultado, concluiu):
+        metricas = resultado.get("metricas", {})
+        somar_metricas(self.partida, metricas)
+        somar_metricas(self.pendente, metricas)
+        self.ferramentas_pendentes.extend(resultado.get("ferramentas_executadas", ()))
+        if concluiu:
+            self.ultimo, self.pendente = self.pendente, {}
+            self.ferramentas = tuple(dict.fromkeys(self.ferramentas_pendentes))
+            self.ferramentas_pendentes.clear()
 
 
 @dataclass
@@ -74,6 +121,12 @@ class EstadoInterface:
     pausada: bool = False
     passou: int | None = None
     movimentos: set = field(default_factory=set)
+    painel: DadosPainel = field(default_factory=DadosPainel)
+    fase: str = ""
+    detalhe: str = ""
+    prazo: float | None = None
+    pausa_limite: str | None = None
+    processando: bool = False
 
     def __post_init__(self):
         self.jogadores = dict.fromkeys((self.motor.pretas, self.motor.brancas), "Humano")
@@ -109,8 +162,53 @@ class EstadoInterface:
     def reiniciar(self):
         self.partida = self.motor.iniciar_partida()
         self.pausada = False
+        self.pausa_limite = None
         self.passou = None
+        self.painel = DadosPainel()
+        self.definir_status("")
+        self.processando = False
         self.atualizar_movimentos()
+
+    def definir_status(self, fase, detalhe="", prazo=None):
+        self.fase, self.detalhe, self.prazo = fase, detalhe, prazo
+
+    def espera_obrigatoria(self, agora):
+        return self.pausa_limite is not None and self.prazo is not None and self.prazo > agora
+
+    def registrar_pausa_limite(self, causa):
+        espera_api = self.fase == "limite" and causa in (
+            "limite_espera_individual", "orcamento_espera_sessao"
+        )
+        if not espera_api and not causa.startswith(("RateLimitError", "limite_diario")):
+            return False
+        tipo_causa = next((tipo for tipo in LIMITES_GROQ if f"({tipo})" in causa), "")
+        self.pausa_limite = tipo_causa or next(
+            (tipo for tipo in LIMITES_GROQ if self.detalhe == tipo or f"({tipo})" in self.detalhe), ""
+        )
+        if self.fase != "limite":
+            self.prazo = None
+        self.fase = "limite"
+        return True
+
+    def confirmar_agente(self, partida, resultado):
+        historico = partida["historico"]
+        if len(historico) != self.turno:
+            raise ValueError("O agente deve devolver exatamente uma jogada.")
+        jogada = historico[-1]
+        jogador = self.atual
+        if jogada["player"] != jogador or (jogada["row"], jogada["col"]) not in self.movimentos:
+            raise ValueError("A resposta não corresponde ao turno atual.")
+        seguinte = partida["jogador_atual"]
+        if seguinte is not None and seguinte not in self.jogadores:
+            raise ValueError("O agente devolveu um jogador inválido.")
+        movimentos = (
+            set(self.motor.movimentos_validos(partida["tabuleiro"], seguinte))
+            if seguinte is not None else set()
+        )
+        self.partida = partida
+        self.passou = -jogador if seguinte == jogador else None
+        self.movimentos = movimentos
+        self.painel.registrar(resultado, concluiu=True)
 
     def jogar(self, linha, coluna):
         if not self.ativa or (linha, coluna) not in self.movimentos:
@@ -124,6 +222,7 @@ class EstadoInterface:
         self.partida["jogador_atual"] = seguinte
         self.passou = -jogador if seguinte == jogador else None
         self.atualizar_movimentos()
+        self.painel.registrar({}, concluiu=True)
         return True
 
     def nome_cor(self, jogador):
@@ -266,18 +365,16 @@ class Renderizacao:
 
         ferramentas, metricas = PAINEIS[2:]
         caixa(base, pg.Rect(ferramentas.x + 19, ferramentas.y + 48, 351, 43), "cartao", 9)
-        self.texto("Nenhuma ferramenta nesta partida local", ferramentas.x + 32,
-                   ferramentas.y + 69, 14, "secundario", alinhar="midleft", superficie=base)
-        for rotulo, x in zip(("Tokens", "Chamadas LLM", "Tempo LLM"), (798, 917, 1036)):
-            caixa(base, pg.Rect(x, metricas.y + 47, 113, 80), "cartao", 10)
-            self.texto("—", x + 12, metricas.y + 55, 24, "texto", superficie=base)
-            self.texto(rotulo, x + 12, metricas.y + 100, 12, "secundario", superficie=base)
+        for rotulo, _, x in INDICADORES:
+            caixa(base, pg.Rect(x, metricas.y + 47, 113, 77), "cartao", 10)
+            self.texto(rotulo, x + 10, metricas.y + 56, 12, "secundario", superficie=base)
 
     def botao(self, rect, texto, mouse, primario=False, habilitado=True):
         hover = habilitado and rect.collidepoint(mouse)
-        fundo = ("menta_hover" if hover else "menta") if primario else ("hover" if hover else "cartao")
-        caixa(self.tela, rect, fundo, 10, None if primario else "borda")
-        cor = "menta_escura" if primario else ("texto" if habilitado else "desativado")
+        principal = primario and habilitado
+        fundo = ("menta_hover" if hover else "menta") if principal else ("hover" if hover else "cartao")
+        caixa(self.tela, rect, fundo, 10, None if principal else "borda")
+        cor = "menta_escura" if principal else ("texto" if habilitado else "desativado")
         self.texto(texto, *rect.center, 15, cor, negrito=True, alinhar="center")
 
     def desenhar_tabuleiro(self, estado, mouse):
@@ -299,12 +396,46 @@ class Renderizacao:
                     sprite = self.pecas[peca == estado.motor.pretas]
                     t.blit(sprite, sprite.get_rect(center=retangulo_casa(linha, coluna).center))
 
-        if estado.pausada:
+        if estado.pausada and estado.pausa_limite is None and not estado.processando and estado.atual is not None:
             aviso = pg.Rect(0, 0, 188, 47)
             aviso.center = TABULEIRO.center
             caixa(t, aviso.move(0, 4), "grade", 12)
             caixa(t, aviso, "painel", 12, "borda_verde")
             self.texto("Partida pausada", *aviso.center, 15, negrito=True, alinhar="center")
+
+    def desenhar_pausa_limite(self, estado, mouse, agora):
+        aviso = AVISO_LIMITE
+        caixa(self.tela, aviso.move(0, 5), "fundo", 16)
+        caixa(self.tela, aviso, "painel", 16, "borda")
+        x, y = aviso.x + 20, aviso.y + 20
+        icone = (x + 8, y + 12)
+        pg.draw.circle(self.tela, C["alerta"], icone, 8, 1)
+        pg.draw.lines(self.tela, C["alerta"], False,
+                      [(icone[0], icone[1] - 4), icone, (icone[0] - 3, icone[1] + 3)], 1)
+        self.texto("Pausa temporária", x + 26, y, 20, "alerta", negrito=True)
+        tipo = estado.pausa_limite
+        limite = f"Limite de {LIMITES_GROQ[tipo]} da Groq ({tipo}) atingido." if tipo else (
+            "Limite da Groq atingido. Categoria não informada."
+        )
+        self.texto(limite, x, y + 33, 16)
+        self.texto("A partida está preservada. A pausa não é uma falha do jogo.",
+                   x, y + 57, 14, "secundario")
+        bloqueado = estado.espera_obrigatoria(agora)
+        if bloqueado:
+            minutos, segundos = divmod(ceil(estado.prazo - agora), 60)
+            horas, minutos = divmod(minutos, 60)
+            contador = f"{minutos:02}:{segundos:02}"
+            if horas:
+                contador = f"{horas:02}:{contador}"
+            self.texto(contador, aviso.centerx, y + 94, 25, "alerta", negrito=True,
+                       mono=True, alinhar="center")
+            mensagem = "Aguarde a liberação para retomar."
+        elif estado.prazo is None:
+            mensagem = "A Groq não informou o prazo de liberação."
+        else:
+            mensagem = "O prazo de espera terminou. Você pode retomar."
+        self.texto(mensagem, aviso.centerx, y + 129, 14, "secundario", alinhar="center")
+        self.botao(RETOMAR_LIMITE, "Retomar partida", mouse, primario=True, habilitado=not bloqueado)
 
     def desenhar_placar(self, estado):
         painel = PAINEIS[0]
@@ -321,7 +452,7 @@ class Renderizacao:
             self.texto(str(pontos[indice]), rect.right - 17, rect.centery, 36,
                        negrito=True, alinhar="midright")
 
-    def desenhar_turno(self, estado):
+    def desenhar_turno(self, estado, agora):
         painel = PAINEIS[1]
         x = painel.x + 20
         badge = pg.Rect(painel.right - 78, painel.y + 15, 58, 28)
@@ -333,17 +464,94 @@ class Renderizacao:
             status = "Partida encerrada"
         else:
             titulo = f"{estado.nome_cor(estado.atual)} · {estado.jogadores[estado.atual]}"
-            if estado.pausada:
+            if estado.pausada and estado.processando:
+                status = "Pausa após o turno atual"
+                if estado.fase == "limite" and estado.prazo is not None and estado.prazo > agora:
+                    status += f" · API · {ceil(estado.prazo - agora)}s"
+            elif estado.pausada:
                 status = "Partida pausada"
+                if estado.espera_obrigatoria(agora):
+                    status += f" · limite da API · {ceil(estado.prazo - agora)}s"
+                elif estado.pausa_limite is not None:
+                    status += " · limite da Groq"
+                elif estado.detalhe:
+                    status += f" · {estado.detalhe}"
+            elif estado.fase == "limite":
+                status = "Aguardando limite da API"
+                if estado.detalhe in ("TPM", "TPD", "RPM", "RPD"):
+                    status += f" · {estado.detalhe}"
+                if estado.prazo is not None and estado.prazo > agora:
+                    status += f" · {ceil(estado.prazo - agora)}s"
+            elif estado.fase == "ferramentas":
+                status = "Consultando ferramentas"
+            elif estado.fase == "recuperacao":
+                status = "Recuperando erro"
+            elif estado.fase == "encerrando":
+                status = "Aguardando agente anterior"
+            elif estado.processando or estado.jogadores[estado.atual] in MODOS_AGENTES:
+                status = "Agente pensando…"
             elif estado.passou is not None:
                 status = f"{estado.nome_cor(estado.passou)} passaram a vez"
-            elif estado.jogadores[estado.atual] == "Heurístico":
-                status = "Agente heurístico pensando…"
             else:
                 status = "Aguardando jogada"
         self.texto(titulo, x, painel.y + 52, 22, negrito=True)
-        pg.draw.circle(self.tela, C["menta"], (x + 4, painel.y + 103), 4)
+        animar = estado.processando or (estado.fase == "limite" and not estado.pausada)
+        intensidade = abs((agora * 1.8) % 2 - 1) if animar else 1
+        cor = C["borda_verde"].lerp(C["menta"], .4 + .6 * intensidade)
+        pg.draw.circle(self.tela, cor, (x + 4, painel.y + 103), 4)
         self.texto(status, x + 15, painel.y + 103, 14, "secundario", alinhar="midleft")
+
+    @staticmethod
+    def valor_metrica(metricas, chave):
+        valor = metricas.get(chave)
+        if valor is None or (chave == "tempo_llm_s" and not metricas.get("chamadas_llm")):
+            return "—"
+        if chave == "tempo_llm_s":
+            return f"{valor:.1f}s".replace(".", ",")
+        texto = f"{valor:,}".replace(",", ".")
+        if chave == "tokens_total" and metricas.get("chamadas_com_tokens", 0) < metricas["chamadas_llm"]:
+            texto += "+"
+        return texto
+
+    def desenhar_informacoes(self, dados, mouse):
+        ferramentas, metricas = PAINEIS[2:]
+        x = ferramentas.x + 32
+        y = ferramentas.y + 69
+        if not dados.ferramentas:
+            self.texto("Nenhuma ferramenta no último turno", x, y, 14, "secundario", alinhar="midleft")
+        for i, nome in enumerate(dados.ferramentas):
+            largura = self.fonte(12, False, True).size(nome)[0] + 16
+            restantes = len(dados.ferramentas) - i - 1
+            if x + largura + (32 if restantes else 0) > ferramentas.right - 30:
+                self.texto(f"+{restantes + 1}", x, y, 12, "secundario", alinhar="midleft")
+                break
+            caixa(self.tela, pg.Rect(x, y - 12, largura, 24), "painel", 7)
+            self.texto(nome, x + 8, y, 12, "texto", mono=True, alinhar="midleft")
+            x += largura + 7
+
+        self.texto("Último turno / Partida", metricas.right - 21, metricas.y + 26,
+                   12, "secundario", alinhar="midright")
+        for _, chave, x in INDICADORES:
+            self.texto(self.valor_metrica(dados.ultimo, chave),
+                       x + 10, metricas.y + 71, 18, negrito=True)
+            total = self.valor_metrica(dados.partida, chave)
+            self.texto(f"Total {total}", x + 10, metricas.y + 103, 11, "secundario")
+        avisos = []
+        for chave, titulo in (("tentativas_adicionais", "Retries"), ("fallbacks", "Fallbacks")):
+            acumulado = dados.partida.get(chave, 0)
+            if acumulado:
+                avisos.append(f"{titulo} {dados.ultimo.get(chave, 0)} / {acumulado}")
+        if avisos:
+            self.texto("  ·  ".join(avisos), metricas.x + 20, metricas.y + 128, 11, "secundario")
+        if dados.ferramentas and ferramentas.collidepoint(mouse):
+            fonte = self.fonte(12, False, True)
+            largura = max(fonte.size(nome)[0] for nome in dados.ferramentas) + 24
+            caixa(self.tela, pg.Rect(ferramentas.x + 20, ferramentas.bottom - 12,
+                                    largura, 18 * len(dados.ferramentas) + 16),
+                  "painel", 9, "borda")
+            for i, nome in enumerate(dados.ferramentas):
+                self.texto(nome, ferramentas.x + 32, ferramentas.bottom - 4 + i * 18,
+                           12, mono=True)
 
     def desenhar_sidebar(self, estado, mouse):
         t = self.tela
@@ -364,32 +572,35 @@ class Renderizacao:
 
         for indice, nome, rect in opcoes_sidebar():
             selecionado = estado.selecao[cores[indice]] == nome
-            disponivel = nome in DISPONIVEIS
-            hover = disponivel and rect.collidepoint(mouse)
+            hover = rect.collidepoint(mouse)
             fundo = "moldura" if selecionado else ("hover" if hover else "cartao")
             caixa(t, rect, fundo, 10, "menta" if selecionado else "borda")
             centro = (rect.x + 17, rect.centery)
             pg.draw.circle(t, C["menta" if selecionado else "desativado"], centro, 5, 1)
             if selecionado:
                 pg.draw.circle(t, C["menta"], centro, 2)
-            self.texto(nome, rect.x + 30, rect.centery, 14,
-                       "texto" if disponivel else "desativado", negrito=True, alinhar="midleft")
+            self.texto(nome, rect.x + 30, rect.centery, 14, negrito=True, alinhar="midleft")
 
-        self.texto("Estratégico e Operacional em breve.", 864, 486, 13, "secundario")
+        self.texto("Estratégico e Operacional usam a Groq.", 864, 486, 13, "secundario")
         pg.draw.line(t, C["borda"], (864, 677), (1176, 677))
         self.botao(INICIAR, "Iniciar partida", mouse, primario=True)
 
     def desenhar(self, estado, mouse):
         modal = estado.selecao is not None
         mouse_fundo = (-1, -1) if modal else mouse
+        agora = perf_counter()
         self.tela.blit(self.base, (0, 0))
         self.botao(BOTOES_TOPO["pausa"], "Retomar" if estado.pausada else "Pausar",
-                   mouse_fundo, habilitado=estado.atual is not None)
+                   mouse_fundo, primario=estado.pausa_limite is not None,
+                   habilitado=estado.atual is not None and not estado.espera_obrigatoria(agora))
         self.botao(BOTOES_TOPO["reiniciar"], "Reiniciar", mouse_fundo)
         self.botao(BOTOES_TOPO["nova"], "+  Nova partida", mouse_fundo, primario=True)
         self.desenhar_tabuleiro(estado, mouse_fundo)
         self.desenhar_placar(estado)
-        self.desenhar_turno(estado)
+        self.desenhar_turno(estado, agora)
+        self.desenhar_informacoes(estado.painel, mouse_fundo)
+        if estado.pausa_limite is not None:
+            self.desenhar_pausa_limite(estado, mouse_fundo, agora)
         if modal:
             self.desenhar_sidebar(estado, mouse)
         return self.tela
@@ -415,11 +626,78 @@ def posicao_logica(posicao, area):
     )
 
 
+@dataclass
+class TrabalhoAgente:
+    geracao: int
+    modo: str
+    partida: dict
+    esperas: list
+    cancelado: Event = field(default_factory=Event)
+
+
+class TrabalhadorAgentes:
+    def __init__(self, executar_turno):
+        self.executar_turno = executar_turno
+        self.trabalhos = SimpleQueue()
+        self.eventos = SimpleQueue()
+        self.thread = Thread(target=self.executar, name="othello-agentes")
+        self.thread.start()
+
+    def executar(self):
+        while (trabalho := self.trabalhos.get()) is not None:
+            def publicar(fase, detalhe="", prazo=None, origem=trabalho):
+                self.eventos.put((origem, "status", (fase, detalhe, prazo)))
+
+            resultado = None
+            try:
+                if not trabalho.cancelado.is_set():
+                    resultado = self.executar_turno(
+                        trabalho.modo, trabalho.partida, publicar,
+                        trabalho.cancelado, trabalho.esperas,
+                    )
+            except Exception:
+                # O painel nunca recebe exceções ou respostas brutas do provedor.
+                resultado = {"pausa_api": "erro_agente"}
+            finally:
+                self.eventos.put((trabalho, "fim", resultado))
+
+    def encerrar(self):
+        self.trabalhos.put(None)
+        self.thread.join()
+
+
 class InterfaceOthello:
-    def __init__(self, motor):
+    def __init__(self, motor, executar_turno):
         self.estado = EstadoInterface(motor)
         self.render = Renderizacao()
-        self.proxima_heuristica = None
+        self.trabalhador = TrabalhadorAgentes(executar_turno)
+        self.geracao = 0
+        self.trabalho = None
+        self.esperas = []
+        self.proximo_agente = None
+        self.pausa_api = False
+
+    def reiniciar(self):
+        if self.trabalho is not None:
+            self.trabalho.cancelado.set()
+        self.geracao += 1
+        self.esperas = []
+        self.proximo_agente = None
+        self.pausa_api = False
+        self.estado.reiniciar()
+
+    def alternar_pausa(self):
+        estado = self.estado
+        if estado.espera_obrigatoria(perf_counter()):
+            return
+        if estado.pausada and self.pausa_api:
+            self.esperas = []
+            self.pausa_api = False
+            estado.pausa_limite = None
+            if estado.fase != "limite" or estado.prazo is None or estado.prazo <= perf_counter():
+                estado.definir_status("")
+        estado.pausada = not estado.pausada
+        self.proximo_agente = None
 
     def clique(self, posicao):
         estado = self.estado
@@ -431,31 +709,32 @@ class InterfaceOthello:
             elif INICIAR.collidepoint(posicao):
                 estado.jogadores = estado.selecao
                 estado.selecao = None
-                estado.reiniciar()
+                self.reiniciar()
             else:
                 cores = (estado.motor.pretas, estado.motor.brancas)
                 for i, nome, rect in opcoes_sidebar():
-                    if nome in DISPONIVEIS and rect.collidepoint(posicao):
+                    if rect.collidepoint(posicao):
                         estado.selecao[cores[i]] = nome
                         break
-            self.proxima_heuristica = None
             return
         if BOTOES_TOPO["nova"].collidepoint(posicao):
             estado.selecao = estado.jogadores.copy()
-        elif BOTOES_TOPO["pausa"].collidepoint(posicao) and estado.atual is not None:
-            estado.pausada = not estado.pausada
+            self.proximo_agente = None
+        elif estado.atual is not None and (
+            BOTOES_TOPO["pausa"].collidepoint(posicao)
+            or (estado.pausa_limite is not None and RETOMAR_LIMITE.collidepoint(posicao))
+        ):
+            self.alternar_pausa()
         elif BOTOES_TOPO["reiniciar"].collidepoint(posicao):
-            estado.reiniciar()
+            self.reiniciar()
         elif estado.ativa and estado.jogadores[estado.atual] == "Humano":
             casa = casa_em(posicao)
             if casa is not None:
                 estado.jogar(*casa)
-        else:
-            return
-        self.proxima_heuristica = None
 
     def evento(self, evento, area):
         if evento.type == pg.QUIT:
+            self.cancelar_trabalho()
             return False
         if evento.type == pg.KEYDOWN and evento.key == pg.K_ESCAPE:
             self.estado.selecao = None
@@ -463,17 +742,74 @@ class InterfaceOthello:
             self.clique(posicao_logica(evento.pos, area))
         return True
 
-    def atualizar(self, agora):
+    def receber_resultados(self):
         estado = self.estado
-        if not estado.ativa or estado.jogadores[estado.atual] != "Heurístico":
-            self.proxima_heuristica = None
-        elif self.proxima_heuristica is None:
-            self.proxima_heuristica = agora + ESPERA_HEURISTICA_MS
-        elif agora >= self.proxima_heuristica:
-            jogada = estado.motor.escolher_melhor_jogada(estado.tabuleiro, estado.atual)
-            if jogada is not None:
-                estado.jogar(jogada["row"], jogada["col"])
-            self.proxima_heuristica = None
+        while True:
+            try:
+                trabalho, evento, dados = self.trabalhador.eventos.get_nowait()
+            except Empty:
+                break
+            if trabalho is not self.trabalho:
+                continue
+            if evento == "fim":
+                self.trabalho = None
+            if trabalho.geracao != self.geracao or trabalho.cancelado.is_set():
+                continue
+            if evento == "status":
+                estado.definir_status(*dados)
+                continue
+
+            estado.processando = False
+            self.proximo_agente = None
+            if dados and not dados.get("pausa_api"):
+                try:
+                    estado.confirmar_agente(trabalho.partida, dados)
+                except (IndexError, KeyError, TypeError, ValueError):
+                    dados = {"pausa_api": "erro_agente"}
+                else:
+                    estado.definir_status("")
+                    continue
+
+            dados = dados or {"pausa_api": "erro_agente"}
+            estado.painel.registrar(dados, concluiu=False)
+            causa = dados["pausa_api"]
+            detalhe = {
+                "chave_ausente": "configure GROQ_API_KEY",
+                "erro_agente": "erro do agente",
+                "orcamento_espera_sessao": "orçamento de espera",
+                "limite_espera_individual": "limite de espera",
+            }.get(causa, "falha de API")
+            if not estado.registrar_pausa_limite(causa):
+                estado.definir_status("", detalhe)
+            estado.pausada = self.pausa_api = True
+
+    def atualizar(self, agora):
+        self.receber_resultados()
+        estado = self.estado
+        if not estado.ativa or estado.jogadores[estado.atual] == "Humano":
+            self.proximo_agente = None
+            return
+        if self.trabalho is not None:
+            if self.trabalho.geracao != self.geracao:
+                estado.definir_status("encerrando")
+            return
+        if estado.fase == "limite" and estado.prazo is not None and estado.prazo > agora:
+            return
+        modo = MODOS_AGENTES[estado.jogadores[estado.atual]]
+        if modo == "heuristica" and self.proximo_agente is None:
+            self.proximo_agente = agora + ESPERA_HEURISTICA_S
+            return
+        if self.proximo_agente is not None and agora < self.proximo_agente:
+            return
+        self.proximo_agente = None
+        estado.definir_status("pensando")
+        estado.processando = True
+        self.trabalho = TrabalhoAgente(self.geracao, modo, deepcopy(estado.partida), self.esperas)
+        self.trabalhador.trabalhos.put(self.trabalho)
+
+    def cancelar_trabalho(self):
+        if self.trabalho is not None:
+            self.trabalho.cancelado.set()
 
     def executar(self):
         relogio = pg.time.Clock()
@@ -491,7 +827,7 @@ class InterfaceOthello:
 
             janela = pg.display.get_surface()
             area = encaixar(janela.get_size())
-            self.atualizar(pg.time.get_ticks())
+            self.atualizar(perf_counter())
             mouse = posicao_logica(pg.mouse.get_pos(), area)
             quadro = self.render.desenhar(self.estado, mouse)
             janela.fill(C["fundo"])
@@ -507,7 +843,7 @@ class InterfaceOthello:
             relogio.tick(FPS)
 
 
-def abrir_interface(motor):
+def abrir_interface(motor, executar_turno):
     """Abre a janela local. O loop retorna ao notebook quando a janela fecha."""
     pg.display.init()
     pg.font.init()
@@ -515,10 +851,13 @@ def abrir_interface(motor):
     try:
         pg.display.set_caption("Othello · Intelligent Agents")
         pg.display.set_mode(JANELA, pg.RESIZABLE)
-        interface = InterfaceOthello(motor)
+        interface = InterfaceOthello(motor, executar_turno)
         interface.executar()
     finally:
         if interface is not None:
+            interface.cancelar_trabalho()
             interface.render.limpar_cache()
         pg.font.quit()
         pg.display.quit()
+        if interface is not None:
+            interface.trabalhador.encerrar()
