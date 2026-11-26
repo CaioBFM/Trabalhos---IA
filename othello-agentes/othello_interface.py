@@ -1,6 +1,8 @@
 """Interface local de Othello. O notebook fornece as operações do motor."""
 
 from dataclasses import dataclass, field
+import ctypes
+import os
 from copy import deepcopy
 from functools import lru_cache
 from math import ceil
@@ -24,12 +26,14 @@ PAINEIS = tuple(pg.Rect(779, y, 389, h) for y, h in (
 LARGURA_SIDEBAR = 360
 SIDEBAR = pg.Rect(JANELA[0] - LARGURA_SIDEBAR, 0, LARGURA_SIDEBAR, JANELA[1])
 BOTOES_TOPO = {
-    "pausa": pg.Rect(749, 23, 115, 42),
-    "reiniciar": pg.Rect(876, 23, 121, 42),
+    "pausa": pg.Rect(568, 23, 115, 42),
+    "reiniciar": pg.Rect(695, 23, 121, 42),
+    "encerrar": pg.Rect(828, 23, 169, 42),
     "nova": pg.Rect(1009, 23, 159, 42),
 }
 FECHAR = pg.Rect(1130, 27, 38, 38)
 INICIAR = pg.Rect(864, 705, 312, 53)
+CONFIGURAR_API = pg.Rect(864, 543, 312, 44)
 AVISO_LIMITE = pg.Rect(0, 0, 508, 232)
 AVISO_LIMITE.center = TABULEIRO.center
 RETOMAR_LIMITE = pg.Rect(AVISO_LIMITE.x + 20, AVISO_LIMITE.bottom - 60, 468, 42)
@@ -188,6 +192,8 @@ class EstadoInterface:
         if self.fase != "limite":
             self.prazo = None
         self.fase = "limite"
+        if self.pausa_limite == "TPD":
+            self.prazo = None
         return True
 
     def confirmar_agente(self, partida, resultado):
@@ -414,6 +420,16 @@ class Renderizacao:
                       [(icone[0], icone[1] - 4), icone, (icone[0] - 3, icone[1] + 3)], 1)
         self.texto("Pausa temporária", x + 26, y, 20, "alerta", negrito=True)
         tipo = estado.pausa_limite
+        if tipo == "TPD":
+            for i, linha in enumerate((
+                "Limite diário de tokens esgotado.",
+                "Aguarde a renovação da cota ou configure outra",
+                "chave de API autorizada com cota disponível.",
+            )):
+                self.texto(linha, x, y + 33 + i * 23, 16)
+            self.texto("Sua partida está preservada.", x, y + 110, 14, "secundario")
+            self.botao(RETOMAR_LIMITE, "Configurar outra chave e retomar", mouse, primario=True)
+            return
         limite = f"Limite de {LIMITES_GROQ[tipo]} da Groq ({tipo}) atingido." if tipo else (
             "Limite da Groq atingido. Categoria não informada."
         )
@@ -553,7 +569,7 @@ class Renderizacao:
                 self.texto(nome, ferramentas.x + 32, ferramentas.bottom - 4 + i * 18,
                            12, mono=True)
 
-    def desenhar_sidebar(self, estado, mouse):
+    def desenhar_sidebar(self, estado, mouse, api_configurada):
         t = self.tela
         t.blit(self.scrim, (0, 0))
         pg.draw.rect(t, C["fundo"], SIDEBAR.move(-8, 0))
@@ -581,11 +597,16 @@ class Renderizacao:
                 pg.draw.circle(t, C["menta"], centro, 2)
             self.texto(nome, rect.x + 30, rect.centery, 14, negrito=True, alinhar="midleft")
 
-        self.texto("Estratégico e Operacional usam a Groq.", 864, 486, 13, "secundario")
+        usa_llm = bool({"Estratégico", "Operacional"}.intersection(estado.selecao.values()))
+        if usa_llm and not api_configurada:
+            self.texto("Configure a chave da API para utilizar este agente", 864, 500, 12, "alerta")
+            self.botao(CONFIGURAR_API, "Configurar API", mouse, primario=True)
+        else:
+            self.texto("Estratégico e Operacional usam a Groq.", 864, 486, 13, "secundario")
         pg.draw.line(t, C["borda"], (864, 677), (1176, 677))
         self.botao(INICIAR, "Iniciar partida", mouse, primario=True)
 
-    def desenhar(self, estado, mouse):
+    def desenhar(self, estado, mouse, api_configurada=True):
         modal = estado.selecao is not None
         mouse_fundo = (-1, -1) if modal else mouse
         agora = perf_counter()
@@ -594,6 +615,7 @@ class Renderizacao:
                    mouse_fundo, primario=estado.pausa_limite is not None,
                    habilitado=estado.atual is not None and not estado.espera_obrigatoria(agora))
         self.botao(BOTOES_TOPO["reiniciar"], "Reiniciar", mouse_fundo)
+        self.botao(BOTOES_TOPO["encerrar"], "Encerrar partida", mouse_fundo)
         self.botao(BOTOES_TOPO["nova"], "+  Nova partida", mouse_fundo, primario=True)
         self.desenhar_tabuleiro(estado, mouse_fundo)
         self.desenhar_placar(estado)
@@ -602,7 +624,7 @@ class Renderizacao:
         if estado.pausa_limite is not None:
             self.desenhar_pausa_limite(estado, mouse_fundo, agora)
         if modal:
-            self.desenhar_sidebar(estado, mouse)
+            self.desenhar_sidebar(estado, mouse, api_configurada)
         return self.tela
 
     def limpar_cache(self):
@@ -667,7 +689,7 @@ class TrabalhadorAgentes:
 
 
 class InterfaceOthello:
-    def __init__(self, motor, executar_turno):
+    def __init__(self, motor, executar_turno, preparar_jogadores=None, verificar_api_configurada=None):
         self.estado = EstadoInterface(motor)
         self.render = Renderizacao()
         self.trabalhador = TrabalhadorAgentes(executar_turno)
@@ -676,6 +698,8 @@ class InterfaceOthello:
         self.esperas = []
         self.proximo_agente = None
         self.pausa_api = False
+        self.preparar_jogadores = preparar_jogadores
+        self.verificar_api_configurada = verificar_api_configurada or (lambda: True)
 
     def reiniciar(self):
         if self.trabalho is not None:
@@ -688,6 +712,11 @@ class InterfaceOthello:
 
     def alternar_pausa(self):
         estado = self.estado
+        if estado.pausa_limite == "TPD":
+            if self.preparar_jogadores is None or not self.preparar_jogadores(
+                estado.jogadores, trocar_chave=True
+            ):
+                return
         if estado.espera_obrigatoria(perf_counter()):
             return
         if estado.pausada and self.pausa_api:
@@ -699,6 +728,13 @@ class InterfaceOthello:
         estado.pausada = not estado.pausada
         self.proximo_agente = None
 
+    def encerrar_partida(self):
+        self.reiniciar()
+        self.estado.jogadores = dict.fromkeys(
+            (self.estado.motor.pretas, self.estado.motor.brancas), "Humano"
+        )
+        self.estado.selecao = None
+
     def clique(self, posicao):
         estado = self.estado
         if estado.selecao is not None:
@@ -707,9 +743,17 @@ class InterfaceOthello:
             if FECHAR.collidepoint(posicao) or not SIDEBAR.collidepoint(posicao):
                 estado.selecao = None
             elif INICIAR.collidepoint(posicao):
+                usa_llm = bool({"Estratégico", "Operacional"}.intersection(estado.selecao.values()))
+                if usa_llm and not self.verificar_api_configurada():
+                    return
+                if self.preparar_jogadores and not self.preparar_jogadores(estado.selecao):
+                    return
                 estado.jogadores = estado.selecao
                 estado.selecao = None
                 self.reiniciar()
+            elif CONFIGURAR_API.collidepoint(posicao):
+                if self.preparar_jogadores:
+                    self.preparar_jogadores(estado.selecao)
             else:
                 cores = (estado.motor.pretas, estado.motor.brancas)
                 for i, nome, rect in opcoes_sidebar():
@@ -727,6 +771,8 @@ class InterfaceOthello:
             self.alternar_pausa()
         elif BOTOES_TOPO["reiniciar"].collidepoint(posicao):
             self.reiniciar()
+        elif BOTOES_TOPO["encerrar"].collidepoint(posicao):
+            self.encerrar_partida()
         elif estado.ativa and estado.jogadores[estado.atual] == "Humano":
             casa = casa_em(posicao)
             if casa is not None:
@@ -829,7 +875,9 @@ class InterfaceOthello:
             area = encaixar(janela.get_size())
             self.atualizar(perf_counter())
             mouse = posicao_logica(pg.mouse.get_pos(), area)
-            quadro = self.render.desenhar(self.estado, mouse)
+            quadro = self.render.desenhar(
+                self.estado, mouse, self.verificar_api_configurada()
+            )
             janela.fill(C["fundo"])
             if area.size == JANELA:
                 janela.blit(quadro, area)
@@ -843,15 +891,36 @@ class InterfaceOthello:
             relogio.tick(FPS)
 
 
-def abrir_interface(motor, executar_turno):
+def tamanho_inicial():
+    class Area(ctypes.Structure):
+        _fields_ = [(nome, ctypes.c_int) for nome in ("x", "y", "w", "h")]
+
+    largura, altura = pg.display.get_desktop_sizes()[0]
+    x, y = 0, 0
+    try:
+        sdl = ctypes.CDLL(pg.base.__file__)
+        area = Area()
+        if sdl.SDL_GetDisplayUsableBounds(0, ctypes.byref(area)) == 0:
+            x, y, largura, altura = area.x, area.y, area.w, area.h
+    except (OSError, AttributeError):
+        pass
+    escala = min(1, max(1, largura - 32) / 1000, max(1, altura - 64) / 650)
+    tamanho = max(1, int(1000 * escala)), max(1, int(650 * escala))
+    os.environ["SDL_VIDEO_WINDOW_POS"] = f"{x + (largura - tamanho[0]) // 2},{y + (altura - tamanho[1]) // 2}"
+    return tamanho
+
+
+def abrir_interface(motor, executar_turno, preparar_jogadores=None, verificar_api_configurada=None):
     """Abre a janela local. O loop retorna ao notebook quando a janela fecha."""
     pg.display.init()
     pg.font.init()
     interface = None
     try:
         pg.display.set_caption("Othello · Intelligent Agents")
-        pg.display.set_mode(JANELA, pg.RESIZABLE)
-        interface = InterfaceOthello(motor, executar_turno)
+        pg.display.set_mode(tamanho_inicial(), pg.RESIZABLE, display=0)
+        interface = InterfaceOthello(
+            motor, executar_turno, preparar_jogadores, verificar_api_configurada
+        )
         interface.executar()
     finally:
         if interface is not None:
