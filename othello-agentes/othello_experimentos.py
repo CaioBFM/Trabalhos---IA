@@ -11,6 +11,7 @@ from copy import deepcopy
 from datetime import datetime, timezone
 from html import escape
 from pathlib import Path
+from secrets import choice
 from tempfile import NamedTemporaryFile
 from time import perf_counter
 
@@ -26,6 +27,8 @@ CONFRONTOS = (
     ("E08", "operacional", "heuristica"),
     ("E09", "heuristica", "operacional"),
     ("E10", "operacional", "estrategica"),
+    ("E11", "estrategica", "operacional"),
+    ("E12", "operacional", "estrategica"),
 )
 CORES = ("pretas", "brancas")
 CAMPOS_TOKENS = ("tokens_entrada", "tokens_saida", "tokens_total")
@@ -177,16 +180,36 @@ class Experimentos:
             "confrontos": [{"id": i, "pretas": p, "brancas": b} for i, p, b in CONFRONTOS],
             "ferramentas": list(self.ferramentas),
         }
-        if arquivo.exists():
-            anterior = ler_json(arquivo)
-            if any(anterior[chave] != dados[chave] for chave in ("protocolo", "confrontos", "ferramentas")):
+        fixos = dados["confrontos"]
+        anterior = ler_json(arquivo) if arquivo.exists() else None
+        if anterior is not None:
+            salvos = anterior["confrontos"]
+            prefixo = min(len(salvos), len(fixos))
+            if (any(anterior[chave] != dados[chave] for chave in ("protocolo", "ferramentas"))
+                    or salvos[:prefixo] != fixos[:prefixo]):
                 raise ValueError("O protocolo atual difere do protocolo salvo. Preserve as configurações.")
-        else:
+            dados = {**anterior, "confrontos": salvos + fixos[len(salvos):]}
+        confrontos = dados["confrontos"]
+        if len(confrontos) == len(fixos):
+            pretas = choice(("estrategica", "operacional"))
+            brancas = "operacional" if pretas == "estrategica" else "estrategica"
+            confrontos.append({"id": "E13", "pretas": pretas, "brancas": brancas})
+        e13 = confrontos[len(CONFRONTOS)]
+        if e13["id"] != "E13" or {e13["pretas"], e13["brancas"]} != {"estrategica", "operacional"}:
+            raise ValueError("O sorteio de cores da E13 no manifesto é inválido.")
+        if dados != anterior:
             gravar_json(arquivo, dados)
+
+    def confrontos(self):
+        arquivo = self.raiz / "configuracao_experimental.json"
+        if not arquivo.exists():
+            return CONFRONTOS
+        return tuple((item["id"], item["pretas"], item["brancas"])
+                     for item in ler_json(arquivo)["confrontos"])
 
     def carregar(self):
         return {
-            i: ler_json(arquivo) for i, _, _ in CONFRONTOS
+            i: ler_json(arquivo) for i, _, _ in self.confrontos()
             if (arquivo := self.checkpoints / f"{i}.json").exists()
         }
 
@@ -242,14 +265,15 @@ class Experimentos:
 
     def planejar(self, id_partida):
         base = self.carregar()
-        concluidas = [i for i, _, _ in CONFRONTOS if status_partida(base.get(i)) == "concluida"]
-        pendentes = [i for i, _, _ in CONFRONTOS if i not in concluidas]
+        confrontos = self.confrontos()
+        concluidas = [i for i, _, _ in confrontos if status_partida(base.get(i)) == "concluida"]
+        pendentes = [i for i, _, _ in confrontos if i not in concluidas]
         if not pendentes or id_partida != pendentes[0]:
             proxima = pendentes[0] if pendentes else "nenhuma"
             raise ValueError(f"Próxima partida na ordem experimental: {proxima}.")
-        _, pretas, brancas = next(item for item in CONFRONTOS if item[0] == id_partida)
+        _, pretas, brancas = next(item for item in confrontos if item[0] == id_partida)
         equivalentes = [
-            self.metricas(self.eventos(base[i])) for i, p, b in CONFRONTOS
+            self.metricas(self.eventos(base[i])) for i, p, b in confrontos
             if i in concluidas and sorted((p, b)) == sorted((pretas, brancas))
         ]
         exatos = [m["tokens_total"] for m in equivalentes if m["tokens_total_cobertura"] == "exata"]
@@ -297,7 +321,7 @@ class Experimentos:
             cp["eventos"].append(pendente)
             cp["em_andamento"] = None
 
-        _, pretas, brancas = next(item for item in CONFRONTOS if item[0] == id_partida)
+        _, pretas, brancas = next(item for item in self.confrontos() if item[0] == id_partida)
         modos = {"pretas": pretas, "brancas": brancas}
         sessao_id = len(cp["sessoes"]) + 1
         cp["sessoes"].append({
@@ -390,7 +414,7 @@ class Experimentos:
         base = self.carregar()
         partidas, jogadas, ferramentas = [], [], []
         grupos = {}
-        for id_partida, pretas, brancas in CONFRONTOS:
+        for id_partida, pretas, brancas in self.confrontos():
             cp = base.get(id_partida)
             status = status_partida(cp)
             grupo = grupo_confronto(pretas, brancas)

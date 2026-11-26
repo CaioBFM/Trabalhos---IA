@@ -179,6 +179,21 @@
       "id": "E10",
       "pretas": "operacional",
       "brancas": "estrategica"
+    },
+    {
+      "id": "E11",
+      "pretas": "estrategica",
+      "brancas": "operacional"
+    },
+    {
+      "id": "E12",
+      "pretas": "operacional",
+      "brancas": "estrategica"
+    },
+    {
+      "id": "E13",
+      "pretas": "operacional",
+      "brancas": "estrategica"
     }
   ],
   "ferramentas": [
