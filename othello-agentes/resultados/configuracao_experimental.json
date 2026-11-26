@@ -1,0 +1,194 @@
+{
+  "protocolo": {
+    "versao": 1,
+    "modelo": "openai/gpt-oss-20b",
+    "temperatura": 0,
+    "tabuleiro": 8,
+    "max_tokens_resposta": 1024,
+    "timeout_api_s": 30.0,
+    "intervalo_api_s": 2.0,
+    "max_espera_individual_s": 60.0,
+    "orcamento_espera_sessao_s": 180.0,
+    "max_tentativas_adicionais": 4,
+    "consultas_obrigatorias_estrategico": [
+      "get_board_state",
+      "get_valid_moves",
+      "get_move_history",
+      "get_minimax_move"
+    ],
+    "consultas_complementares_estrategico": [
+      "get_heuristic_move",
+      "get_strategic_plan",
+      "get_game_status"
+    ],
+    "limite_consultas_complementares": 2,
+    "limite_ferramentas_operacional": 6,
+    "minimax_profundidade": 3,
+    "minimax_poda_alfa_beta": true,
+    "pesos_posicionais": [
+      [
+        100,
+        -20,
+        10,
+        5,
+        5,
+        10,
+        -20,
+        100
+      ],
+      [
+        -20,
+        -50,
+        -2,
+        -2,
+        -2,
+        -2,
+        -50,
+        -20
+      ],
+      [
+        10,
+        -2,
+        5,
+        1,
+        1,
+        5,
+        -2,
+        10
+      ],
+      [
+        5,
+        -2,
+        1,
+        0,
+        0,
+        1,
+        -2,
+        5
+      ],
+      [
+        5,
+        -2,
+        1,
+        0,
+        0,
+        1,
+        -2,
+        5
+      ],
+      [
+        10,
+        -2,
+        5,
+        1,
+        1,
+        5,
+        -2,
+        10
+      ],
+      [
+        -20,
+        -50,
+        -2,
+        -2,
+        -2,
+        -2,
+        -50,
+        -20
+      ],
+      [
+        100,
+        -20,
+        10,
+        5,
+        5,
+        10,
+        -20,
+        100
+      ]
+    ],
+    "prompts_sha256": "3b85dbc7e93cbb1d22479f6046034a6aad846688452bfc8722d5241eaf69a6ee",
+    "pontos_torneio": {
+      "vitoria": 3,
+      "empate": 1,
+      "derrota": 0
+    },
+    "margem_tokens_padrao": 0.2,
+    "reserva_tokens_por_chamada_padrao": 4096
+  },
+  "versoes_iniciais": {
+    "python": "3.12.3",
+    "pygame": "2.6.1",
+    "langchain": "1.5.1",
+    "langchain-core": "1.8.3",
+    "langgraph": "1.2.22",
+    "langchain-groq": "1.2.0",
+    "groq": "1.7.0",
+    "httpx": "0.28.1",
+    "pydantic": "2.14.3",
+    "ipykernel": "7.4.0",
+    "matplotlib": "3.11.2"
+  },
+  "confrontos": [
+    {
+      "id": "E01",
+      "pretas": "estrategica",
+      "brancas": "estrategica"
+    },
+    {
+      "id": "E02",
+      "pretas": "estrategica",
+      "brancas": "estrategica"
+    },
+    {
+      "id": "E03",
+      "pretas": "estrategica",
+      "brancas": "heuristica"
+    },
+    {
+      "id": "E04",
+      "pretas": "heuristica",
+      "brancas": "estrategica"
+    },
+    {
+      "id": "E05",
+      "pretas": "estrategica",
+      "brancas": "operacional"
+    },
+    {
+      "id": "E06",
+      "pretas": "operacional",
+      "brancas": "operacional"
+    },
+    {
+      "id": "E07",
+      "pretas": "operacional",
+      "brancas": "operacional"
+    },
+    {
+      "id": "E08",
+      "pretas": "operacional",
+      "brancas": "heuristica"
+    },
+    {
+      "id": "E09",
+      "pretas": "heuristica",
+      "brancas": "operacional"
+    },
+    {
+      "id": "E10",
+      "pretas": "operacional",
+      "brancas": "estrategica"
+    }
+  ],
+  "ferramentas": [
+    "get_board_state",
+    "get_valid_moves",
+    "get_game_status",
+    "get_heuristic_move",
+    "get_move_history",
+    "get_strategic_plan",
+    "make_move",
+    "get_minimax_move"
+  ]
+}

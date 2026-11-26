@@ -1,0 +1,4949 @@
+{
+  "id": "E08",
+  "estado": {
+    "tabuleiro": [
+      [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      [
+        1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        1,
+        1
+      ],
+      [
+        1,
+        -1,
+        -1,
+        -1,
+        1,
+        1,
+        -1,
+        1
+      ],
+      [
+        1,
+        1,
+        -1,
+        1,
+        1,
+        -1,
+        -1,
+        1
+      ],
+      [
+        1,
+        -1,
+        1,
+        1,
+        -1,
+        -1,
+        -1,
+        1
+      ],
+      [
+        1,
+        -1,
+        1,
+        1,
+        1,
+        -1,
+        -1,
+        1
+      ],
+      [
+        1,
+        1,
+        -1,
+        -1,
+        1,
+        -1,
+        -1,
+        1
+      ],
+      [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    ],
+    "jogador_atual": null,
+    "historico": [
+      {
+        "player": 1,
+        "row": 2,
+        "col": 3,
+        "metricas": {
+          "modelo": "openai/gpt-oss-20b",
+          "chamadas_llm": 2,
+          "tentativas_adicionais": 0,
+          "tentativas_por_categoria": {
+            "decisao": 0,
+            "disponibilidade": 0
+          },
+          "tempo_turno_s": 2.4372552429999814,
+          "tempo_llm_s": 1.3935759359997064,
+          "tempo_espera_s": 0.9597716369999034,
+          "tempo_espera_por_motivo_s": {
+            "preventiva": 0.9597716369999034,
+            "limite_api": 0.0,
+            "recuperacao": 0.0
+          },
+          "tempo_processamento_s": 1.477483606000078,
+          "erros": {},
+          "total_erros": 0,
+          "fallbacks": 0,
+          "chamadas_com_tokens": {
+            "tokens_entrada": 2,
+            "tokens_saida": 2,
+            "tokens_total": 2
+          },
+          "tokens_entrada": 1300,
+          "tokens_saida": 858,
+          "tokens_total": 2158
+        },
+        "modo_autonomia": "operacional",
+        "origem_decisao": "llm_tool_call",
+        "ferramentas_automaticas": [],
+        "ferramentas_solicitadas": [
+          "get_heuristic_move",
+          "make_move"
+        ],
+        "ferramentas_executadas": [
+          "get_heuristic_move",
+          "make_move"
+        ]
+      },
+      {
+        "player": -1,
+        "row": 2,
+        "col": 2,
+        "modo_autonomia": "heuristica",
+        "origem_decisao": "heuristica",
+        "ferramentas_automaticas": [
+          "make_move"
+        ],
+        "ferramentas_solicitadas": [],
+        "ferramentas_executadas": [
+          "make_move"
+        ]
+      },
+      {
+        "player": 1,
+        "row": 2,
+        "col": 1,
+        "metricas": {
+          "modelo": "openai/gpt-oss-20b",
+          "chamadas_llm": 2,
+          "tentativas_adicionais": 0,
+          "tentativas_por_categoria": {
+            "decisao": 0,
+            "disponibilidade": 0
+          },
+          "tempo_turno_s": 3.6638542209998377,
+          "tempo_llm_s": 1.8952002680002806,
+          "tempo_espera_s": 1.6757579009995425,
+          "tempo_espera_por_motivo_s": {
+            "preventiva": 1.6757579009995425,
+            "limite_api": 0.0,
+            "recuperacao": 0.0
+          },
+          "tempo_processamento_s": 1.9880963200002952,
+          "erros": {},
+          "total_erros": 0,
+          "fallbacks": 0,
+          "chamadas_com_tokens": {
+            "tokens_entrada": 2,
+            "tokens_saida": 2,
+            "tokens_total": 2
+          },
+          "tokens_entrada": 1300,
+          "tokens_saida": 1057,
+          "tokens_total": 2357
+        },
+        "modo_autonomia": "operacional",
+        "origem_decisao": "llm_tool_call",
+        "ferramentas_automaticas": [],
+        "ferramentas_solicitadas": [
+          "get_heuristic_move",
+          "make_move"
+        ],
+        "ferramentas_executadas": [
+          "get_heuristic_move",
+          "make_move"
+        ]
+      },
+      {
+        "player": -1,
+        "row": 2,
+        "col": 4,
+        "modo_autonomia": "heuristica",
+        "origem_decisao": "heuristica",
+        "ferramentas_automaticas": [
+          "make_move"
+        ],
+        "ferramentas_solicitadas": [],
+        "ferramentas_executadas": [
+          "make_move"
+        ]
+      },
+      {
+        "player": 1,
+        "row": 2,
+        "col": 5,
+        "metricas": {
+          "modelo": "openai/gpt-oss-20b",
+          "chamadas_llm": 4,
+          "tentativas_adicionais": 2,
+          "tentativas_por_categoria": {
+            "decisao": 2,
+            "disponibilidade": 0
+          },
+          "tempo_turno_s": 7.527213215000302,
+          "tempo_llm_s": 4.731369009999526,
+          "tempo_espera_s": 2.661748082000031,
+          "tempo_espera_por_motivo_s": {
+            "preventiva": 1.6758953519997704,
+            "limite_api": 0.0,
+            "recuperacao": 0.9858527300002606
+          },
+          "tempo_processamento_s": 4.865465133000271,
+          "erros": {
+            "resposta_sem_chamada_de_ferramenta": 2
+          },
+          "total_erros": 2,
+          "fallbacks": 0,
+          "chamadas_com_tokens": {
+            "tokens_entrada": 4,
+            "tokens_saida": 4,
+            "tokens_total": 4
+          },
+          "tokens_entrada": 2598,
+          "tokens_saida": 3235,
+          "tokens_total": 5833
+        },
+        "modo_autonomia": "operacional",
+        "origem_decisao": "llm_tool_call",
+        "ferramentas_automaticas": [],
+        "ferramentas_solicitadas": [
+          "get_heuristic_move",
+          "make_move"
+        ],
+        "ferramentas_executadas": [
+          "get_heuristic_move",
+          "make_move"
+        ]
+      },
+      {
+        "player": -1,
+        "row": 3,
+        "col": 5,
+        "modo_autonomia": "heuristica",
+        "origem_decisao": "heuristica",
+        "ferramentas_automaticas": [
+          "make_move"
+        ],
+        "ferramentas_solicitadas": [],
+        "ferramentas_executadas": [
+          "make_move"
+        ]
+      },
+      {
+        "player": 1,
+        "row": 5,
+        "col": 5,
+        "metricas": {
+          "modelo": "openai/gpt-oss-20b",
+          "chamadas_llm": 6,
+          "tentativas_adicionais": 4,
+          "tentativas_por_categoria": {
+            "decisao": 2,
+            "disponibilidade": 2
+          },
+          "tempo_turno_s": 13.35629133800012,
+          "tempo_llm_s": 5.679464278000978,
+          "tempo_espera_s": 7.335747619999893,
+          "tempo_espera_por_motivo_s": {
+            "preventiva": 3.870197860999724,
+            "limite_api": 2.965592334000121,
+            "recuperacao": 0.4999574250000478
+          },
+          "tempo_processamento_s": 6.020543718000226,
+          "erros": {
+            "resposta_sem_chamada_de_ferramenta": 2,
+            "RateLimitError (TPM)": 2
+          },
+          "total_erros": 4,
+          "fallbacks": 0,
+          "chamadas_com_tokens": {
+            "tokens_entrada": 4,
+            "tokens_saida": 4,
+            "tokens_total": 4
+          },
+          "tokens_entrada": 2598,
+          "tokens_saida": 2927,
+          "tokens_total": 5525
+        },
+        "modo_autonomia": "operacional",
+        "origem_decisao": "llm_tool_call",
+        "ferramentas_automaticas": [],
+        "ferramentas_solicitadas": [
+          "get_heuristic_move",
+          "make_move"
+        ],
+        "ferramentas_executadas": [
+          "get_heuristic_move",
+          "make_move"
+        ]
+      },
+      {
+        "player": -1,
+        "row": 1,
+        "col": 5,
+        "modo_autonomia": "heuristica",
+        "origem_decisao": "heuristica",
+        "ferramentas_automaticas": [
+          "make_move"
+        ],
+        "ferramentas_solicitadas": [],
+        "ferramentas_executadas": [
+          "make_move"
+        ]
+      },
+      {
+        "player": 1,
+        "row": 2,
+        "col": 6,
+        "metricas": {
+          "modelo": "openai/gpt-oss-20b",
+          "chamadas_llm": 3,
+          "tentativas_adicionais": 1,
+          "tentativas_por_categoria": {
+            "decisao": 0,
+            "disponibilidade": 1
+          },
+          "tempo_turno_s": 10.472224654000001,
+          "tempo_llm_s": 1.5322939129996485,
+          "tempo_espera_s": 8.706109127000673,
+          "tempo_espera_por_motivo_s": {
+            "preventiva": 1.724732060000406,
+            "limite_api": 6.981377067000267,
+            "recuperacao": 0.0
+          },
+          "tempo_processamento_s": 1.7661155269993287,
+          "erros": {
+            "RateLimitError (TPM)": 1
+          },
+          "total_erros": 1,
+          "fallbacks": 0,
+          "chamadas_com_tokens": {
+            "tokens_entrada": 2,
+            "tokens_saida": 2,
+            "tokens_total": 2
+          },
+          "tokens_entrada": 1302,
+          "tokens_saida": 628,
+          "tokens_total": 1930
+        },
+        "modo_autonomia": "operacional",
+        "origem_decisao": "llm_tool_call",
+        "ferramentas_automaticas": [],
+        "ferramentas_solicitadas": [
+          "get_minimax_move",
+          "make_move"
+        ],
+        "ferramentas_executadas": [
+          "get_minimax_move",
+          "make_move"
+        ]
+      },
+      {
+        "player": -1,
+        "row": 4,
+        "col": 5,
+        "modo_autonomia": "heuristica",
+        "origem_decisao": "heuristica",
+        "ferramentas_automaticas": [
+          "make_move"
+        ],
+        "ferramentas_solicitadas": [],
+        "ferramentas_executadas": [
+          "make_move"
+        ]
+      },
+      {
+        "player": 1,
+        "row": 0,
+        "col": 5,
+        "metricas": {
+          "modelo": "openai/gpt-oss-20b",
+          "chamadas_llm": 3,
+          "tentativas_adicionais": 1,
+          "tentativas_por_categoria": {
+            "decisao": 0,
+            "disponibilidade": 1
+          },
+          "tempo_turno_s": 9.685696374000145,
+          "tempo_llm_s": 2.128712615000495,
+          "tempo_espera_s": 7.34703904800017,
+          "tempo_espera_por_motivo_s": {
+            "preventiva": 1.3563834139999926,
+            "limite_api": 5.990655634000177,
+            "recuperacao": 0.0
+          },
+          "tempo_processamento_s": 2.338657325999975,
+          "erros": {
+            "RateLimitError (TPM)": 1
+          },
+          "total_erros": 1,
+          "fallbacks": 0,
+          "chamadas_com_tokens": {
+            "tokens_entrada": 2,
+            "tokens_saida": 2,
+            "tokens_total": 2
+          },
+          "tokens_entrada": 1300,
+          "tokens_saida": 1151,
+          "tokens_total": 2451
+        },
+        "modo_autonomia": "operacional",
+        "origem_decisao": "llm_tool_call",
+        "ferramentas_automaticas": [],
+        "ferramentas_solicitadas": [
+          "get_heuristic_move",
+          "make_move"
+        ],
+        "ferramentas_executadas": [
+          "get_heuristic_move",
+          "make_move"
+        ]
+      },
+      {
+        "player": -1,
+        "row": 5,
+        "col": 2,
+        "modo_autonomia": "heuristica",
+        "origem_decisao": "heuristica",
+        "ferramentas_automaticas": [
+          "make_move"
+        ],
+        "ferramentas_solicitadas": [],
+        "ferramentas_executadas": [
+          "make_move"
+        ]
+      },
+      {
+        "player": 1,
+        "row": 4,
+        "col": 2,
+        "metricas": {
+          "modelo": "openai/gpt-oss-20b",
+          "chamadas_llm": 3,
+          "tentativas_adicionais": 1,
+          "tentativas_por_categoria": {
+            "decisao": 0,
+            "disponibilidade": 1
+          },
+          "tempo_turno_s": 10.280151875000229,
+          "tempo_llm_s": 1.9697440630002347,
+          "tempo_espera_s": 8.175300129999869,
+          "tempo_espera_por_motivo_s": {
+            "preventiva": 1.1824341299998196,
+            "limite_api": 6.992866000000049,
+            "recuperacao": 0.0
+          },
+          "tempo_processamento_s": 2.10485174500036,
+          "erros": {
+            "RateLimitError (TPM)": 1
+          },
+          "total_erros": 1,
+          "fallbacks": 0,
+          "chamadas_com_tokens": {
+            "tokens_entrada": 2,
+            "tokens_saida": 2,
+            "tokens_total": 2
+          },
+          "tokens_entrada": 1300,
+          "tokens_saida": 1189,
+          "tokens_total": 2489
+        },
+        "modo_autonomia": "operacional",
+        "origem_decisao": "llm_tool_call",
+        "ferramentas_automaticas": [],
+        "ferramentas_solicitadas": [
+          "get_heuristic_move",
+          "make_move"
+        ],
+        "ferramentas_executadas": [
+          "get_heuristic_move",
+          "make_move"
+        ]
+      },
+      {
+        "player": -1,
+        "row": 3,
+        "col": 2,
+        "modo_autonomia": "heuristica",
+        "origem_decisao": "heuristica",
+        "ferramentas_automaticas": [
+          "make_move"
+        ],
+        "ferramentas_solicitadas": [],
+        "ferramentas_executadas": [
+          "make_move"
+        ]
+      },
+      {
+        "player": 1,
+        "row": 6,
+        "col": 2,
+        "metricas": {
+          "modelo": "openai/gpt-oss-20b",
+          "chamadas_llm": 8,
+          "tentativas_adicionais": 6,
+          "tentativas_por_categoria": {
+            "decisao": 2,
+            "disponibilidade": 4
+          },
+          "tempo_turno_s": 29.438197150999713,
+          "tempo_llm_s": 5.096395659999871,
+          "tempo_espera_s": 23.90139278099923,
+          "tempo_espera_por_motivo_s": {
+            "preventiva": 0.9888095469996188,
+            "limite_api": 21.948473866999848,
+            "recuperacao": 0.9641093669997645
+          },
+          "tempo_processamento_s": 5.536804370000482,
+          "erros": {
+            "RateLimitError (TPM)": 4,
+            "resposta_sem_chamada_de_ferramenta": 2
+          },
+          "total_erros": 6,
+          "fallbacks": 0,
+          "chamadas_com_tokens": {
+            "tokens_entrada": 4,
+            "tokens_saida": 4,
+            "tokens_total": 4
+          },
+          "tokens_entrada": 2598,
+          "tokens_saida": 3036,
+          "tokens_total": 5634
+        },
+        "modo_autonomia": "operacional",
+        "origem_decisao": "llm_tool_call",
+        "ferramentas_automaticas": [],
+        "ferramentas_solicitadas": [
+          "get_heuristic_move",
+          "make_move"
+        ],
+        "ferramentas_executadas": [
+          "get_heuristic_move",
+          "make_move"
+        ]
+      },
+      {
+        "player": -1,
+        "row": 5,
+        "col": 3,
+        "modo_autonomia": "heuristica",
+        "origem_decisao": "heuristica",
+        "ferramentas_automaticas": [
+          "make_move"
+        ],
+        "ferramentas_solicitadas": [],
+        "ferramentas_executadas": [
+          "make_move"
+        ]
+      },
+      {
+        "player": 1,
+        "row": 5,
+        "col": 4,
+        "metricas": {
+          "modelo": "openai/gpt-oss-20b",
+          "chamadas_llm": 3,
+          "tentativas_adicionais": 1,
+          "tentativas_por_categoria": {
+            "decisao": 0,
+            "disponibilidade": 1
+          },
+          "tempo_turno_s": 12.002578418999747,
+          "tempo_llm_s": 1.8105866430000788,
+          "tempo_espera_s": 9.970358926000245,
+          "tempo_espera_por_motivo_s": {
+            "preventiva": 0.984820891000254,
+            "limite_api": 8.98553803499999,
+            "recuperacao": 0.0
+          },
+          "tempo_processamento_s": 2.032219492999502,
+          "erros": {
+            "RateLimitError (TPM)": 1
+          },
+          "total_erros": 1,
+          "fallbacks": 0,
+          "chamadas_com_tokens": {
+            "tokens_entrada": 2,
+            "tokens_saida": 2,
+            "tokens_total": 2
+          },
+          "tokens_entrada": 1300,
+          "tokens_saida": 926,
+          "tokens_total": 2226
+        },
+        "modo_autonomia": "operacional",
+        "origem_decisao": "llm_tool_call",
+        "ferramentas_automaticas": [],
+        "ferramentas_solicitadas": [
+          "get_heuristic_move",
+          "make_move"
+        ],
+        "ferramentas_executadas": [
+          "get_heuristic_move",
+          "make_move"
+        ]
+      },
+      {
+        "player": -1,
+        "row": 1,
+        "col": 2,
+        "modo_autonomia": "heuristica",
+        "origem_decisao": "heuristica",
+        "ferramentas_automaticas": [
+          "make_move"
+        ],
+        "ferramentas_solicitadas": [],
+        "ferramentas_executadas": [
+          "make_move"
+        ]
+      },
+      {
+        "player": 1,
+        "row": 0,
+        "col": 2,
+        "metricas": {
+          "modelo": "openai/gpt-oss-20b",
+          "chamadas_llm": 5,
+          "tentativas_adicionais": 2,
+          "tentativas_por_categoria": {
+            "decisao": 0,
+            "disponibilidade": 2
+          },
+          "tempo_turno_s": 9.755772850000085,
+          "tempo_llm_s": 1.9242857880003612,
+          "tempo_espera_s": 7.174439090000305,
+          "tempo_espera_por_motivo_s": {
+            "preventiva": 5.196029355000064,
+            "limite_api": 1.9784097350002412,
+            "recuperacao": 0.0
+          },
+          "tempo_processamento_s": 2.5813337599997794,
+          "erros": {
+            "RateLimitError (TPM)": 2
+          },
+          "total_erros": 2,
+          "fallbacks": 0,
+          "chamadas_com_tokens": {
+            "tokens_entrada": 3,
+            "tokens_saida": 3,
+            "tokens_total": 3
+          },
+          "tokens_entrada": 2027,
+          "tokens_saida": 875,
+          "tokens_total": 2902
+        },
+        "modo_autonomia": "operacional",
+        "origem_decisao": "llm_tool_call",
+        "ferramentas_automaticas": [],
+        "ferramentas_solicitadas": [
+          "get_valid_moves",
+          "get_heuristic_move",
+          "make_move"
+        ],
+        "ferramentas_executadas": [
+          "get_valid_moves",
+          "get_heuristic_move",
+          "make_move"
+        ]
+      },
+      {
+        "player": -1,
+        "row": 2,
+        "col": 7,
+        "modo_autonomia": "heuristica",
+        "origem_decisao": "heuristica",
+        "ferramentas_automaticas": [
+          "make_move"
+        ],
+        "ferramentas_solicitadas": [],
+        "ferramentas_executadas": [
+          "make_move"
+        ]
+      },
+      {
+        "player": 1,
+        "row": 1,
+        "col": 3,
+        "metricas": {
+          "modelo": "openai/gpt-oss-20b",
+          "chamadas_llm": 3,
+          "tentativas_adicionais": 1,
+          "tentativas_por_categoria": {
+            "decisao": 0,
+            "disponibilidade": 1
+          },
+          "tempo_turno_s": 8.009603659999811,
+          "tempo_llm_s": 1.7817937040003926,
+          "tempo_espera_s": 5.966518585999893,
+          "tempo_espera_por_motivo_s": {
+            "preventiva": 1.9866153859998121,
+            "limite_api": 3.9799032000000807,
+            "recuperacao": 0.0
+          },
+          "tempo_processamento_s": 2.0430850739999187,
+          "erros": {
+            "RateLimitError (TPM)": 1
+          },
+          "total_erros": 1,
+          "fallbacks": 0,
+          "chamadas_com_tokens": {
+            "tokens_entrada": 2,
+            "tokens_saida": 2,
+            "tokens_total": 2
+          },
+          "tokens_entrada": 1300,
+          "tokens_saida": 905,
+          "tokens_total": 2205
+        },
+        "modo_autonomia": "operacional",
+        "origem_decisao": "llm_tool_call",
+        "ferramentas_automaticas": [],
+        "ferramentas_solicitadas": [
+          "get_heuristic_move",
+          "make_move"
+        ],
+        "ferramentas_executadas": [
+          "get_heuristic_move",
+          "make_move"
+        ]
+      },
+      {
+        "player": -1,
+        "row": 2,
+        "col": 0,
+        "modo_autonomia": "heuristica",
+        "origem_decisao": "heuristica",
+        "ferramentas_automaticas": [
+          "make_move"
+        ],
+        "ferramentas_solicitadas": [],
+        "ferramentas_executadas": [
+          "make_move"
+        ]
+      },
+      {
+        "player": 1,
+        "row": 3,
+        "col": 1,
+        "metricas": {
+          "modelo": "openai/gpt-oss-20b",
+          "chamadas_llm": 10,
+          "tentativas_adicionais": 9,
+          "tentativas_por_categoria": {
+            "decisao": 4,
+            "disponibilidade": 5
+          },
+          "tempo_turno_s": 41.31950384799984,
+          "tempo_llm_s": 7.72364071399943,
+          "tempo_espera_s": 33.18721359900064,
+          "tempo_espera_por_motivo_s": {
+            "preventiva": 0.4645944120002241,
+            "limite_api": 30.92366223800036,
+            "recuperacao": 1.7989569490000576
+          },
+          "tempo_processamento_s": 8.132290248999198,
+          "erros": {
+            "RateLimitError (TPM)": 5,
+            "resposta_sem_chamada_de_ferramenta": 5
+          },
+          "total_erros": 10,
+          "fallbacks": 1,
+          "chamadas_com_tokens": {
+            "tokens_entrada": 5,
+            "tokens_saida": 5,
+            "tokens_total": 5
+          },
+          "tokens_entrada": 3225,
+          "tokens_saida": 5120,
+          "tokens_total": 8345
+        },
+        "modo_autonomia": "operacional",
+        "origem_decisao": "fallback_heuristico",
+        "ferramentas_automaticas": [
+          "make_move"
+        ],
+        "ferramentas_solicitadas": [],
+        "ferramentas_executadas": [
+          "make_move"
+        ],
+        "erro_decisao": "resposta_sem_chamada_de_ferramenta"
+      },
+      {
+        "player": -1,
+        "row": 6,
+        "col": 5,
+        "modo_autonomia": "heuristica",
+        "origem_decisao": "heuristica",
+        "ferramentas_automaticas": [
+          "make_move"
+        ],
+        "ferramentas_solicitadas": [],
+        "ferramentas_executadas": [
+          "make_move"
+        ]
+      },
+      {
+        "player": 1,
+        "row": 7,
+        "col": 5,
+        "metricas": {
+          "modelo": "openai/gpt-oss-20b",
+          "chamadas_llm": 8,
+          "tentativas_adicionais": 4,
+          "tentativas_por_categoria": {
+            "decisao": 0,
+            "disponibilidade": 4
+          },
+          "tempo_turno_s": 23.193831733000025,
+          "tempo_llm_s": 2.7697835870003473,
+          "tempo_espera_s": 19.75694544900034,
+          "tempo_espera_por_motivo_s": {
+            "preventiva": 5.882587948000037,
+            "limite_api": 13.874357501000304,
+            "recuperacao": 0.0
+          },
+          "tempo_processamento_s": 3.4368862839996837,
+          "erros": {
+            "RateLimitError (TPM)": 4
+          },
+          "total_erros": 4,
+          "fallbacks": 0,
+          "chamadas_com_tokens": {
+            "tokens_entrada": 4,
+            "tokens_saida": 4,
+            "tokens_total": 4
+          },
+          "tokens_entrada": 2885,
+          "tokens_saida": 1053,
+          "tokens_total": 3938
+        },
+        "modo_autonomia": "operacional",
+        "origem_decisao": "llm_tool_call",
+        "ferramentas_automaticas": [],
+        "ferramentas_solicitadas": [
+          "get_valid_moves",
+          "get_game_status",
+          "get_minimax_move",
+          "make_move"
+        ],
+        "ferramentas_executadas": [
+          "get_valid_moves",
+          "get_game_status",
+          "get_minimax_move",
+          "make_move"
+        ]
+      },
+      {
+        "player": -1,
+        "row": 7,
+        "col": 2,
+        "modo_autonomia": "heuristica",
+        "origem_decisao": "heuristica",
+        "ferramentas_automaticas": [
+          "make_move"
+        ],
+        "ferramentas_solicitadas": [],
+        "ferramentas_executadas": [
+          "make_move"
+        ]
+      },
+      {
+        "player": 1,
+        "row": 1,
+        "col": 4,
+        "metricas": {
+          "modelo": "openai/gpt-oss-20b",
+          "chamadas_llm": 3,
+          "tentativas_adicionais": 1,
+          "tentativas_por_categoria": {
+            "decisao": 0,
+            "disponibilidade": 1
+          },
+          "tempo_turno_s": 6.634608578000098,
+          "tempo_llm_s": 1.371093430000201,
+          "tempo_espera_s": 4.995136783000362,
+          "tempo_espera_por_motivo_s": {
+            "preventiva": 2.0108899430001657,
+            "limite_api": 2.9842468400001962,
+            "recuperacao": 0.0
+          },
+          "tempo_processamento_s": 1.6394717949997357,
+          "erros": {
+            "RateLimitError (TPM)": 1
+          },
+          "total_erros": 1,
+          "fallbacks": 0,
+          "chamadas_com_tokens": {
+            "tokens_entrada": 2,
+            "tokens_saida": 2,
+            "tokens_total": 2
+          },
+          "tokens_entrada": 1302,
+          "tokens_saida": 677,
+          "tokens_total": 1979
+        },
+        "modo_autonomia": "operacional",
+        "origem_decisao": "llm_tool_call",
+        "ferramentas_automaticas": [],
+        "ferramentas_solicitadas": [
+          "get_minimax_move",
+          "make_move"
+        ],
+        "ferramentas_executadas": [
+          "get_minimax_move",
+          "make_move"
+        ]
+      },
+      {
+        "player": -1,
+        "row": 5,
+        "col": 6,
+        "modo_autonomia": "heuristica",
+        "origem_decisao": "heuristica",
+        "ferramentas_automaticas": [
+          "make_move"
+        ],
+        "ferramentas_solicitadas": [],
+        "ferramentas_executadas": [
+          "make_move"
+        ]
+      },
+      {
+        "player": 1,
+        "row": 5,
+        "col": 7,
+        "metricas": {
+          "modelo": "openai/gpt-oss-20b",
+          "chamadas_llm": 3,
+          "tentativas_adicionais": 1,
+          "tentativas_por_categoria": {
+            "decisao": 0,
+            "disponibilidade": 1
+          },
+          "tempo_turno_s": 12.666174315000262,
+          "tempo_llm_s": 1.6277254440001343,
+          "tempo_espera_s": 10.747857774999375,
+          "tempo_espera_por_motivo_s": {
+            "preventiva": 1.7628342639995935,
+            "limite_api": 8.985023510999781,
+            "recuperacao": 0.0
+          },
+          "tempo_processamento_s": 1.9183165400008875,
+          "erros": {
+            "RateLimitError (TPM)": 1
+          },
+          "total_erros": 1,
+          "fallbacks": 0,
+          "chamadas_com_tokens": {
+            "tokens_entrada": 2,
+            "tokens_saida": 2,
+            "tokens_total": 2
+          },
+          "tokens_entrada": 1302,
+          "tokens_saida": 941,
+          "tokens_total": 2243
+        },
+        "modo_autonomia": "operacional",
+        "origem_decisao": "llm_tool_call",
+        "ferramentas_automaticas": [],
+        "ferramentas_solicitadas": [
+          "get_minimax_move",
+          "make_move"
+        ],
+        "ferramentas_executadas": [
+          "get_minimax_move",
+          "make_move"
+        ]
+      },
+      {
+        "player": -1,
+        "row": 6,
+        "col": 3,
+        "modo_autonomia": "heuristica",
+        "origem_decisao": "heuristica",
+        "ferramentas_automaticas": [
+          "make_move"
+        ],
+        "ferramentas_solicitadas": [],
+        "ferramentas_executadas": [
+          "make_move"
+        ]
+      },
+      {
+        "player": 1,
+        "row": 5,
+        "col": 1,
+        "metricas": {
+          "modelo": "openai/gpt-oss-20b",
+          "chamadas_llm": 3,
+          "tentativas_adicionais": 1,
+          "tentativas_por_categoria": {
+            "decisao": 0,
+            "disponibilidade": 1
+          },
+          "tempo_turno_s": 7.879524405999746,
+          "tempo_llm_s": 1.629494261000218,
+          "tempo_espera_s": 6.003454233999946,
+          "tempo_espera_por_motivo_s": {
+            "preventiva": 2.025283615000262,
+            "limite_api": 3.978170618999684,
+            "recuperacao": 0.0
+          },
+          "tempo_processamento_s": 1.8760701719997996,
+          "erros": {
+            "RateLimitError (TPM)": 1
+          },
+          "total_erros": 1,
+          "fallbacks": 0,
+          "chamadas_com_tokens": {
+            "tokens_entrada": 2,
+            "tokens_saida": 2,
+            "tokens_total": 2
+          },
+          "tokens_entrada": 1300,
+          "tokens_saida": 828,
+          "tokens_total": 2128
+        },
+        "modo_autonomia": "operacional",
+        "origem_decisao": "llm_tool_call",
+        "ferramentas_automaticas": [],
+        "ferramentas_solicitadas": [
+          "get_heuristic_move",
+          "make_move"
+        ],
+        "ferramentas_executadas": [
+          "get_heuristic_move",
+          "make_move"
+        ]
+      },
+      {
+        "player": -1,
+        "row": 4,
+        "col": 1,
+        "modo_autonomia": "heuristica",
+        "origem_decisao": "heuristica",
+        "ferramentas_automaticas": [
+          "make_move"
+        ],
+        "ferramentas_solicitadas": [],
+        "ferramentas_executadas": [
+          "make_move"
+        ]
+      },
+      {
+        "player": 1,
+        "row": 5,
+        "col": 0,
+        "metricas": {
+          "modelo": "openai/gpt-oss-20b",
+          "chamadas_llm": 5,
+          "tentativas_adicionais": 2,
+          "tentativas_por_categoria": {
+            "decisao": 0,
+            "disponibilidade": 2
+          },
+          "tempo_turno_s": 14.703416653000204,
+          "tempo_llm_s": 2.1471432890007236,
+          "tempo_espera_s": 12.2379568930005,
+          "tempo_espera_por_motivo_s": {
+            "preventiva": 5.245168300000387,
+            "limite_api": 6.992788593000114,
+            "recuperacao": 0.0
+          },
+          "tempo_processamento_s": 2.4654597599997032,
+          "erros": {
+            "RateLimitError (TPM)": 2
+          },
+          "total_erros": 2,
+          "fallbacks": 0,
+          "chamadas_com_tokens": {
+            "tokens_entrada": 3,
+            "tokens_saida": 3,
+            "tokens_total": 3
+          },
+          "tokens_entrada": 2085,
+          "tokens_saida": 891,
+          "tokens_total": 2976
+        },
+        "modo_autonomia": "operacional",
+        "origem_decisao": "llm_tool_call",
+        "ferramentas_automaticas": [],
+        "ferramentas_solicitadas": [
+          "get_valid_moves",
+          "get_minimax_move",
+          "make_move"
+        ],
+        "ferramentas_executadas": [
+          "get_valid_moves",
+          "get_minimax_move",
+          "make_move"
+        ]
+      },
+      {
+        "player": -1,
+        "row": 0,
+        "col": 4,
+        "modo_autonomia": "heuristica",
+        "origem_decisao": "heuristica",
+        "ferramentas_automaticas": [
+          "make_move"
+        ],
+        "ferramentas_solicitadas": [],
+        "ferramentas_executadas": [
+          "make_move"
+        ]
+      },
+      {
+        "player": 1,
+        "row": 7,
+        "col": 4,
+        "metricas": {
+          "modelo": "openai/gpt-oss-20b",
+          "chamadas_llm": 5,
+          "tentativas_adicionais": 2,
+          "tentativas_por_categoria": {
+            "decisao": 0,
+            "disponibilidade": 2
+          },
+          "tempo_turno_s": 15.834282360000088,
+          "tempo_llm_s": 2.8006008699999256,
+          "tempo_espera_s": 12.72471372400014,
+          "tempo_espera_por_motivo_s": {
+            "preventiva": 2.7468938110000636,
+            "limite_api": 9.977819913000076,
+            "recuperacao": 0.0
+          },
+          "tempo_processamento_s": 3.109568635999949,
+          "erros": {
+            "RateLimitError (TPM)": 2
+          },
+          "total_erros": 2,
+          "fallbacks": 0,
+          "chamadas_com_tokens": {
+            "tokens_entrada": 3,
+            "tokens_saida": 3,
+            "tokens_total": 3
+          },
+          "tokens_entrada": 2091,
+          "tokens_saida": 1122,
+          "tokens_total": 3213
+        },
+        "modo_autonomia": "operacional",
+        "origem_decisao": "llm_tool_call",
+        "ferramentas_automaticas": [],
+        "ferramentas_solicitadas": [
+          "get_valid_moves",
+          "get_heuristic_move",
+          "make_move"
+        ],
+        "ferramentas_executadas": [
+          "get_valid_moves",
+          "get_heuristic_move",
+          "make_move"
+        ]
+      },
+      {
+        "player": -1,
+        "row": 3,
+        "col": 6,
+        "modo_autonomia": "heuristica",
+        "origem_decisao": "heuristica",
+        "ferramentas_automaticas": [
+          "make_move"
+        ],
+        "ferramentas_solicitadas": [],
+        "ferramentas_executadas": [
+          "make_move"
+        ]
+      },
+      {
+        "player": 1,
+        "row": 0,
+        "col": 3,
+        "metricas": {
+          "modelo": "openai/gpt-oss-20b",
+          "chamadas_llm": 3,
+          "tentativas_adicionais": 1,
+          "tentativas_por_categoria": {
+            "decisao": 0,
+            "disponibilidade": 1
+          },
+          "tempo_turno_s": 5.756448048000038,
+          "tempo_llm_s": 1.0040173469997171,
+          "tempo_espera_s": 4.096493263000411,
+          "tempo_espera_por_motivo_s": {
+            "preventiva": 4.096493263000411,
+            "limite_api": 0.0,
+            "recuperacao": 0.0
+          },
+          "tempo_processamento_s": 1.659954784999627,
+          "erros": {
+            "RateLimitError (TPM)": 1
+          },
+          "total_erros": 1,
+          "fallbacks": 0,
+          "chamadas_com_tokens": {
+            "tokens_entrada": 2,
+            "tokens_saida": 2,
+            "tokens_total": 2
+          },
+          "tokens_entrada": 1302,
+          "tokens_saida": 416,
+          "tokens_total": 1718
+        },
+        "modo_autonomia": "operacional",
+        "origem_decisao": "llm_tool_call",
+        "ferramentas_automaticas": [],
+        "ferramentas_solicitadas": [
+          "get_minimax_move",
+          "make_move"
+        ],
+        "ferramentas_executadas": [
+          "get_minimax_move",
+          "make_move"
+        ]
+      },
+      {
+        "player": -1,
+        "row": 7,
+        "col": 3,
+        "modo_autonomia": "heuristica",
+        "origem_decisao": "heuristica",
+        "ferramentas_automaticas": [
+          "make_move"
+        ],
+        "ferramentas_solicitadas": [],
+        "ferramentas_executadas": [
+          "make_move"
+        ]
+      },
+      {
+        "player": 1,
+        "row": 4,
+        "col": 0,
+        "metricas": {
+          "modelo": "openai/gpt-oss-20b",
+          "chamadas_llm": 3,
+          "tentativas_adicionais": 1,
+          "tentativas_por_categoria": {
+            "decisao": 0,
+            "disponibilidade": 1
+          },
+          "tempo_turno_s": 6.648151037999924,
+          "tempo_llm_s": 1.7661069460000363,
+          "tempo_espera_s": 4.520852224000009,
+          "tempo_espera_por_motivo_s": {
+            "preventiva": 1.5483139689999916,
+            "limite_api": 2.9725382550000177,
+            "recuperacao": 0.0
+          },
+          "tempo_processamento_s": 2.1272988139999143,
+          "erros": {
+            "RateLimitError (TPM)": 1
+          },
+          "total_erros": 1,
+          "fallbacks": 0,
+          "chamadas_com_tokens": {
+            "tokens_entrada": 2,
+            "tokens_saida": 2,
+            "tokens_total": 2
+          },
+          "tokens_entrada": 1300,
+          "tokens_saida": 917,
+          "tokens_total": 2217
+        },
+        "modo_autonomia": "operacional",
+        "origem_decisao": "llm_tool_call",
+        "ferramentas_automaticas": [],
+        "ferramentas_solicitadas": [
+          "get_heuristic_move",
+          "make_move"
+        ],
+        "ferramentas_executadas": [
+          "get_heuristic_move",
+          "make_move"
+        ]
+      },
+      {
+        "player": -1,
+        "row": 3,
+        "col": 0,
+        "modo_autonomia": "heuristica",
+        "origem_decisao": "heuristica",
+        "ferramentas_automaticas": [
+          "make_move"
+        ],
+        "ferramentas_solicitadas": [],
+        "ferramentas_executadas": [
+          "make_move"
+        ]
+      },
+      {
+        "player": 1,
+        "row": 4,
+        "col": 7,
+        "metricas": {
+          "modelo": "openai/gpt-oss-20b",
+          "chamadas_llm": 3,
+          "tentativas_adicionais": 1,
+          "tentativas_por_categoria": {
+            "decisao": 0,
+            "disponibilidade": 1
+          },
+          "tempo_turno_s": 12.93654066199997,
+          "tempo_llm_s": 1.836263952000536,
+          "tempo_espera_s": 10.797829574999923,
+          "tempo_espera_por_motivo_s": {
+            "preventiva": 1.8094594680001137,
+            "limite_api": 8.98837010699981,
+            "recuperacao": 0.0
+          },
+          "tempo_processamento_s": 2.138711087000047,
+          "erros": {
+            "RateLimitError (TPM)": 1
+          },
+          "total_erros": 1,
+          "fallbacks": 0,
+          "chamadas_com_tokens": {
+            "tokens_entrada": 2,
+            "tokens_saida": 2,
+            "tokens_total": 2
+          },
+          "tokens_entrada": 1302,
+          "tokens_saida": 876,
+          "tokens_total": 2178
+        },
+        "modo_autonomia": "operacional",
+        "origem_decisao": "llm_tool_call",
+        "ferramentas_automaticas": [],
+        "ferramentas_solicitadas": [
+          "get_minimax_move",
+          "make_move"
+        ],
+        "ferramentas_executadas": [
+          "get_minimax_move",
+          "make_move"
+        ]
+      },
+      {
+        "player": -1,
+        "row": 7,
+        "col": 6,
+        "modo_autonomia": "heuristica",
+        "origem_decisao": "heuristica",
+        "ferramentas_automaticas": [
+          "make_move"
+        ],
+        "ferramentas_solicitadas": [],
+        "ferramentas_executadas": [
+          "make_move"
+        ]
+      },
+      {
+        "player": 1,
+        "row": 1,
+        "col": 0,
+        "metricas": {
+          "modelo": "openai/gpt-oss-20b",
+          "chamadas_llm": 5,
+          "tentativas_adicionais": 3,
+          "tentativas_por_categoria": {
+            "decisao": 1,
+            "disponibilidade": 2
+          },
+          "tempo_turno_s": 22.824786480000057,
+          "tempo_llm_s": 3.486476054999912,
+          "tempo_espera_s": 18.598721099999693,
+          "tempo_espera_por_motivo_s": {
+            "preventiva": 1.0973316939998767,
+            "limite_api": 16.94198346999974,
+            "recuperacao": 0.5594059360000756
+          },
+          "tempo_processamento_s": 4.226065380000364,
+          "erros": {
+            "resposta_sem_chamada_de_ferramenta": 1,
+            "RateLimitError (TPM)": 2
+          },
+          "total_erros": 3,
+          "fallbacks": 0,
+          "chamadas_com_tokens": {
+            "tokens_entrada": 3,
+            "tokens_saida": 3,
+            "tokens_total": 3
+          },
+          "tokens_entrada": 1951,
+          "tokens_saida": 2183,
+          "tokens_total": 4134
+        },
+        "modo_autonomia": "operacional",
+        "origem_decisao": "llm_tool_call",
+        "ferramentas_automaticas": [],
+        "ferramentas_solicitadas": [
+          "get_minimax_move",
+          "make_move"
+        ],
+        "ferramentas_executadas": [
+          "get_minimax_move",
+          "make_move"
+        ]
+      },
+      {
+        "player": -1,
+        "row": 3,
+        "col": 7,
+        "modo_autonomia": "heuristica",
+        "origem_decisao": "heuristica",
+        "ferramentas_automaticas": [
+          "make_move"
+        ],
+        "ferramentas_solicitadas": [],
+        "ferramentas_executadas": [
+          "make_move"
+        ]
+      },
+      {
+        "player": 1,
+        "row": 1,
+        "col": 7,
+        "metricas": {
+          "modelo": "openai/gpt-oss-20b",
+          "chamadas_llm": 5,
+          "tentativas_adicionais": 2,
+          "tentativas_por_categoria": {
+            "decisao": 0,
+            "disponibilidade": 2
+          },
+          "tempo_turno_s": 15.978016253000078,
+          "tempo_llm_s": 4.467960259999472,
+          "tempo_espera_s": 10.383562689999962,
+          "tempo_espera_por_motivo_s": {
+            "preventiva": 1.4654282050000802,
+            "limite_api": 8.918134484999882,
+            "recuperacao": 0.0
+          },
+          "tempo_processamento_s": 5.5944535630001155,
+          "erros": {
+            "RateLimitError (TPM)": 2
+          },
+          "total_erros": 2,
+          "fallbacks": 0,
+          "chamadas_com_tokens": {
+            "tokens_entrada": 3,
+            "tokens_saida": 3,
+            "tokens_total": 3
+          },
+          "tokens_entrada": 2053,
+          "tokens_saida": 1745,
+          "tokens_total": 3798
+        },
+        "modo_autonomia": "operacional",
+        "origem_decisao": "llm_tool_call",
+        "ferramentas_automaticas": [],
+        "ferramentas_solicitadas": [
+          "get_valid_moves",
+          "get_minimax_move",
+          "make_move"
+        ],
+        "ferramentas_executadas": [
+          "get_valid_moves",
+          "get_minimax_move",
+          "make_move"
+        ]
+      },
+      {
+        "player": -1,
+        "row": 4,
+        "col": 6,
+        "modo_autonomia": "heuristica",
+        "origem_decisao": "heuristica",
+        "ferramentas_automaticas": [
+          "make_move"
+        ],
+        "ferramentas_solicitadas": [],
+        "ferramentas_executadas": [
+          "make_move"
+        ]
+      },
+      {
+        "player": 1,
+        "row": 6,
+        "col": 4,
+        "metricas": {
+          "modelo": "openai/gpt-oss-20b",
+          "chamadas_llm": 3,
+          "tentativas_adicionais": 1,
+          "tentativas_por_categoria": {
+            "decisao": 0,
+            "disponibilidade": 1
+          },
+          "tempo_turno_s": 6.468100749000314,
+          "tempo_llm_s": 1.4115213749996656,
+          "tempo_espera_s": 4.698364370000036,
+          "tempo_espera_por_motivo_s": {
+            "preventiva": 1.7154056370000035,
+            "limite_api": 2.9829587330000322,
+            "recuperacao": 0.0
+          },
+          "tempo_processamento_s": 1.7697363790002782,
+          "erros": {
+            "RateLimitError (TPM)": 1
+          },
+          "total_erros": 1,
+          "fallbacks": 0,
+          "chamadas_com_tokens": {
+            "tokens_entrada": 2,
+            "tokens_saida": 2,
+            "tokens_total": 2
+          },
+          "tokens_entrada": 1302,
+          "tokens_saida": 665,
+          "tokens_total": 1967
+        },
+        "modo_autonomia": "operacional",
+        "origem_decisao": "llm_tool_call",
+        "ferramentas_automaticas": [],
+        "ferramentas_solicitadas": [
+          "get_minimax_move",
+          "make_move"
+        ],
+        "ferramentas_executadas": [
+          "get_minimax_move",
+          "make_move"
+        ]
+      },
+      {
+        "player": -1,
+        "row": 0,
+        "col": 1,
+        "modo_autonomia": "heuristica",
+        "origem_decisao": "heuristica",
+        "ferramentas_automaticas": [
+          "make_move"
+        ],
+        "ferramentas_solicitadas": [],
+        "ferramentas_executadas": [
+          "make_move"
+        ]
+      },
+      {
+        "player": 1,
+        "row": 0,
+        "col": 0,
+        "metricas": {
+          "modelo": "openai/gpt-oss-20b",
+          "chamadas_llm": 3,
+          "tentativas_adicionais": 1,
+          "tentativas_por_categoria": {
+            "decisao": 0,
+            "disponibilidade": 1
+          },
+          "tempo_turno_s": 6.9596468820000155,
+          "tempo_llm_s": 1.5319230279992553,
+          "tempo_espera_s": 5.135190504000093,
+          "tempo_espera_por_motivo_s": {
+            "preventiva": 1.1540247230000205,
+            "limite_api": 3.9811657810000725,
+            "recuperacao": 0.0
+          },
+          "tempo_processamento_s": 1.8244563779999226,
+          "erros": {
+            "RateLimitError (TPM)": 1
+          },
+          "total_erros": 1,
+          "fallbacks": 0,
+          "chamadas_com_tokens": {
+            "tokens_entrada": 2,
+            "tokens_saida": 2,
+            "tokens_total": 2
+          },
+          "tokens_entrada": 1302,
+          "tokens_saida": 741,
+          "tokens_total": 2043
+        },
+        "modo_autonomia": "operacional",
+        "origem_decisao": "llm_tool_call",
+        "ferramentas_automaticas": [],
+        "ferramentas_solicitadas": [
+          "get_minimax_move",
+          "make_move"
+        ],
+        "ferramentas_executadas": [
+          "get_minimax_move",
+          "make_move"
+        ]
+      },
+      {
+        "player": -1,
+        "row": 6,
+        "col": 0,
+        "modo_autonomia": "heuristica",
+        "origem_decisao": "heuristica",
+        "ferramentas_automaticas": [
+          "make_move"
+        ],
+        "ferramentas_solicitadas": [],
+        "ferramentas_executadas": [
+          "make_move"
+        ]
+      },
+      {
+        "player": 1,
+        "row": 7,
+        "col": 0,
+        "metricas": {
+          "modelo": "openai/gpt-oss-20b",
+          "chamadas_llm": 3,
+          "tentativas_adicionais": 1,
+          "tentativas_por_categoria": {
+            "decisao": 0,
+            "disponibilidade": 1
+          },
+          "tempo_turno_s": 7.021720386000197,
+          "tempo_llm_s": 1.5326752579994718,
+          "tempo_espera_s": 5.03347785699998,
+          "tempo_espera_por_motivo_s": {
+            "preventiva": 2.080927485000302,
+            "limite_api": 2.9525503719996777,
+            "recuperacao": 0.0
+          },
+          "tempo_processamento_s": 1.9882425290002175,
+          "erros": {
+            "RateLimitError (TPM)": 1
+          },
+          "total_erros": 1,
+          "fallbacks": 0,
+          "chamadas_com_tokens": {
+            "tokens_entrada": 2,
+            "tokens_saida": 2,
+            "tokens_total": 2
+          },
+          "tokens_entrada": 1302,
+          "tokens_saida": 780,
+          "tokens_total": 2082
+        },
+        "modo_autonomia": "operacional",
+        "origem_decisao": "llm_tool_call",
+        "ferramentas_automaticas": [],
+        "ferramentas_solicitadas": [
+          "get_minimax_move",
+          "make_move"
+        ],
+        "ferramentas_executadas": [
+          "get_minimax_move",
+          "make_move"
+        ]
+      },
+      {
+        "player": -1,
+        "row": 6,
+        "col": 7,
+        "modo_autonomia": "heuristica",
+        "origem_decisao": "heuristica",
+        "ferramentas_automaticas": [
+          "make_move"
+        ],
+        "ferramentas_solicitadas": [],
+        "ferramentas_executadas": [
+          "make_move"
+        ]
+      },
+      {
+        "player": 1,
+        "row": 7,
+        "col": 7,
+        "metricas": {
+          "modelo": "openai/gpt-oss-20b",
+          "chamadas_llm": 5,
+          "tentativas_adicionais": 2,
+          "tentativas_por_categoria": {
+            "decisao": 0,
+            "disponibilidade": 2
+          },
+          "tempo_turno_s": 15.819997950000015,
+          "tempo_llm_s": 2.4560712909992617,
+          "tempo_espera_s": 12.356301116000395,
+          "tempo_espera_por_motivo_s": {
+            "preventiva": 2.418604107000192,
+            "limite_api": 9.937697009000203,
+            "recuperacao": 0.0
+          },
+          "tempo_processamento_s": 3.46369683399962,
+          "erros": {
+            "RateLimitError (TPM)": 2
+          },
+          "total_erros": 2,
+          "fallbacks": 0,
+          "chamadas_com_tokens": {
+            "tokens_entrada": 3,
+            "tokens_saida": 3,
+            "tokens_total": 3
+          },
+          "tokens_entrada": 2045,
+          "tokens_saida": 1186,
+          "tokens_total": 3231
+        },
+        "modo_autonomia": "operacional",
+        "origem_decisao": "llm_tool_call",
+        "ferramentas_automaticas": [],
+        "ferramentas_solicitadas": [
+          "get_valid_moves",
+          "get_minimax_move",
+          "make_move"
+        ],
+        "ferramentas_executadas": [
+          "get_valid_moves",
+          "get_minimax_move",
+          "make_move"
+        ]
+      },
+      {
+        "player": -1,
+        "row": 1,
+        "col": 1,
+        "modo_autonomia": "heuristica",
+        "origem_decisao": "heuristica",
+        "ferramentas_automaticas": [
+          "make_move"
+        ],
+        "ferramentas_solicitadas": [],
+        "ferramentas_executadas": [
+          "make_move"
+        ]
+      },
+      {
+        "player": 1,
+        "row": 7,
+        "col": 1,
+        "metricas": {
+          "modelo": "openai/gpt-oss-20b",
+          "chamadas_llm": 3,
+          "tentativas_adicionais": 1,
+          "tentativas_por_categoria": {
+            "decisao": 0,
+            "disponibilidade": 1
+          },
+          "tempo_turno_s": 8.827051777999714,
+          "tempo_llm_s": 2.782826022000336,
+          "tempo_espera_s": 5.283347150999816,
+          "tempo_espera_por_motivo_s": {
+            "preventiva": 0.3138136009997652,
+            "limite_api": 4.969533550000051,
+            "recuperacao": 0.0
+          },
+          "tempo_processamento_s": 3.5437046269998973,
+          "erros": {
+            "RateLimitError (TPM)": 1
+          },
+          "total_erros": 1,
+          "fallbacks": 0,
+          "chamadas_com_tokens": {
+            "tokens_entrada": 2,
+            "tokens_saida": 2,
+            "tokens_total": 2
+          },
+          "tokens_entrada": 1300,
+          "tokens_saida": 1432,
+          "tokens_total": 2732
+        },
+        "modo_autonomia": "operacional",
+        "origem_decisao": "llm_tool_call",
+        "ferramentas_automaticas": [],
+        "ferramentas_solicitadas": [
+          "get_heuristic_move",
+          "make_move"
+        ],
+        "ferramentas_executadas": [
+          "get_heuristic_move",
+          "make_move"
+        ]
+      },
+      {
+        "player": -1,
+        "row": 6,
+        "col": 6,
+        "modo_autonomia": "heuristica",
+        "origem_decisao": "heuristica",
+        "ferramentas_automaticas": [
+          "make_move"
+        ],
+        "ferramentas_solicitadas": [],
+        "ferramentas_executadas": [
+          "make_move"
+        ]
+      },
+      {
+        "player": 1,
+        "row": 0,
+        "col": 6,
+        "metricas": {
+          "modelo": "openai/gpt-oss-20b",
+          "chamadas_llm": 6,
+          "tentativas_adicionais": 3,
+          "tentativas_por_categoria": {
+            "decisao": 0,
+            "disponibilidade": 3
+          },
+          "tempo_turno_s": 19.05825119200017,
+          "tempo_llm_s": 2.534080871000697,
+          "tempo_espera_s": 16.014101874999596,
+          "tempo_espera_por_motivo_s": {
+            "preventiva": 2.096707368999432,
+            "limite_api": 13.917394506000164,
+            "recuperacao": 0.0
+          },
+          "tempo_processamento_s": 3.0441493170005742,
+          "erros": {
+            "RateLimitError (TPM)": 3
+          },
+          "total_erros": 3,
+          "fallbacks": 0,
+          "chamadas_com_tokens": {
+            "tokens_entrada": 3,
+            "tokens_saida": 3,
+            "tokens_total": 3
+          },
+          "tokens_entrada": 2011,
+          "tokens_saida": 1354,
+          "tokens_total": 3365
+        },
+        "modo_autonomia": "operacional",
+        "origem_decisao": "llm_tool_call",
+        "ferramentas_automaticas": [],
+        "ferramentas_solicitadas": [
+          "get_valid_moves",
+          "get_heuristic_move",
+          "make_move"
+        ],
+        "ferramentas_executadas": [
+          "get_valid_moves",
+          "get_heuristic_move",
+          "make_move"
+        ]
+      },
+      {
+        "player": -1,
+        "row": 1,
+        "col": 6,
+        "modo_autonomia": "heuristica",
+        "origem_decisao": "heuristica",
+        "ferramentas_automaticas": [
+          "make_move"
+        ],
+        "ferramentas_solicitadas": [],
+        "ferramentas_executadas": [
+          "make_move"
+        ]
+      },
+      {
+        "player": -1,
+        "row": 6,
+        "col": 1,
+        "modo_autonomia": "heuristica",
+        "origem_decisao": "heuristica",
+        "ferramentas_automaticas": [
+          "make_move"
+        ],
+        "ferramentas_solicitadas": [],
+        "ferramentas_executadas": [
+          "make_move"
+        ]
+      },
+      {
+        "player": 1,
+        "row": 0,
+        "col": 7,
+        "metricas": {
+          "modelo": "openai/gpt-oss-20b",
+          "chamadas_llm": 3,
+          "tentativas_adicionais": 1,
+          "tentativas_por_categoria": {
+            "decisao": 0,
+            "disponibilidade": 1
+          },
+          "tempo_turno_s": 5.686633755999992,
+          "tempo_llm_s": 1.8192910170000687,
+          "tempo_espera_s": 3.156851077999818,
+          "tempo_espera_por_motivo_s": {
+            "preventiva": 1.208555671999875,
+            "limite_api": 1.9482954059999429,
+            "recuperacao": 0.0
+          },
+          "tempo_processamento_s": 2.529782678000174,
+          "erros": {
+            "RateLimitError (TPM)": 1
+          },
+          "total_erros": 1,
+          "fallbacks": 0,
+          "chamadas_com_tokens": {
+            "tokens_entrada": 2,
+            "tokens_saida": 2,
+            "tokens_total": 2
+          },
+          "tokens_entrada": 1423,
+          "tokens_saida": 1134,
+          "tokens_total": 2557
+        },
+        "modo_autonomia": "operacional",
+        "origem_decisao": "llm_tool_call",
+        "ferramentas_automaticas": [],
+        "ferramentas_solicitadas": [
+          "get_board_state",
+          "make_move"
+        ],
+        "ferramentas_executadas": [
+          "get_board_state",
+          "make_move"
+        ]
+      }
+    ]
+  },
+  "eventos": [
+    {
+      "turno": 1,
+      "cor": "pretas",
+      "organizacao": "org-b",
+      "sessao": 1,
+      "duracao_s": 2.4430899480003063,
+      "status": "confirmada",
+      "chamadas": [
+        {
+          "tempo_s": 1.0286299229996985,
+          "adicional": false,
+          "categoria_retry": null,
+          "tokens_entrada": 629,
+          "tokens_saida": 706,
+          "tokens_total": 1335,
+          "solicitadas": [
+            "get_heuristic_move"
+          ]
+        },
+        {
+          "tempo_s": 0.36494601300000795,
+          "adicional": false,
+          "categoria_retry": null,
+          "tokens_entrada": 671,
+          "tokens_saida": 152,
+          "tokens_total": 823,
+          "solicitadas": [
+            "make_move"
+          ]
+        }
+      ],
+      "esperas": [
+        {
+          "motivo": "preventiva",
+          "tempo_s": 0.9597716369999034
+        }
+      ],
+      "ferramentas_automaticas": [],
+      "ferramentas_executadas": [
+        "get_heuristic_move",
+        "make_move"
+      ],
+      "ferramentas_solicitadas": [
+        "get_heuristic_move",
+        "make_move"
+      ],
+      "erros_finais": [
+        null
+      ],
+      "origem": "llm_tool_call"
+    },
+    {
+      "turno": 2,
+      "cor": "brancas",
+      "organizacao": "org-b",
+      "sessao": 1,
+      "duracao_s": 0.011417373999847769,
+      "status": "confirmada",
+      "chamadas": [],
+      "esperas": [],
+      "ferramentas_automaticas": [
+        "make_move"
+      ],
+      "ferramentas_executadas": [
+        "make_move"
+      ],
+      "ferramentas_solicitadas": [],
+      "erros_finais": [],
+      "origem": "heuristica"
+    },
+    {
+      "turno": 3,
+      "cor": "pretas",
+      "organizacao": "org-b",
+      "sessao": 1,
+      "duracao_s": 3.6728243329998804,
+      "status": "confirmada",
+      "chamadas": [
+        {
+          "tempo_s": 1.2862560130001839,
+          "adicional": false,
+          "categoria_retry": null,
+          "tokens_entrada": 629,
+          "tokens_saida": 714,
+          "tokens_total": 1343,
+          "solicitadas": [
+            "get_heuristic_move"
+          ]
+        },
+        {
+          "tempo_s": 0.6089442550000967,
+          "adicional": false,
+          "categoria_retry": null,
+          "tokens_entrada": 671,
+          "tokens_saida": 343,
+          "tokens_total": 1014,
+          "solicitadas": [
+            "make_move"
+          ]
+        }
+      ],
+      "esperas": [
+        {
+          "motivo": "preventiva",
+          "tempo_s": 0.994140127999799
+        },
+        {
+          "motivo": "preventiva",
+          "tempo_s": 0.6816177729997435
+        }
+      ],
+      "ferramentas_automaticas": [],
+      "ferramentas_executadas": [
+        "get_heuristic_move",
+        "make_move"
+      ],
+      "ferramentas_solicitadas": [
+        "get_heuristic_move",
+        "make_move"
+      ],
+      "erros_finais": [
+        null
+      ],
+      "origem": "llm_tool_call"
+    },
+    {
+      "turno": 4,
+      "cor": "brancas",
+      "organizacao": "org-b",
+      "sessao": 1,
+      "duracao_s": 0.007402089999686723,
+      "status": "confirmada",
+      "chamadas": [],
+      "esperas": [],
+      "ferramentas_automaticas": [
+        "make_move"
+      ],
+      "ferramentas_executadas": [
+        "make_move"
+      ],
+      "ferramentas_solicitadas": [],
+      "erros_finais": [],
+      "origem": "heuristica"
+    },
+    {
+      "turno": 5,
+      "cor": "pretas",
+      "organizacao": "org-b",
+      "sessao": 1,
+      "duracao_s": 7.531778952999957,
+      "status": "confirmada",
+      "chamadas": [
+        {
+          "tempo_s": 1.4997430290000011,
+          "adicional": false,
+          "categoria_retry": null,
+          "tokens_entrada": 629,
+          "tokens_saida": 1024,
+          "tokens_total": 1653,
+          "solicitadas": [],
+          "erro": "resposta_sem_chamada_de_ferramenta"
+        },
+        {
+          "tempo_s": 1.4829328879995956,
+          "adicional": true,
+          "categoria_retry": "decisao",
+          "tokens_entrada": 649,
+          "tokens_saida": 1024,
+          "tokens_total": 1673,
+          "solicitadas": [],
+          "erro": "resposta_sem_chamada_de_ferramenta"
+        },
+        {
+          "tempo_s": 1.3365051840000888,
+          "adicional": true,
+          "categoria_retry": "decisao",
+          "tokens_entrada": 649,
+          "tokens_saida": 1024,
+          "tokens_total": 1673,
+          "solicitadas": [
+            "get_heuristic_move"
+          ]
+        },
+        {
+          "tempo_s": 0.41218790899984015,
+          "adicional": false,
+          "categoria_retry": null,
+          "tokens_entrada": 671,
+          "tokens_saida": 163,
+          "tokens_total": 834,
+          "solicitadas": [
+            "make_move"
+          ]
+        }
+      ],
+      "esperas": [
+        {
+          "motivo": "preventiva",
+          "tempo_s": 1.0277959949999058
+        },
+        {
+          "motivo": "recuperacao",
+          "tempo_s": 0.48040456200033077
+        },
+        {
+          "motivo": "recuperacao",
+          "tempo_s": 0.5054481679999299
+        },
+        {
+          "motivo": "preventiva",
+          "tempo_s": 0.6480993569998645
+        }
+      ],
+      "ferramentas_automaticas": [],
+      "ferramentas_executadas": [
+        "get_heuristic_move",
+        "make_move"
+      ],
+      "ferramentas_solicitadas": [
+        "get_heuristic_move",
+        "make_move"
+      ],
+      "erros_finais": [
+        null
+      ],
+      "origem": "llm_tool_call"
+    },
+    {
+      "turno": 6,
+      "cor": "brancas",
+      "organizacao": "org-b",
+      "sessao": 1,
+      "duracao_s": 0.007708845999786718,
+      "status": "confirmada",
+      "chamadas": [],
+      "esperas": [],
+      "ferramentas_automaticas": [
+        "make_move"
+      ],
+      "ferramentas_executadas": [
+        "make_move"
+      ],
+      "ferramentas_solicitadas": [],
+      "erros_finais": [],
+      "origem": "heuristica"
+    },
+    {
+      "turno": 7,
+      "cor": "pretas",
+      "organizacao": "org-b",
+      "sessao": 1,
+      "duracao_s": 13.366488016999938,
+      "status": "confirmada",
+      "chamadas": [
+        {
+          "tempo_s": 1.90733912900032,
+          "adicional": false,
+          "categoria_retry": null,
+          "tokens_entrada": 629,
+          "tokens_saida": 1024,
+          "tokens_total": 1653,
+          "solicitadas": [],
+          "erro": "resposta_sem_chamada_de_ferramenta"
+        },
+        {
+          "tempo_s": 1.5303115990000151,
+          "adicional": true,
+          "categoria_retry": "decisao",
+          "tokens_entrada": 649,
+          "tokens_saida": 1024,
+          "tokens_total": 1673,
+          "solicitadas": [],
+          "erro": "resposta_sem_chamada_de_ferramenta"
+        },
+        {
+          "tempo_s": 0.03469249400041008,
+          "adicional": true,
+          "categoria_retry": "decisao",
+          "erro": "RateLimitError (TPM)"
+        },
+        {
+          "tempo_s": 1.2653886110001622,
+          "adicional": true,
+          "categoria_retry": "disponibilidade",
+          "retry_minuto": true,
+          "tokens_entrada": 649,
+          "tokens_saida": 744,
+          "tokens_total": 1393,
+          "solicitadas": [
+            "get_heuristic_move"
+          ]
+        },
+        {
+          "tempo_s": 0.5007902050001576,
+          "adicional": false,
+          "categoria_retry": null,
+          "erro": "RateLimitError (TPM)"
+        },
+        {
+          "tempo_s": 0.440942239999913,
+          "adicional": true,
+          "categoria_retry": "disponibilidade",
+          "retry_minuto": true,
+          "tokens_entrada": 671,
+          "tokens_saida": 135,
+          "tokens_total": 806,
+          "solicitadas": [
+            "make_move"
+          ]
+        }
+      ],
+      "esperas": [
+        {
+          "motivo": "preventiva",
+          "tempo_s": 1.2296305019999636
+        },
+        {
+          "motivo": "recuperacao",
+          "tempo_s": 0.04756035399987013
+        },
+        {
+          "motivo": "recuperacao",
+          "tempo_s": 0.4523970710001777
+        },
+        {
+          "motivo": "preventiva",
+          "tempo_s": 1.943720896999821
+        },
+        {
+          "motivo": "preventiva",
+          "tempo_s": 0.6968464619999395
+        },
+        {
+          "motivo": "limite_api",
+          "tempo_s": 2.965592334000121
+        }
+      ],
+      "ferramentas_automaticas": [],
+      "ferramentas_executadas": [
+        "get_heuristic_move",
+        "make_move"
+      ],
+      "ferramentas_solicitadas": [
+        "get_heuristic_move",
+        "make_move"
+      ],
+      "erros_finais": [
+        null
+      ],
+      "origem": "llm_tool_call"
+    },
+    {
+      "turno": 8,
+      "cor": "brancas",
+      "organizacao": "org-b",
+      "sessao": 1,
+      "duracao_s": 0.017993255999954272,
+      "status": "confirmada",
+      "chamadas": [],
+      "esperas": [],
+      "ferramentas_automaticas": [
+        "make_move"
+      ],
+      "ferramentas_executadas": [
+        "make_move"
+      ],
+      "ferramentas_solicitadas": [],
+      "erros_finais": [],
+      "origem": "heuristica"
+    },
+    {
+      "turno": 9,
+      "cor": "pretas",
+      "organizacao": "org-b",
+      "sessao": 1,
+      "duracao_s": 10.485138806000123,
+      "status": "confirmada",
+      "chamadas": [
+        {
+          "tempo_s": 0.9014748049999071,
+          "adicional": false,
+          "categoria_retry": null,
+          "tokens_entrada": 629,
+          "tokens_saida": 474,
+          "tokens_total": 1103,
+          "solicitadas": [
+            "get_minimax_move"
+          ]
+        },
+        {
+          "tempo_s": 0.03698390399995333,
+          "adicional": false,
+          "categoria_retry": null,
+          "erro": "RateLimitError (TPM)"
+        },
+        {
+          "tempo_s": 0.5938352039997881,
+          "adicional": true,
+          "categoria_retry": "disponibilidade",
+          "retry_minuto": true,
+          "tokens_entrada": 673,
+          "tokens_saida": 154,
+          "tokens_total": 827,
+          "solicitadas": [
+            "make_move"
+          ]
+        }
+      ],
+      "esperas": [
+        {
+          "motivo": "preventiva",
+          "tempo_s": 0.713608454000223
+        },
+        {
+          "motivo": "preventiva",
+          "tempo_s": 1.011123606000183
+        },
+        {
+          "motivo": "limite_api",
+          "tempo_s": 6.981377067000267
+        }
+      ],
+      "ferramentas_automaticas": [],
+      "ferramentas_executadas": [
+        "get_minimax_move",
+        "make_move"
+      ],
+      "ferramentas_solicitadas": [
+        "get_minimax_move",
+        "make_move"
+      ],
+      "erros_finais": [
+        null
+      ],
+      "origem": "llm_tool_call"
+    },
+    {
+      "turno": 10,
+      "cor": "brancas",
+      "organizacao": "org-b",
+      "sessao": 1,
+      "duracao_s": 0.0255539529998714,
+      "status": "confirmada",
+      "chamadas": [],
+      "esperas": [],
+      "ferramentas_automaticas": [
+        "make_move"
+      ],
+      "ferramentas_executadas": [
+        "make_move"
+      ],
+      "ferramentas_solicitadas": [],
+      "erros_finais": [],
+      "origem": "heuristica"
+    },
+    {
+      "turno": 11,
+      "cor": "pretas",
+      "organizacao": "org-b",
+      "sessao": 1,
+      "duracao_s": 9.693020519000129,
+      "status": "confirmada",
+      "chamadas": [
+        {
+          "tempo_s": 1.46298803100035,
+          "adicional": false,
+          "categoria_retry": null,
+          "tokens_entrada": 629,
+          "tokens_saida": 997,
+          "tokens_total": 1626,
+          "solicitadas": [
+            "get_heuristic_move"
+          ]
+        },
+        {
+          "tempo_s": 0.032577540000147565,
+          "adicional": false,
+          "categoria_retry": null,
+          "erro": "RateLimitError (TPM)"
+        },
+        {
+          "tempo_s": 0.6331470439999975,
+          "adicional": true,
+          "categoria_retry": "disponibilidade",
+          "retry_minuto": true,
+          "tokens_entrada": 671,
+          "tokens_saida": 154,
+          "tokens_total": 825,
+          "solicitadas": [
+            "make_move"
+          ]
+        }
+      ],
+      "esperas": [
+        {
+          "motivo": "preventiva",
+          "tempo_s": 0.8453249389999655
+        },
+        {
+          "motivo": "preventiva",
+          "tempo_s": 0.5110584750000271
+        },
+        {
+          "motivo": "limite_api",
+          "tempo_s": 5.990655634000177
+        }
+      ],
+      "ferramentas_automaticas": [],
+      "ferramentas_executadas": [
+        "get_heuristic_move",
+        "make_move"
+      ],
+      "ferramentas_solicitadas": [
+        "get_heuristic_move",
+        "make_move"
+      ],
+      "erros_finais": [
+        null
+      ],
+      "origem": "llm_tool_call"
+    },
+    {
+      "turno": 12,
+      "cor": "brancas",
+      "organizacao": "org-b",
+      "sessao": 1,
+      "duracao_s": 0.048787176000132604,
+      "status": "confirmada",
+      "chamadas": [],
+      "esperas": [],
+      "ferramentas_automaticas": [
+        "make_move"
+      ],
+      "ferramentas_executadas": [
+        "make_move"
+      ],
+      "ferramentas_solicitadas": [],
+      "erros_finais": [],
+      "origem": "heuristica"
+    },
+    {
+      "turno": 13,
+      "cor": "pretas",
+      "organizacao": "org-b",
+      "sessao": 1,
+      "duracao_s": 10.296315736999986,
+      "status": "confirmada",
+      "chamadas": [
+        {
+          "tempo_s": 1.251733360000344,
+          "adicional": false,
+          "categoria_retry": null,
+          "tokens_entrada": 629,
+          "tokens_saida": 972,
+          "tokens_total": 1601,
+          "solicitadas": [
+            "get_heuristic_move"
+          ]
+        },
+        {
+          "tempo_s": 0.03370571799996469,
+          "adicional": false,
+          "categoria_retry": null,
+          "erro": "RateLimitError (TPM)"
+        },
+        {
+          "tempo_s": 0.6843049849999261,
+          "adicional": true,
+          "categoria_retry": "disponibilidade",
+          "retry_minuto": true,
+          "tokens_entrada": 671,
+          "tokens_saida": 217,
+          "tokens_total": 888,
+          "solicitadas": [
+            "make_move"
+          ]
+        }
+      ],
+      "esperas": [
+        {
+          "motivo": "preventiva",
+          "tempo_s": 0.4485195339998427
+        },
+        {
+          "motivo": "preventiva",
+          "tempo_s": 0.7339145959999769
+        },
+        {
+          "motivo": "limite_api",
+          "tempo_s": 6.992866000000049
+        }
+      ],
+      "ferramentas_automaticas": [],
+      "ferramentas_executadas": [
+        "get_heuristic_move",
+        "make_move"
+      ],
+      "ferramentas_solicitadas": [
+        "get_heuristic_move",
+        "make_move"
+      ],
+      "erros_finais": [
+        null
+      ],
+      "origem": "llm_tool_call"
+    },
+    {
+      "turno": 14,
+      "cor": "brancas",
+      "organizacao": "org-b",
+      "sessao": 1,
+      "duracao_s": 0.01397397299979275,
+      "status": "confirmada",
+      "chamadas": [],
+      "esperas": [],
+      "ferramentas_automaticas": [
+        "make_move"
+      ],
+      "ferramentas_executadas": [
+        "make_move"
+      ],
+      "ferramentas_solicitadas": [],
+      "erros_finais": [],
+      "origem": "heuristica"
+    },
+    {
+      "turno": 15,
+      "cor": "pretas",
+      "organizacao": "org-b",
+      "sessao": 1,
+      "duracao_s": 29.44664981599999,
+      "status": "confirmada",
+      "chamadas": [
+        {
+          "tempo_s": 0.03135596099991744,
+          "adicional": false,
+          "categoria_retry": null,
+          "erro": "RateLimitError (TPM)"
+        },
+        {
+          "tempo_s": 1.5275985870002842,
+          "adicional": true,
+          "categoria_retry": "disponibilidade",
+          "retry_minuto": true,
+          "tokens_entrada": 629,
+          "tokens_saida": 1024,
+          "tokens_total": 1653,
+          "solicitadas": [],
+          "erro": "resposta_sem_chamada_de_ferramenta"
+        },
+        {
+          "tempo_s": 0.12015116399970793,
+          "adicional": true,
+          "categoria_retry": "decisao",
+          "erro": "RateLimitError (TPM)"
+        },
+        {
+          "tempo_s": 1.471562000999711,
+          "adicional": true,
+          "categoria_retry": "disponibilidade",
+          "retry_minuto": true,
+          "tokens_entrada": 649,
+          "tokens_saida": 1024,
+          "tokens_total": 1673,
+          "solicitadas": [],
+          "erro": "resposta_sem_chamada_de_ferramenta"
+        },
+        {
+          "tempo_s": 0.027960342999904242,
+          "adicional": true,
+          "categoria_retry": "decisao",
+          "erro": "RateLimitError (TPM)"
+        },
+        {
+          "tempo_s": 1.317010952000146,
+          "adicional": true,
+          "categoria_retry": "disponibilidade",
+          "retry_minuto": true,
+          "tokens_entrada": 649,
+          "tokens_saida": 799,
+          "tokens_total": 1448,
+          "solicitadas": [
+            "get_heuristic_move"
+          ]
+        },
+        {
+          "tempo_s": 0.08117845800006762,
+          "adicional": false,
+          "categoria_retry": null,
+          "erro": "RateLimitError (TPM)"
+        },
+        {
+          "tempo_s": 0.5195781940001325,
+          "adicional": true,
+          "categoria_retry": "disponibilidade",
+          "retry_minuto": true,
+          "tokens_entrada": 671,
+          "tokens_saida": 189,
+          "tokens_total": 860,
+          "solicitadas": [
+            "make_move"
+          ]
+        }
+      ],
+      "esperas": [
+        {
+          "motivo": "preventiva",
+          "tempo_s": 0.3561301309996452
+        },
+        {
+          "motivo": "limite_api",
+          "tempo_s": 3.992932572999962
+        },
+        {
+          "motivo": "recuperacao",
+          "tempo_s": 0.44965457699981926
+        },
+        {
+          "motivo": "limite_api",
+          "tempo_s": 5.991548355999839
+        },
+        {
+          "motivo": "recuperacao",
+          "tempo_s": 0.5144547899999452
+        },
+        {
+          "motivo": "limite_api",
+          "tempo_s": 6.989395072000207
+        },
+        {
+          "motivo": "preventiva",
+          "tempo_s": 0.6326794159999736
+        },
+        {
+          "motivo": "limite_api",
+          "tempo_s": 4.97459786599984
+        }
+      ],
+      "ferramentas_automaticas": [],
+      "ferramentas_executadas": [
+        "get_heuristic_move",
+        "make_move"
+      ],
+      "ferramentas_solicitadas": [
+        "get_heuristic_move",
+        "make_move"
+      ],
+      "erros_finais": [
+        null
+      ],
+      "origem": "llm_tool_call"
+    },
+    {
+      "turno": 16,
+      "cor": "brancas",
+      "organizacao": "org-b",
+      "sessao": 1,
+      "duracao_s": 0.10601722299998073,
+      "status": "confirmada",
+      "chamadas": [],
+      "esperas": [],
+      "ferramentas_automaticas": [
+        "make_move"
+      ],
+      "ferramentas_executadas": [
+        "make_move"
+      ],
+      "ferramentas_solicitadas": [],
+      "erros_finais": [],
+      "origem": "heuristica"
+    },
+    {
+      "turno": 17,
+      "cor": "pretas",
+      "organizacao": "org-b",
+      "sessao": 1,
+      "duracao_s": 12.012193474999549,
+      "status": "confirmada",
+      "chamadas": [
+        {
+          "tempo_s": 1.1517586909999409,
+          "adicional": false,
+          "categoria_retry": null,
+          "tokens_entrada": 629,
+          "tokens_saida": 737,
+          "tokens_total": 1366,
+          "solicitadas": [
+            "get_heuristic_move"
+          ]
+        },
+        {
+          "tempo_s": 0.04498259000001781,
+          "adicional": false,
+          "categoria_retry": null,
+          "erro": "RateLimitError (TPM)"
+        },
+        {
+          "tempo_s": 0.6138453620001201,
+          "adicional": true,
+          "categoria_retry": "disponibilidade",
+          "retry_minuto": true,
+          "tokens_entrada": 671,
+          "tokens_saida": 189,
+          "tokens_total": 860,
+          "solicitadas": [
+            "make_move"
+          ]
+        }
+      ],
+      "esperas": [
+        {
+          "motivo": "preventiva",
+          "tempo_s": 0.1869144550000783
+        },
+        {
+          "motivo": "preventiva",
+          "tempo_s": 0.7979064360001757
+        },
+        {
+          "motivo": "limite_api",
+          "tempo_s": 8.98553803499999
+        }
+      ],
+      "ferramentas_automaticas": [],
+      "ferramentas_executadas": [
+        "get_heuristic_move",
+        "make_move"
+      ],
+      "ferramentas_solicitadas": [
+        "get_heuristic_move",
+        "make_move"
+      ],
+      "erros_finais": [
+        null
+      ],
+      "origem": "llm_tool_call"
+    },
+    {
+      "turno": 18,
+      "cor": "brancas",
+      "organizacao": "org-b",
+      "sessao": 1,
+      "duracao_s": 0.026615704000050755,
+      "status": "confirmada",
+      "chamadas": [],
+      "esperas": [],
+      "ferramentas_automaticas": [
+        "make_move"
+      ],
+      "ferramentas_executadas": [
+        "make_move"
+      ],
+      "ferramentas_solicitadas": [],
+      "erros_finais": [],
+      "origem": "heuristica"
+    },
+    {
+      "turno": 19,
+      "cor": "pretas",
+      "organizacao": "org-b",
+      "sessao": 1,
+      "duracao_s": 9.774336634000065,
+      "status": "confirmada",
+      "chamadas": [
+        {
+          "tempo_s": 0.5213042250002218,
+          "adicional": false,
+          "categoria_retry": null,
+          "tokens_entrada": 629,
+          "tokens_saida": 259,
+          "tokens_total": 888,
+          "solicitadas": [
+            "get_valid_moves"
+          ]
+        },
+        {
+          "tempo_s": 0.06185868300008224,
+          "adicional": false,
+          "categoria_retry": null,
+          "erro": "RateLimitError (TPM)"
+        },
+        {
+          "tempo_s": 0.6973563300002752,
+          "adicional": true,
+          "categoria_retry": "disponibilidade",
+          "retry_minuto": true,
+          "tokens_entrada": 678,
+          "tokens_saida": 447,
+          "tokens_total": 1125,
+          "solicitadas": [
+            "get_heuristic_move"
+          ]
+        },
+        {
+          "tempo_s": 0.09738950900009513,
+          "adicional": false,
+          "categoria_retry": null,
+          "erro": "RateLimitError (TPM)"
+        },
+        {
+          "tempo_s": 0.5463770409996869,
+          "adicional": true,
+          "categoria_retry": "disponibilidade",
+          "retry_minuto": true,
+          "tokens_entrada": 720,
+          "tokens_saida": 169,
+          "tokens_total": 889,
+          "solicitadas": [
+            "make_move"
+          ]
+        }
+      ],
+      "esperas": [
+        {
+          "motivo": "preventiva",
+          "tempo_s": 0.7371283709999261
+        },
+        {
+          "motivo": "preventiva",
+          "tempo_s": 1.4489098389999526
+        },
+        {
+          "motivo": "preventiva",
+          "tempo_s": 1.902191263000077
+        },
+        {
+          "motivo": "preventiva",
+          "tempo_s": 1.1077998820001085
+        },
+        {
+          "motivo": "limite_api",
+          "tempo_s": 1.9784097350002412
+        }
+      ],
+      "ferramentas_automaticas": [],
+      "ferramentas_executadas": [
+        "get_valid_moves",
+        "get_heuristic_move",
+        "make_move"
+      ],
+      "ferramentas_solicitadas": [
+        "get_valid_moves",
+        "get_heuristic_move",
+        "make_move"
+      ],
+      "erros_finais": [
+        null
+      ],
+      "origem": "llm_tool_call"
+    },
+    {
+      "turno": 20,
+      "cor": "brancas",
+      "organizacao": "org-b",
+      "sessao": 1,
+      "duracao_s": 0.011133704000258149,
+      "status": "confirmada",
+      "chamadas": [],
+      "esperas": [],
+      "ferramentas_automaticas": [
+        "make_move"
+      ],
+      "ferramentas_executadas": [
+        "make_move"
+      ],
+      "ferramentas_solicitadas": [],
+      "erros_finais": [],
+      "origem": "heuristica"
+    },
+    {
+      "turno": 21,
+      "cor": "pretas",
+      "organizacao": "org-b",
+      "sessao": 1,
+      "duracao_s": 8.018889975000093,
+      "status": "confirmada",
+      "chamadas": [
+        {
+          "tempo_s": 1.0713947470003404,
+          "adicional": false,
+          "categoria_retry": null,
+          "tokens_entrada": 629,
+          "tokens_saida": 624,
+          "tokens_total": 1253,
+          "solicitadas": [
+            "get_heuristic_move"
+          ]
+        },
+        {
+          "tempo_s": 0.05235338100010267,
+          "adicional": false,
+          "categoria_retry": null,
+          "erro": "RateLimitError (TPM)"
+        },
+        {
+          "tempo_s": 0.6580455759999495,
+          "adicional": true,
+          "categoria_retry": "disponibilidade",
+          "retry_minuto": true,
+          "tokens_entrada": 671,
+          "tokens_saida": 281,
+          "tokens_total": 952,
+          "solicitadas": [
+            "make_move"
+          ]
+        }
+      ],
+      "esperas": [
+        {
+          "motivo": "preventiva",
+          "tempo_s": 1.0764176180000504
+        },
+        {
+          "motivo": "preventiva",
+          "tempo_s": 0.9101977679997617
+        },
+        {
+          "motivo": "limite_api",
+          "tempo_s": 3.9799032000000807
+        }
+      ],
+      "ferramentas_automaticas": [],
+      "ferramentas_executadas": [
+        "get_heuristic_move",
+        "make_move"
+      ],
+      "ferramentas_solicitadas": [
+        "get_heuristic_move",
+        "make_move"
+      ],
+      "erros_finais": [
+        null
+      ],
+      "origem": "llm_tool_call"
+    },
+    {
+      "turno": 22,
+      "cor": "brancas",
+      "organizacao": "org-b",
+      "sessao": 1,
+      "duracao_s": 0.03172254899982363,
+      "status": "confirmada",
+      "chamadas": [],
+      "esperas": [],
+      "ferramentas_automaticas": [
+        "make_move"
+      ],
+      "ferramentas_executadas": [
+        "make_move"
+      ],
+      "ferramentas_solicitadas": [],
+      "erros_finais": [],
+      "origem": "heuristica"
+    },
+    {
+      "turno": 23,
+      "cor": "pretas",
+      "organizacao": "org-b",
+      "sessao": 1,
+      "duracao_s": 41.33259347500007,
+      "status": "confirmada",
+      "chamadas": [
+        {
+          "tempo_s": 0.032764240999767935,
+          "adicional": false,
+          "categoria_retry": null,
+          "erro": "RateLimitError (TPM)"
+        },
+        {
+          "tempo_s": 1.6196807890000855,
+          "adicional": true,
+          "categoria_retry": "disponibilidade",
+          "retry_minuto": true,
+          "tokens_entrada": 629,
+          "tokens_saida": 1024,
+          "tokens_total": 1653,
+          "solicitadas": [],
+          "erro": "resposta_sem_chamada_de_ferramenta"
+        },
+        {
+          "tempo_s": 0.05046723599980396,
+          "adicional": true,
+          "categoria_retry": "decisao",
+          "erro": "RateLimitError (TPM)"
+        },
+        {
+          "tempo_s": 1.4060372740000275,
+          "adicional": true,
+          "categoria_retry": "disponibilidade",
+          "retry_minuto": true,
+          "tokens_entrada": 649,
+          "tokens_saida": 1024,
+          "tokens_total": 1673,
+          "solicitadas": [],
+          "erro": "resposta_sem_chamada_de_ferramenta"
+        },
+        {
+          "tempo_s": 0.06052630500016676,
+          "adicional": true,
+          "categoria_retry": "decisao",
+          "erro": "RateLimitError (TPM)"
+        },
+        {
+          "tempo_s": 1.3229629639999985,
+          "adicional": true,
+          "categoria_retry": "disponibilidade",
+          "retry_minuto": true,
+          "tokens_entrada": 649,
+          "tokens_saida": 1024,
+          "tokens_total": 1673,
+          "solicitadas": [],
+          "erro": "resposta_sem_chamada_de_ferramenta"
+        },
+        {
+          "tempo_s": 0.029433831999995164,
+          "adicional": true,
+          "categoria_retry": "decisao",
+          "erro": "RateLimitError (TPM)"
+        },
+        {
+          "tempo_s": 1.763655949999702,
+          "adicional": true,
+          "categoria_retry": "disponibilidade",
+          "retry_minuto": true,
+          "tokens_entrada": 649,
+          "tokens_saida": 1024,
+          "tokens_total": 1673,
+          "solicitadas": [],
+          "erro": "resposta_sem_chamada_de_ferramenta"
+        },
+        {
+          "tempo_s": 0.049348814000040875,
+          "adicional": true,
+          "categoria_retry": "decisao",
+          "erro": "RateLimitError (TPM)"
+        },
+        {
+          "tempo_s": 1.3887633089998417,
+          "adicional": true,
+          "categoria_retry": "disponibilidade",
+          "retry_minuto": true,
+          "tokens_entrada": 649,
+          "tokens_saida": 1024,
+          "tokens_total": 1673,
+          "solicitadas": [],
+          "erro": "resposta_sem_chamada_de_ferramenta"
+        }
+      ],
+      "esperas": [
+        {
+          "motivo": "preventiva",
+          "tempo_s": 0.4645944120002241
+        },
+        {
+          "motivo": "limite_api",
+          "tempo_s": 3.9854253500002415
+        },
+        {
+          "motivo": "recuperacao",
+          "tempo_s": 0.36491083800001434
+        },
+        {
+          "motivo": "limite_api",
+          "tempo_s": 6.984563210000033
+        },
+        {
+          "motivo": "recuperacao",
+          "tempo_s": 0.5496434370002135
+        },
+        {
+          "motivo": "limite_api",
+          "tempo_s": 6.973271877000116
+        },
+        {
+          "motivo": "recuperacao",
+          "tempo_s": 0.6666116470000816
+        },
+        {
+          "motivo": "limite_api",
+          "tempo_s": 5.991788541999995
+        },
+        {
+          "motivo": "recuperacao",
+          "tempo_s": 0.21779102699974828
+        },
+        {
+          "motivo": "limite_api",
+          "tempo_s": 6.988613258999976
+        }
+      ],
+      "ferramentas_automaticas": [
+        "make_move"
+      ],
+      "ferramentas_executadas": [
+        "make_move"
+      ],
+      "ferramentas_solicitadas": [],
+      "erros_finais": [
+        null
+      ],
+      "origem": "fallback_heuristico"
+    },
+    {
+      "turno": 24,
+      "cor": "brancas",
+      "organizacao": "org-b",
+      "sessao": 1,
+      "duracao_s": 0.007852503999856708,
+      "status": "confirmada",
+      "chamadas": [],
+      "esperas": [],
+      "ferramentas_automaticas": [
+        "make_move"
+      ],
+      "ferramentas_executadas": [
+        "make_move"
+      ],
+      "ferramentas_solicitadas": [],
+      "erros_finais": [],
+      "origem": "heuristica"
+    },
+    {
+      "turno": 25,
+      "cor": "pretas",
+      "organizacao": "org-b",
+      "sessao": 1,
+      "duracao_s": 23.202574603999892,
+      "status": "confirmada",
+      "chamadas": [
+        {
+          "tempo_s": 0.032341876000373304,
+          "adicional": false,
+          "categoria_retry": null,
+          "erro": "RateLimitError (TPM)"
+        },
+        {
+          "tempo_s": 1.0764065069997741,
+          "adicional": true,
+          "categoria_retry": "disponibilidade",
+          "retry_minuto": true,
+          "tokens_entrada": 629,
+          "tokens_saida": 526,
+          "tokens_total": 1155,
+          "solicitadas": [
+            "get_valid_moves"
+          ]
+        },
+        {
+          "tempo_s": 0.03551049299994702,
+          "adicional": false,
+          "categoria_retry": null,
+          "erro": "RateLimitError (TPM)"
+        },
+        {
+          "tempo_s": 0.594077290000314,
+          "adicional": true,
+          "categoria_retry": "disponibilidade",
+          "retry_minuto": true,
+          "tokens_entrada": 706,
+          "tokens_saida": 214,
+          "tokens_total": 920,
+          "solicitadas": [
+            "get_game_status"
+          ]
+        },
+        {
+          "tempo_s": 0.048939272000097844,
+          "adicional": false,
+          "categoria_retry": null,
+          "erro": "RateLimitError (TPM)"
+        },
+        {
+          "tempo_s": 0.426887613999952,
+          "adicional": true,
+          "categoria_retry": "disponibilidade",
+          "retry_minuto": true,
+          "tokens_entrada": 753,
+          "tokens_saida": 131,
+          "tokens_total": 884,
+          "solicitadas": [
+            "get_minimax_move"
+          ]
+        },
+        {
+          "tempo_s": 0.04557554299981348,
+          "adicional": false,
+          "categoria_retry": null,
+          "erro": "RateLimitError (TPM)"
+        },
+        {
+          "tempo_s": 0.5100449920000756,
+          "adicional": true,
+          "categoria_retry": "disponibilidade",
+          "retry_minuto": true,
+          "tokens_entrada": 797,
+          "tokens_saida": 182,
+          "tokens_total": 979,
+          "solicitadas": [
+            "make_move"
+          ]
+        }
+      ],
+      "esperas": [
+        {
+          "motivo": "preventiva",
+          "tempo_s": 0.3187058490002528
+        },
+        {
+          "motivo": "limite_api",
+          "tempo_s": 5.900197587000093
+        },
+        {
+          "motivo": "preventiva",
+          "tempo_s": 0.9058323859999291
+        },
+        {
+          "motivo": "limite_api",
+          "tempo_s": 3.9813231570001335
+        },
+        {
+          "motivo": "preventiva",
+          "tempo_s": 1.38381031300014
+        },
+        {
+          "motivo": "preventiva",
+          "tempo_s": 1.9355962280001222
+        },
+        {
+          "motivo": "preventiva",
+          "tempo_s": 1.3386431719995926
+        },
+        {
+          "motivo": "limite_api",
+          "tempo_s": 3.9928367570000773
+        }
+      ],
+      "ferramentas_automaticas": [],
+      "ferramentas_executadas": [
+        "get_valid_moves",
+        "get_game_status",
+        "get_minimax_move",
+        "make_move"
+      ],
+      "ferramentas_solicitadas": [
+        "get_valid_moves",
+        "get_game_status",
+        "get_minimax_move",
+        "make_move"
+      ],
+      "erros_finais": [
+        null
+      ],
+      "origem": "llm_tool_call"
+    },
+    {
+      "turno": 26,
+      "cor": "brancas",
+      "organizacao": "org-b",
+      "sessao": 1,
+      "duracao_s": 0.01735409000002619,
+      "status": "confirmada",
+      "chamadas": [],
+      "esperas": [],
+      "ferramentas_automaticas": [
+        "make_move"
+      ],
+      "ferramentas_executadas": [
+        "make_move"
+      ],
+      "ferramentas_solicitadas": [],
+      "erros_finais": [],
+      "origem": "heuristica"
+    },
+    {
+      "turno": 27,
+      "cor": "pretas",
+      "organizacao": "org-b",
+      "sessao": 1,
+      "duracao_s": 6.645480721999775,
+      "status": "confirmada",
+      "chamadas": [
+        {
+          "tempo_s": 0.9167518409999502,
+          "adicional": false,
+          "categoria_retry": null,
+          "tokens_entrada": 629,
+          "tokens_saida": 523,
+          "tokens_total": 1152,
+          "solicitadas": [
+            "get_minimax_move"
+          ]
+        },
+        {
+          "tempo_s": 0.03173419700033264,
+          "adicional": false,
+          "categoria_retry": null,
+          "erro": "RateLimitError (TPM)"
+        },
+        {
+          "tempo_s": 0.42260739199991804,
+          "adicional": true,
+          "categoria_retry": "disponibilidade",
+          "retry_minuto": true,
+          "tokens_entrada": 673,
+          "tokens_saida": 154,
+          "tokens_total": 827,
+          "solicitadas": [
+            "make_move"
+          ]
+        }
+      ],
+      "esperas": [
+        {
+          "motivo": "preventiva",
+          "tempo_s": 1.0287840740002139
+        },
+        {
+          "motivo": "preventiva",
+          "tempo_s": 0.9821058689999518
+        },
+        {
+          "motivo": "limite_api",
+          "tempo_s": 2.9842468400001962
+        }
+      ],
+      "ferramentas_automaticas": [],
+      "ferramentas_executadas": [
+        "get_minimax_move",
+        "make_move"
+      ],
+      "ferramentas_solicitadas": [
+        "get_minimax_move",
+        "make_move"
+      ],
+      "erros_finais": [
+        null
+      ],
+      "origem": "llm_tool_call"
+    },
+    {
+      "turno": 28,
+      "cor": "brancas",
+      "organizacao": "org-b",
+      "sessao": 1,
+      "duracao_s": 0.014793824000207678,
+      "status": "confirmada",
+      "chamadas": [],
+      "esperas": [],
+      "ferramentas_automaticas": [
+        "make_move"
+      ],
+      "ferramentas_executadas": [
+        "make_move"
+      ],
+      "ferramentas_solicitadas": [],
+      "erros_finais": [],
+      "origem": "heuristica"
+    },
+    {
+      "turno": 29,
+      "cor": "pretas",
+      "organizacao": "org-b",
+      "sessao": 1,
+      "duracao_s": 12.679638262000026,
+      "status": "confirmada",
+      "chamadas": [
+        {
+          "tempo_s": 1.0836564199998975,
+          "adicional": false,
+          "categoria_retry": null,
+          "tokens_entrada": 629,
+          "tokens_saida": 787,
+          "tokens_total": 1416,
+          "solicitadas": [
+            "get_minimax_move"
+          ]
+        },
+        {
+          "tempo_s": 0.0260577670001112,
+          "adicional": false,
+          "categoria_retry": null,
+          "erro": "RateLimitError (TPM)"
+        },
+        {
+          "tempo_s": 0.5180112570001256,
+          "adicional": true,
+          "categoria_retry": "disponibilidade",
+          "retry_minuto": true,
+          "tokens_entrada": 673,
+          "tokens_saida": 154,
+          "tokens_total": 827,
+          "solicitadas": [
+            "make_move"
+          ]
+        }
+      ],
+      "esperas": [
+        {
+          "motivo": "preventiva",
+          "tempo_s": 1.0391511439997885
+        },
+        {
+          "motivo": "preventiva",
+          "tempo_s": 0.7236831199998051
+        },
+        {
+          "motivo": "limite_api",
+          "tempo_s": 8.985023510999781
+        }
+      ],
+      "ferramentas_automaticas": [],
+      "ferramentas_executadas": [
+        "get_minimax_move",
+        "make_move"
+      ],
+      "ferramentas_solicitadas": [
+        "get_minimax_move",
+        "make_move"
+      ],
+      "erros_finais": [
+        null
+      ],
+      "origem": "llm_tool_call"
+    },
+    {
+      "turno": 30,
+      "cor": "brancas",
+      "organizacao": "org-b",
+      "sessao": 1,
+      "duracao_s": 0.01200693099963246,
+      "status": "confirmada",
+      "chamadas": [],
+      "esperas": [],
+      "ferramentas_automaticas": [
+        "make_move"
+      ],
+      "ferramentas_executadas": [
+        "make_move"
+      ],
+      "ferramentas_solicitadas": [],
+      "erros_finais": [],
+      "origem": "heuristica"
+    },
+    {
+      "turno": 31,
+      "cor": "pretas",
+      "organizacao": "org-b",
+      "sessao": 1,
+      "duracao_s": 7.893791445000261,
+      "status": "confirmada",
+      "chamadas": [
+        {
+          "tempo_s": 1.112013627000124,
+          "adicional": false,
+          "categoria_retry": null,
+          "tokens_entrada": 629,
+          "tokens_saida": 641,
+          "tokens_total": 1270,
+          "solicitadas": [
+            "get_heuristic_move"
+          ]
+        },
+        {
+          "tempo_s": 0.051933138000094914,
+          "adicional": false,
+          "categoria_retry": null,
+          "erro": "RateLimitError (TPM)"
+        },
+        {
+          "tempo_s": 0.46554749599999923,
+          "adicional": true,
+          "categoria_retry": "disponibilidade",
+          "retry_minuto": true,
+          "tokens_entrada": 671,
+          "tokens_saida": 187,
+          "tokens_total": 858,
+          "solicitadas": [
+            "make_move"
+          ]
+        }
+      ],
+      "esperas": [
+        {
+          "motivo": "preventiva",
+          "tempo_s": 1.1715877740002725
+        },
+        {
+          "motivo": "preventiva",
+          "tempo_s": 0.8536958409999897
+        },
+        {
+          "motivo": "limite_api",
+          "tempo_s": 3.978170618999684
+        }
+      ],
+      "ferramentas_automaticas": [],
+      "ferramentas_executadas": [
+        "get_heuristic_move",
+        "make_move"
+      ],
+      "ferramentas_solicitadas": [
+        "get_heuristic_move",
+        "make_move"
+      ],
+      "erros_finais": [
+        null
+      ],
+      "origem": "llm_tool_call"
+    },
+    {
+      "turno": 32,
+      "cor": "brancas",
+      "organizacao": "org-b",
+      "sessao": 1,
+      "duracao_s": 0.017122591999850556,
+      "status": "confirmada",
+      "chamadas": [],
+      "esperas": [],
+      "ferramentas_automaticas": [
+        "make_move"
+      ],
+      "ferramentas_executadas": [
+        "make_move"
+      ],
+      "ferramentas_solicitadas": [],
+      "erros_finais": [],
+      "origem": "heuristica"
+    },
+    {
+      "turno": 33,
+      "cor": "pretas",
+      "organizacao": "org-b",
+      "sessao": 1,
+      "duracao_s": 14.720393715999762,
+      "status": "confirmada",
+      "chamadas": [
+        {
+          "tempo_s": 0.9669925530001819,
+          "adicional": false,
+          "categoria_retry": null,
+          "tokens_entrada": 629,
+          "tokens_saida": 535,
+          "tokens_total": 1164,
+          "solicitadas": [
+            "get_valid_moves"
+          ]
+        },
+        {
+          "tempo_s": 0.03247582900030466,
+          "adicional": false,
+          "categoria_retry": null,
+          "erro": "RateLimitError (TPM)"
+        },
+        {
+          "tempo_s": 0.4619028080001044,
+          "adicional": true,
+          "categoria_retry": "disponibilidade",
+          "retry_minuto": true,
+          "tokens_entrada": 706,
+          "tokens_saida": 179,
+          "tokens_total": 885,
+          "solicitadas": [
+            "get_minimax_move"
+          ]
+        },
+        {
+          "tempo_s": 0.07173053499991511,
+          "adicional": false,
+          "categoria_retry": null,
+          "erro": "RateLimitError (TPM)"
+        },
+        {
+          "tempo_s": 0.6140415640002175,
+          "adicional": true,
+          "categoria_retry": "disponibilidade",
+          "retry_minuto": true,
+          "tokens_entrada": 750,
+          "tokens_saida": 177,
+          "tokens_total": 927,
+          "solicitadas": [
+            "make_move"
+          ]
+        }
+      ],
+      "esperas": [
+        {
+          "motivo": "preventiva",
+          "tempo_s": 0.8918239230001745
+        },
+        {
+          "motivo": "preventiva",
+          "tempo_s": 0.9985842800001592
+        },
+        {
+          "motivo": "limite_api",
+          "tempo_s": 6.992788593000114
+        },
+        {
+          "motivo": "preventiva",
+          "tempo_s": 1.4451485429999593
+        },
+        {
+          "motivo": "preventiva",
+          "tempo_s": 1.9096115540000937
+        }
+      ],
+      "ferramentas_automaticas": [],
+      "ferramentas_executadas": [
+        "get_valid_moves",
+        "get_minimax_move",
+        "make_move"
+      ],
+      "ferramentas_solicitadas": [
+        "get_valid_moves",
+        "get_minimax_move",
+        "make_move"
+      ],
+      "erros_finais": [
+        null
+      ],
+      "origem": "llm_tool_call"
+    },
+    {
+      "turno": 34,
+      "cor": "brancas",
+      "organizacao": "org-b",
+      "sessao": 1,
+      "duracao_s": 0.010219362000043475,
+      "status": "confirmada",
+      "chamadas": [],
+      "esperas": [],
+      "ferramentas_automaticas": [
+        "make_move"
+      ],
+      "ferramentas_executadas": [
+        "make_move"
+      ],
+      "ferramentas_solicitadas": [],
+      "erros_finais": [],
+      "origem": "heuristica"
+    },
+    {
+      "turno": 35,
+      "cor": "pretas",
+      "organizacao": "org-b",
+      "sessao": 1,
+      "duracao_s": 15.846896232999825,
+      "status": "confirmada",
+      "chamadas": [
+        {
+          "tempo_s": 1.076174402000106,
+          "adicional": false,
+          "categoria_retry": null,
+          "tokens_entrada": 629,
+          "tokens_saida": 544,
+          "tokens_total": 1173,
+          "solicitadas": [
+            "get_valid_moves"
+          ]
+        },
+        {
+          "tempo_s": 0.03765417600016008,
+          "adicional": false,
+          "categoria_retry": null,
+          "erro": "RateLimitError (TPM)"
+        },
+        {
+          "tempo_s": 0.997651945999678,
+          "adicional": true,
+          "categoria_retry": "disponibilidade",
+          "retry_minuto": true,
+          "tokens_entrada": 710,
+          "tokens_saida": 406,
+          "tokens_total": 1116,
+          "solicitadas": [
+            "get_heuristic_move"
+          ]
+        },
+        {
+          "tempo_s": 0.04784522499994637,
+          "adicional": false,
+          "categoria_retry": null,
+          "erro": "RateLimitError (TPM)"
+        },
+        {
+          "tempo_s": 0.6412751210000351,
+          "adicional": true,
+          "categoria_retry": "disponibilidade",
+          "retry_minuto": true,
+          "tokens_entrada": 752,
+          "tokens_saida": 172,
+          "tokens_total": 924,
+          "solicitadas": [
+            "make_move"
+          ]
+        }
+      ],
+      "esperas": [
+        {
+          "motivo": "preventiva",
+          "tempo_s": 0.8871048010000777
+        },
+        {
+          "motivo": "preventiva",
+          "tempo_s": 0.8842334009996193
+        },
+        {
+          "motivo": "limite_api",
+          "tempo_s": 2.9897747909999453
+        },
+        {
+          "motivo": "preventiva",
+          "tempo_s": 0.9755556090003665
+        },
+        {
+          "motivo": "limite_api",
+          "tempo_s": 6.9880451220001305
+        }
+      ],
+      "ferramentas_automaticas": [],
+      "ferramentas_executadas": [
+        "get_valid_moves",
+        "get_heuristic_move",
+        "make_move"
+      ],
+      "ferramentas_solicitadas": [
+        "get_valid_moves",
+        "get_heuristic_move",
+        "make_move"
+      ],
+      "erros_finais": [
+        null
+      ],
+      "origem": "llm_tool_call"
+    },
+    {
+      "turno": 36,
+      "cor": "brancas",
+      "organizacao": "org-b",
+      "sessao": 1,
+      "duracao_s": 0.018903097000020352,
+      "status": "confirmada",
+      "chamadas": [],
+      "esperas": [],
+      "ferramentas_automaticas": [
+        "make_move"
+      ],
+      "ferramentas_executadas": [
+        "make_move"
+      ],
+      "ferramentas_solicitadas": [],
+      "erros_finais": [],
+      "origem": "heuristica"
+    },
+    {
+      "turno": 37,
+      "cor": "pretas",
+      "organizacao": "org-b",
+      "sessao": 1,
+      "duracao_s": 5.764832212999863,
+      "status": "confirmada",
+      "chamadas": [
+        {
+          "tempo_s": 0.538039832999857,
+          "adicional": false,
+          "categoria_retry": null,
+          "tokens_entrada": 629,
+          "tokens_saida": 263,
+          "tokens_total": 892,
+          "solicitadas": [
+            "get_minimax_move"
+          ]
+        },
+        {
+          "tempo_s": 0.05023654099977648,
+          "adicional": false,
+          "categoria_retry": null,
+          "erro": "RateLimitError (TPM)"
+        },
+        {
+          "tempo_s": 0.4157409730000836,
+          "adicional": true,
+          "categoria_retry": "disponibilidade",
+          "retry_minuto": true,
+          "tokens_entrada": 673,
+          "tokens_saida": 153,
+          "tokens_total": 826,
+          "solicitadas": [
+            "make_move"
+          ]
+        }
+      ],
+      "esperas": [
+        {
+          "motivo": "preventiva",
+          "tempo_s": 0.9081889170001887
+        },
+        {
+          "motivo": "preventiva",
+          "tempo_s": 1.3231122510001114
+        },
+        {
+          "motivo": "preventiva",
+          "tempo_s": 1.8651920950001113
+        }
+      ],
+      "ferramentas_automaticas": [],
+      "ferramentas_executadas": [
+        "get_minimax_move",
+        "make_move"
+      ],
+      "ferramentas_solicitadas": [
+        "get_minimax_move",
+        "make_move"
+      ],
+      "erros_finais": [
+        null
+      ],
+      "origem": "llm_tool_call"
+    },
+    {
+      "turno": 38,
+      "cor": "brancas",
+      "organizacao": "org-b",
+      "sessao": 1,
+      "duracao_s": 0.02029564299982667,
+      "status": "confirmada",
+      "chamadas": [],
+      "esperas": [],
+      "ferramentas_automaticas": [
+        "make_move"
+      ],
+      "ferramentas_executadas": [
+        "make_move"
+      ],
+      "ferramentas_solicitadas": [],
+      "erros_finais": [],
+      "origem": "heuristica"
+    },
+    {
+      "turno": 39,
+      "cor": "pretas",
+      "organizacao": "org-b",
+      "sessao": 1,
+      "duracao_s": 6.713331781000306,
+      "status": "confirmada",
+      "chamadas": [
+        {
+          "tempo_s": 1.215393671000129,
+          "adicional": false,
+          "categoria_retry": null,
+          "tokens_entrada": 629,
+          "tokens_saida": 704,
+          "tokens_total": 1333,
+          "solicitadas": [
+            "get_heuristic_move"
+          ]
+        },
+        {
+          "tempo_s": 0.04819197999995595,
+          "adicional": false,
+          "categoria_retry": null,
+          "erro": "RateLimitError (TPM)"
+        },
+        {
+          "tempo_s": 0.5025212949999514,
+          "adicional": true,
+          "categoria_retry": "disponibilidade",
+          "retry_minuto": true,
+          "tokens_entrada": 671,
+          "tokens_saida": 213,
+          "tokens_total": 884,
+          "solicitadas": [
+            "make_move"
+          ]
+        }
+      ],
+      "esperas": [
+        {
+          "motivo": "preventiva",
+          "tempo_s": 0.9005609959999674
+        },
+        {
+          "motivo": "preventiva",
+          "tempo_s": 0.6477529730000242
+        },
+        {
+          "motivo": "limite_api",
+          "tempo_s": 2.9725382550000177
+        }
+      ],
+      "ferramentas_automaticas": [],
+      "ferramentas_executadas": [
+        "get_heuristic_move",
+        "make_move"
+      ],
+      "ferramentas_solicitadas": [
+        "get_heuristic_move",
+        "make_move"
+      ],
+      "erros_finais": [
+        null
+      ],
+      "origem": "llm_tool_call"
+    },
+    {
+      "turno": 40,
+      "cor": "brancas",
+      "organizacao": "org-b",
+      "sessao": 1,
+      "duracao_s": 0.015243885000018054,
+      "status": "confirmada",
+      "chamadas": [],
+      "esperas": [],
+      "ferramentas_automaticas": [
+        "make_move"
+      ],
+      "ferramentas_executadas": [
+        "make_move"
+      ],
+      "ferramentas_solicitadas": [],
+      "erros_finais": [],
+      "origem": "heuristica"
+    },
+    {
+      "turno": 41,
+      "cor": "pretas",
+      "organizacao": "org-b",
+      "sessao": 1,
+      "duracao_s": 12.949010638000345,
+      "status": "confirmada",
+      "chamadas": [
+        {
+          "tempo_s": 1.2248727189999045,
+          "adicional": false,
+          "categoria_retry": null,
+          "tokens_entrada": 629,
+          "tokens_saida": 723,
+          "tokens_total": 1352,
+          "solicitadas": [
+            "get_minimax_move"
+          ]
+        },
+        {
+          "tempo_s": 0.030771121000270796,
+          "adicional": false,
+          "categoria_retry": null,
+          "erro": "RateLimitError (TPM)"
+        },
+        {
+          "tempo_s": 0.5806201120003607,
+          "adicional": true,
+          "categoria_retry": "disponibilidade",
+          "retry_minuto": true,
+          "tokens_entrada": 673,
+          "tokens_saida": 153,
+          "tokens_total": 826,
+          "solicitadas": [
+            "make_move"
+          ]
+        }
+      ],
+      "esperas": [
+        {
+          "motivo": "preventiva",
+          "tempo_s": 1.106607477000125
+        },
+        {
+          "motivo": "preventiva",
+          "tempo_s": 0.7028519909999886
+        },
+        {
+          "motivo": "limite_api",
+          "tempo_s": 8.98837010699981
+        }
+      ],
+      "ferramentas_automaticas": [],
+      "ferramentas_executadas": [
+        "get_minimax_move",
+        "make_move"
+      ],
+      "ferramentas_solicitadas": [
+        "get_minimax_move",
+        "make_move"
+      ],
+      "erros_finais": [
+        null
+      ],
+      "origem": "llm_tool_call"
+    },
+    {
+      "turno": 42,
+      "cor": "brancas",
+      "organizacao": "org-b",
+      "sessao": 1,
+      "duracao_s": 0.01737349199993332,
+      "status": "confirmada",
+      "chamadas": [],
+      "esperas": [],
+      "ferramentas_automaticas": [
+        "make_move"
+      ],
+      "ferramentas_executadas": [
+        "make_move"
+      ],
+      "ferramentas_solicitadas": [],
+      "erros_finais": [],
+      "origem": "heuristica"
+    },
+    {
+      "turno": 43,
+      "cor": "pretas",
+      "organizacao": "org-b",
+      "sessao": 1,
+      "duracao_s": 22.859941489999983,
+      "status": "confirmada",
+      "chamadas": [
+        {
+          "tempo_s": 1.4051454129999001,
+          "adicional": false,
+          "categoria_retry": null,
+          "tokens_entrada": 629,
+          "tokens_saida": 1024,
+          "tokens_total": 1653,
+          "solicitadas": [],
+          "erro": "resposta_sem_chamada_de_ferramenta"
+        },
+        {
+          "tempo_s": 0.06358103799993842,
+          "adicional": true,
+          "categoria_retry": "decisao",
+          "erro": "RateLimitError (TPM)"
+        },
+        {
+          "tempo_s": 1.4717967820001832,
+          "adicional": true,
+          "categoria_retry": "disponibilidade",
+          "retry_minuto": true,
+          "tokens_entrada": 649,
+          "tokens_saida": 1005,
+          "tokens_total": 1654,
+          "solicitadas": [
+            "get_minimax_move"
+          ]
+        },
+        {
+          "tempo_s": 0.056954498999857606,
+          "adicional": false,
+          "categoria_retry": null,
+          "erro": "RateLimitError (TPM)"
+        },
+        {
+          "tempo_s": 0.48899832300003254,
+          "adicional": true,
+          "categoria_retry": "disponibilidade",
+          "retry_minuto": true,
+          "tokens_entrada": 673,
+          "tokens_saida": 154,
+          "tokens_total": 827,
+          "solicitadas": [
+            "make_move"
+          ]
+        }
+      ],
+      "esperas": [
+        {
+          "motivo": "preventiva",
+          "tempo_s": 0.8293471599999975
+        },
+        {
+          "motivo": "recuperacao",
+          "tempo_s": 0.5594059360000756
+        },
+        {
+          "motivo": "limite_api",
+          "tempo_s": 5.971524049999971
+        },
+        {
+          "motivo": "preventiva",
+          "tempo_s": 0.2679845339998792
+        },
+        {
+          "motivo": "limite_api",
+          "tempo_s": 10.97045941999977
+        }
+      ],
+      "ferramentas_automaticas": [],
+      "ferramentas_executadas": [
+        "get_minimax_move",
+        "make_move"
+      ],
+      "ferramentas_solicitadas": [
+        "get_minimax_move",
+        "make_move"
+      ],
+      "erros_finais": [
+        null
+      ],
+      "origem": "llm_tool_call"
+    },
+    {
+      "turno": 44,
+      "cor": "brancas",
+      "organizacao": "org-b",
+      "sessao": 1,
+      "duracao_s": 0.02226924099977623,
+      "status": "confirmada",
+      "chamadas": [],
+      "esperas": [],
+      "ferramentas_automaticas": [
+        "make_move"
+      ],
+      "ferramentas_executadas": [
+        "make_move"
+      ],
+      "ferramentas_solicitadas": [],
+      "erros_finais": [],
+      "origem": "heuristica"
+    },
+    {
+      "turno": 45,
+      "cor": "pretas",
+      "organizacao": "org-b",
+      "sessao": 1,
+      "duracao_s": 16.043889166999634,
+      "status": "confirmada",
+      "chamadas": [
+        {
+          "tempo_s": 1.032246467999812,
+          "adicional": false,
+          "categoria_retry": null,
+          "tokens_entrada": 629,
+          "tokens_saida": 669,
+          "tokens_total": 1298,
+          "solicitadas": [
+            "get_valid_moves"
+          ]
+        },
+        {
+          "tempo_s": 0.029672816000129387,
+          "adicional": false,
+          "categoria_retry": null,
+          "erro": "RateLimitError (TPM)"
+        },
+        {
+          "tempo_s": 2.447152131999701,
+          "adicional": true,
+          "categoria_retry": "disponibilidade",
+          "retry_minuto": true,
+          "tokens_entrada": 690,
+          "tokens_saida": 870,
+          "tokens_total": 1560,
+          "solicitadas": [
+            "get_minimax_move"
+          ]
+        },
+        {
+          "tempo_s": 0.09409760399967126,
+          "adicional": false,
+          "categoria_retry": null,
+          "erro": "RateLimitError (TPM)"
+        },
+        {
+          "tempo_s": 0.8647912400001587,
+          "adicional": true,
+          "categoria_retry": "disponibilidade",
+          "retry_minuto": true,
+          "tokens_entrada": 734,
+          "tokens_saida": 206,
+          "tokens_total": 940,
+          "solicitadas": [
+            "make_move"
+          ]
+        }
+      ],
+      "esperas": [
+        {
+          "motivo": "preventiva",
+          "tempo_s": 0.6066841380002188
+        },
+        {
+          "motivo": "preventiva",
+          "tempo_s": 0.8587440669998614
+        },
+        {
+          "motivo": "limite_api",
+          "tempo_s": 3.979736457999934
+        },
+        {
+          "motivo": "limite_api",
+          "tempo_s": 4.938398026999948
+        }
+      ],
+      "ferramentas_automaticas": [],
+      "ferramentas_executadas": [
+        "get_valid_moves",
+        "get_minimax_move",
+        "make_move"
+      ],
+      "ferramentas_solicitadas": [
+        "get_valid_moves",
+        "get_minimax_move",
+        "make_move"
+      ],
+      "erros_finais": [
+        null
+      ],
+      "origem": "llm_tool_call"
+    },
+    {
+      "turno": 46,
+      "cor": "brancas",
+      "organizacao": "org-b",
+      "sessao": 1,
+      "duracao_s": 0.021780666999802634,
+      "status": "confirmada",
+      "chamadas": [],
+      "esperas": [],
+      "ferramentas_automaticas": [
+        "make_move"
+      ],
+      "ferramentas_executadas": [
+        "make_move"
+      ],
+      "ferramentas_solicitadas": [],
+      "erros_finais": [],
+      "origem": "heuristica"
+    },
+    {
+      "turno": 47,
+      "cor": "pretas",
+      "organizacao": "org-b",
+      "sessao": 1,
+      "duracao_s": 6.49466000800021,
+      "status": "confirmada",
+      "chamadas": [
+        {
+          "tempo_s": 0.8975113609999426,
+          "adicional": false,
+          "categoria_retry": null,
+          "tokens_entrada": 629,
+          "tokens_saida": 505,
+          "tokens_total": 1134,
+          "solicitadas": [
+            "get_minimax_move"
+          ]
+        },
+        {
+          "tempo_s": 0.05336542199984251,
+          "adicional": false,
+          "categoria_retry": null,
+          "erro": "RateLimitError (TPM)"
+        },
+        {
+          "tempo_s": 0.4606445919998805,
+          "adicional": true,
+          "categoria_retry": "disponibilidade",
+          "retry_minuto": true,
+          "tokens_entrada": 673,
+          "tokens_saida": 160,
+          "tokens_total": 833,
+          "solicitadas": [
+            "make_move"
+          ]
+        }
+      ],
+      "esperas": [
+        {
+          "motivo": "preventiva",
+          "tempo_s": 0.6766766310001913
+        },
+        {
+          "motivo": "preventiva",
+          "tempo_s": 1.0387290059998122
+        },
+        {
+          "motivo": "limite_api",
+          "tempo_s": 2.9829587330000322
+        }
+      ],
+      "ferramentas_automaticas": [],
+      "ferramentas_executadas": [
+        "get_minimax_move",
+        "make_move"
+      ],
+      "ferramentas_solicitadas": [
+        "get_minimax_move",
+        "make_move"
+      ],
+      "erros_finais": [
+        null
+      ],
+      "origem": "llm_tool_call"
+    },
+    {
+      "turno": 48,
+      "cor": "brancas",
+      "organizacao": "org-b",
+      "sessao": 1,
+      "duracao_s": 0.06940412200037827,
+      "status": "confirmada",
+      "chamadas": [],
+      "esperas": [],
+      "ferramentas_automaticas": [
+        "make_move"
+      ],
+      "ferramentas_executadas": [
+        "make_move"
+      ],
+      "ferramentas_solicitadas": [],
+      "erros_finais": [],
+      "origem": "heuristica"
+    },
+    {
+      "turno": 49,
+      "cor": "pretas",
+      "organizacao": "org-b",
+      "sessao": 1,
+      "duracao_s": 7.002876326000205,
+      "status": "confirmada",
+      "chamadas": [
+        {
+          "tempo_s": 1.070612233999782,
+          "adicional": false,
+          "categoria_retry": null,
+          "tokens_entrada": 629,
+          "tokens_saida": 586,
+          "tokens_total": 1215,
+          "solicitadas": [
+            "get_minimax_move"
+          ]
+        },
+        {
+          "tempo_s": 0.036822813999606296,
+          "adicional": false,
+          "categoria_retry": null,
+          "erro": "RateLimitError (TPM)"
+        },
+        {
+          "tempo_s": 0.4244879799998671,
+          "adicional": true,
+          "categoria_retry": "disponibilidade",
+          "retry_minuto": true,
+          "tokens_entrada": 673,
+          "tokens_saida": 155,
+          "tokens_total": 828,
+          "solicitadas": [
+            "make_move"
+          ]
+        }
+      ],
+      "esperas": [
+        {
+          "motivo": "preventiva",
+          "tempo_s": 0.27328177700019296
+        },
+        {
+          "motivo": "preventiva",
+          "tempo_s": 0.8807429459998275
+        },
+        {
+          "motivo": "limite_api",
+          "tempo_s": 3.9811657810000725
+        }
+      ],
+      "ferramentas_automaticas": [],
+      "ferramentas_executadas": [
+        "get_minimax_move",
+        "make_move"
+      ],
+      "ferramentas_solicitadas": [
+        "get_minimax_move",
+        "make_move"
+      ],
+      "erros_finais": [
+        null
+      ],
+      "origem": "llm_tool_call"
+    },
+    {
+      "turno": 50,
+      "cor": "brancas",
+      "organizacao": "org-b",
+      "sessao": 1,
+      "duracao_s": 0.015282518999811145,
+      "status": "confirmada",
+      "chamadas": [],
+      "esperas": [],
+      "ferramentas_automaticas": [
+        "make_move"
+      ],
+      "ferramentas_executadas": [
+        "make_move"
+      ],
+      "ferramentas_solicitadas": [],
+      "erros_finais": [],
+      "origem": "heuristica"
+    },
+    {
+      "turno": 51,
+      "cor": "pretas",
+      "organizacao": "org-b",
+      "sessao": 1,
+      "duracao_s": 7.0366757970000435,
+      "status": "confirmada",
+      "chamadas": [
+        {
+          "tempo_s": 0.9902949089996582,
+          "adicional": false,
+          "categoria_retry": null,
+          "tokens_entrada": 629,
+          "tokens_saida": 624,
+          "tokens_total": 1253,
+          "solicitadas": [
+            "get_minimax_move"
+          ]
+        },
+        {
+          "tempo_s": 0.04804960499996014,
+          "adicional": false,
+          "categoria_retry": null,
+          "erro": "RateLimitError (TPM)"
+        },
+        {
+          "tempo_s": 0.49433074399985344,
+          "adicional": true,
+          "categoria_retry": "disponibilidade",
+          "retry_minuto": true,
+          "tokens_entrada": 673,
+          "tokens_saida": 156,
+          "tokens_total": 829,
+          "solicitadas": [
+            "make_move"
+          ]
+        }
+      ],
+      "esperas": [
+        {
+          "motivo": "preventiva",
+          "tempo_s": 1.2143290110002454
+        },
+        {
+          "motivo": "preventiva",
+          "tempo_s": 0.8665984740000567
+        },
+        {
+          "motivo": "limite_api",
+          "tempo_s": 2.9525503719996777
+        }
+      ],
+      "ferramentas_automaticas": [],
+      "ferramentas_executadas": [
+        "get_minimax_move",
+        "make_move"
+      ],
+      "ferramentas_solicitadas": [
+        "get_minimax_move",
+        "make_move"
+      ],
+      "erros_finais": [
+        null
+      ],
+      "origem": "llm_tool_call"
+    },
+    {
+      "turno": 52,
+      "cor": "brancas",
+      "organizacao": "org-b",
+      "sessao": 1,
+      "duracao_s": 0.07820944300010524,
+      "status": "confirmada",
+      "chamadas": [],
+      "esperas": [],
+      "ferramentas_automaticas": [
+        "make_move"
+      ],
+      "ferramentas_executadas": [
+        "make_move"
+      ],
+      "ferramentas_solicitadas": [],
+      "erros_finais": [],
+      "origem": "heuristica"
+    },
+    {
+      "turno": 53,
+      "cor": "pretas",
+      "organizacao": "org-b",
+      "sessao": 1,
+      "duracao_s": 15.841286926000066,
+      "status": "confirmada",
+      "chamadas": [
+        {
+          "tempo_s": 1.0422064649997083,
+          "adicional": false,
+          "categoria_retry": null,
+          "tokens_entrada": 629,
+          "tokens_saida": 559,
+          "tokens_total": 1188,
+          "solicitadas": [
+            "get_valid_moves"
+          ]
+        },
+        {
+          "tempo_s": 0.11276137499999095,
+          "adicional": false,
+          "categoria_retry": null,
+          "erro": "RateLimitError (TPM)"
+        },
+        {
+          "tempo_s": 0.7610027189998618,
+          "adicional": true,
+          "categoria_retry": "disponibilidade",
+          "retry_minuto": true,
+          "tokens_entrada": 686,
+          "tokens_saida": 432,
+          "tokens_total": 1118,
+          "solicitadas": [
+            "get_minimax_move"
+          ]
+        },
+        {
+          "tempo_s": 0.06791650899958768,
+          "adicional": false,
+          "categoria_retry": null,
+          "erro": "RateLimitError (TPM)"
+        },
+        {
+          "tempo_s": 0.472184223000113,
+          "adicional": true,
+          "categoria_retry": "disponibilidade",
+          "retry_minuto": true,
+          "tokens_entrada": 730,
+          "tokens_saida": 195,
+          "tokens_total": 925,
+          "solicitadas": [
+            "make_move"
+          ]
+        }
+      ],
+      "esperas": [
+        {
+          "motivo": "preventiva",
+          "tempo_s": 0.4829096150001533
+        },
+        {
+          "motivo": "preventiva",
+          "tempo_s": 0.8333451799999239
+        },
+        {
+          "motivo": "limite_api",
+          "tempo_s": 3.965877737000028
+        },
+        {
+          "motivo": "preventiva",
+          "tempo_s": 1.1023493120001149
+        },
+        {
+          "motivo": "limite_api",
+          "tempo_s": 5.971819272000175
+        }
+      ],
+      "ferramentas_automaticas": [],
+      "ferramentas_executadas": [
+        "get_valid_moves",
+        "get_minimax_move",
+        "make_move"
+      ],
+      "ferramentas_solicitadas": [
+        "get_valid_moves",
+        "get_minimax_move",
+        "make_move"
+      ],
+      "erros_finais": [
+        null
+      ],
+      "origem": "llm_tool_call"
+    },
+    {
+      "turno": 54,
+      "cor": "brancas",
+      "organizacao": "org-b",
+      "sessao": 1,
+      "duracao_s": 0.0922968539998692,
+      "status": "confirmada",
+      "chamadas": [],
+      "esperas": [],
+      "ferramentas_automaticas": [
+        "make_move"
+      ],
+      "ferramentas_executadas": [
+        "make_move"
+      ],
+      "ferramentas_solicitadas": [],
+      "erros_finais": [],
+      "origem": "heuristica"
+    },
+    {
+      "turno": 55,
+      "cor": "pretas",
+      "organizacao": "org-b",
+      "sessao": 1,
+      "duracao_s": 8.934815586999775,
+      "status": "confirmada",
+      "chamadas": [
+        {
+          "tempo_s": 1.4722038820000307,
+          "adicional": false,
+          "categoria_retry": null,
+          "tokens_entrada": 629,
+          "tokens_saida": 842,
+          "tokens_total": 1471,
+          "solicitadas": [
+            "get_heuristic_move"
+          ]
+        },
+        {
+          "tempo_s": 0.0884499290000349,
+          "adicional": false,
+          "categoria_retry": null,
+          "erro": "RateLimitError (TPM)"
+        },
+        {
+          "tempo_s": 1.2221722110002702,
+          "adicional": true,
+          "categoria_retry": "disponibilidade",
+          "retry_minuto": true,
+          "tokens_entrada": 671,
+          "tokens_saida": 590,
+          "tokens_total": 1261,
+          "solicitadas": [
+            "make_move"
+          ]
+        }
+      ],
+      "esperas": [
+        {
+          "motivo": "preventiva",
+          "tempo_s": 0.3138136009997652
+        },
+        {
+          "motivo": "limite_api",
+          "tempo_s": 4.969533550000051
+        }
+      ],
+      "ferramentas_automaticas": [],
+      "ferramentas_executadas": [
+        "get_heuristic_move",
+        "make_move"
+      ],
+      "ferramentas_solicitadas": [
+        "get_heuristic_move",
+        "make_move"
+      ],
+      "erros_finais": [
+        null
+      ],
+      "origem": "llm_tool_call"
+    },
+    {
+      "turno": 56,
+      "cor": "brancas",
+      "organizacao": "org-b",
+      "sessao": 1,
+      "duracao_s": 0.09020386800011693,
+      "status": "confirmada",
+      "chamadas": [],
+      "esperas": [],
+      "ferramentas_automaticas": [
+        "make_move"
+      ],
+      "ferramentas_executadas": [
+        "make_move"
+      ],
+      "ferramentas_solicitadas": [],
+      "erros_finais": [],
+      "origem": "heuristica"
+    },
+    {
+      "turno": 57,
+      "cor": "pretas",
+      "organizacao": "org-b",
+      "sessao": 1,
+      "duracao_s": 19.098128768999686,
+      "status": "confirmada",
+      "chamadas": [
+        {
+          "tempo_s": 0.03333014200006801,
+          "adicional": false,
+          "categoria_retry": null,
+          "erro": "RateLimitError (TPM)"
+        },
+        {
+          "tempo_s": 0.9437770670001555,
+          "adicional": true,
+          "categoria_retry": "disponibilidade",
+          "retry_minuto": true,
+          "tokens_entrada": 629,
+          "tokens_saida": 691,
+          "tokens_total": 1320,
+          "solicitadas": [
+            "get_valid_moves"
+          ]
+        },
+        {
+          "tempo_s": 0.045153440999911254,
+          "adicional": false,
+          "categoria_retry": null,
+          "erro": "RateLimitError (TPM)"
+        },
+        {
+          "tempo_s": 0.8909177180003098,
+          "adicional": true,
+          "categoria_retry": "disponibilidade",
+          "retry_minuto": true,
+          "tokens_entrada": 670,
+          "tokens_saida": 489,
+          "tokens_total": 1159,
+          "solicitadas": [
+            "get_heuristic_move"
+          ]
+        },
+        {
+          "tempo_s": 0.05709646600007545,
+          "adicional": false,
+          "categoria_retry": null,
+          "erro": "RateLimitError (TPM)"
+        },
+        {
+          "tempo_s": 0.5638060370001767,
+          "adicional": true,
+          "categoria_retry": "disponibilidade",
+          "retry_minuto": true,
+          "tokens_entrada": 712,
+          "tokens_saida": 174,
+          "tokens_total": 886,
+          "solicitadas": [
+            "make_move"
+          ]
+        }
+      ],
+      "esperas": [
+        {
+          "motivo": "limite_api",
+          "tempo_s": 2.953237005000119
+        },
+        {
+          "motivo": "preventiva",
+          "tempo_s": 1.0212554989998353
+        },
+        {
+          "motivo": "limite_api",
+          "tempo_s": 3.979925783999988
+        },
+        {
+          "motivo": "preventiva",
+          "tempo_s": 1.075451869999597
+        },
+        {
+          "motivo": "limite_api",
+          "tempo_s": 6.984231717000057
+        }
+      ],
+      "ferramentas_automaticas": [],
+      "ferramentas_executadas": [
+        "get_valid_moves",
+        "get_heuristic_move",
+        "make_move"
+      ],
+      "ferramentas_solicitadas": [
+        "get_valid_moves",
+        "get_heuristic_move",
+        "make_move"
+      ],
+      "erros_finais": [
+        null
+      ],
+      "origem": "llm_tool_call"
+    },
+    {
+      "turno": 58,
+      "cor": "brancas",
+      "organizacao": "org-b",
+      "sessao": 1,
+      "duracao_s": 0.10492063700030485,
+      "status": "confirmada",
+      "chamadas": [],
+      "esperas": [],
+      "ferramentas_automaticas": [
+        "make_move"
+      ],
+      "ferramentas_executadas": [
+        "make_move"
+      ],
+      "ferramentas_solicitadas": [],
+      "erros_finais": [],
+      "origem": "heuristica"
+    },
+    {
+      "turno": 59,
+      "cor": "brancas",
+      "organizacao": "org-b",
+      "sessao": 1,
+      "duracao_s": 0.02684887900022659,
+      "status": "confirmada",
+      "chamadas": [],
+      "esperas": [],
+      "ferramentas_automaticas": [
+        "make_move"
+      ],
+      "ferramentas_executadas": [
+        "make_move"
+      ],
+      "ferramentas_solicitadas": [],
+      "erros_finais": [],
+      "origem": "heuristica"
+    },
+    {
+      "turno": 60,
+      "cor": "pretas",
+      "organizacao": "org-b",
+      "sessao": 1,
+      "duracao_s": 5.708429953000177,
+      "status": "confirmada",
+      "chamadas": [
+        {
+          "tempo_s": 0.7104968359999475,
+          "adicional": false,
+          "categoria_retry": null,
+          "tokens_entrada": 629,
+          "tokens_saida": 424,
+          "tokens_total": 1053,
+          "solicitadas": [
+            "get_board_state"
+          ]
+        },
+        {
+          "tempo_s": 0.04412561299977824,
+          "adicional": false,
+          "categoria_retry": null,
+          "erro": "RateLimitError (TPM)"
+        },
+        {
+          "tempo_s": 1.064668568000343,
+          "adicional": true,
+          "categoria_retry": "disponibilidade",
+          "retry_minuto": true,
+          "tokens_entrada": 794,
+          "tokens_saida": 710,
+          "tokens_total": 1504,
+          "solicitadas": [
+            "make_move"
+          ]
+        }
+      ],
+      "esperas": [
+        {
+          "motivo": "preventiva",
+          "tempo_s": 1.208555671999875
+        },
+        {
+          "motivo": "limite_api",
+          "tempo_s": 1.9482954059999429
+        }
+      ],
+      "ferramentas_automaticas": [],
+      "ferramentas_executadas": [
+        "get_board_state",
+        "make_move"
+      ],
+      "ferramentas_solicitadas": [
+        "get_board_state",
+        "make_move"
+      ],
+      "erros_finais": [
+        null
+      ],
+      "origem": "llm_tool_call"
+    }
+  ],
+  "em_andamento": null,
+  "sessoes": [
+    {
+      "id": 1,
+      "organizacao": "org-b",
+      "inicio_utc": "2026-11-25T12:32:27+00:00",
+      "politica_execucao": "espera_automatica",
+      "versoes": {
+        "python": "3.12.3",
+        "pygame": "2.6.1",
+        "langchain": "1.5.1",
+        "langchain-core": "1.8.3",
+        "langgraph": "1.2.22",
+        "langchain-groq": "1.2.0",
+        "groq": "1.7.0",
+        "httpx": "0.28.1",
+        "pydantic": "2.14.3",
+        "ipykernel": "7.4.0",
+        "matplotlib": "3.11.2"
+      },
+      "ritmo_groq": {
+        "ultima_chamada": 1795610339.1271427,
+        "liberacoes": {
+          "preventiva": null,
+          "limite_api": 1795610338.8527274,
+          "recuperacao": 1795610226.154935
+        },
+        "limite_diario": 1795609111.22224,
+        "tipo_diario": "TPD",
+        "tipo_limite": "TPM"
+      }
+    }
+  ],
+  "motivo_pausa": null
+}
