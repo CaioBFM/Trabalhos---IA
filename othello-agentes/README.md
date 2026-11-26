@@ -166,4 +166,4 @@ othello-agentes/
 ## 6. Relatório e vídeo
 
 - [Relatório técnico](Relatorio_Othello.pdf)
-- Vídeo de apresentação: link a inserir após a gravação.
+- Vídeo de apresentação: https://drive.google.com/file/d/1s1bbfGpOm26vPxKO9LiX7SswR__w9Z9Q/view?usp=sharing
